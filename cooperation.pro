@@ -12,6 +12,7 @@ QMAKE_CXXFLAGS += -std=c++0x
 
 TARGET = cooperation
 CONFIG   += console
+CONFIG += debug
 CONFIG   -= app_bundle
 
 TEMPLATE = app

@@ -1,7 +1,17 @@
 #ifndef COMPETITOR_H
 #define COMPETITOR_H
 
+#include <iostream>
+#include <random>
 #include <QtCore>
+
+static std::mt19937 mersenne_twister;
+static std::uniform_real_distribution<> random_engine_double(0,1);
+static std::uniform_int_distribution<> random_engine_int;
+static QTextStream consout(stdout);
+
+#define drand() random_engine_double( mersenne_twister )
+#define irand() random_engine_int( mersenne_twister )
 
 enum Choice {
   DEFECT,
@@ -16,12 +26,13 @@ public:
     score_ += score;
   };
   int getScore() const {return score_;};
-  virtual Choice decision(int competitorIndex) {return DEFECT; };
+  int operator() () const { return score_; };
+  virtual Choice decision(int competitorIndex) = 0;
   void recordChoices(Choice myChoice,
                      int opponentIndex,
                      Choice opponentChoice);
   //QVector< ChoicePair >& getChoicePair(int competitorIndex) {return history_[0];};
-  virtual Competitor* copyTo() {return new Competitor; };
+  virtual Competitor* copyTo() = 0;
   virtual QString output() { return "Competitor"; };
 
 protected:
@@ -42,7 +53,7 @@ public:
 
 class AlwaysDefectCompetitor : public Competitor {
 public:
-  virtual Choice decision(int index) {return DEFECT;};
+  virtual Choice decision(int ) {return DEFECT;};
   virtual Competitor* copyTo() {return new AlwaysDefectCompetitor; };
   virtual QString output() {return "Always Defect"; };
 };
@@ -56,7 +67,7 @@ public:
 
 class AlwaysCooperateCompetitor : public Competitor {
 public:
-  virtual Choice decision(int index) {return COOPERATE;};
+  virtual Choice decision(int ) {return COOPERATE;};
   virtual Competitor* copyTo() {return new AlwaysCooperateCompetitor; };
   virtual QString output() {return "Always Co-operate"; };
 };
@@ -68,10 +79,10 @@ public:
   virtual QString output() {return "Opposite"; };
 };
 
-class TitForTatWithRandom : public Competitor {
+class TitForTatWithRandomCompetitor : public Competitor {
 public:
-  virtual Choice decision(int index) {return DEFECT;};
-  virtual Competitor* copyTo() {return new TitForTatWithRandom; };
+  virtual Choice decision(int index);
+  virtual Competitor* copyTo() {return new TitForTatWithRandomCompetitor; };
   virtual QString output() {return "Tit for Tat with Random"; };
 };
 

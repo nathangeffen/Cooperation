@@ -25,9 +25,22 @@ Choice TitForTatCompetitor::decision(int index)
   return COOPERATE;
 }
 
-Choice RandomCompetitor::decision(int index)
+Choice TitForTatWithRandomCompetitor::decision(int index)
 {
-  return ( qrand() > RAND_MAX / 2 ) ? DEFECT : COOPERATE;
+  auto entry = history_.find( index );
+  if ( entry  != history_.end() ) {
+    if ( drand() > 0.9 ) {
+      return ( entry.value().back().second == COOPERATE ) ? COOPERATE: DEFECT;
+    } else {
+      return ( entry.value().back().second == DEFECT ) ? COOPERATE: DEFECT;
+    }
+  }
+  return COOPERATE;
+}
+
+Choice RandomCompetitor::decision(int )
+{
+  return ( drand() > 0.5 ) ? DEFECT : COOPERATE;
 };
 
 
@@ -38,5 +51,5 @@ Choice OppositeCompetitor::decision(int index)
 
     return ( entry.value().back().second == COOPERATE ) ? DEFECT : COOPERATE;
   }
-  return ( qrand() > RAND_MAX / 2 ) ? DEFECT : COOPERATE;
+  return ( drand() > 0.5 ) ? DEFECT : COOPERATE;
 }

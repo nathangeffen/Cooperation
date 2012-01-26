@@ -13,14 +13,14 @@ int main(int argc, char *argv[])
   RandomCompetitor rdm;
   AlwaysCooperateCompetitor alwaysCooperate;
   OppositeCompetitor oppositeCompetitor;
-  TitForTatWithRandom titForTatWithRandom;
+  TitForTatWithRandomCompetitor titForTatWithRandom;
 
   game.registerCompetitorType(&titForTat);
   game.registerCompetitorType(&alwaysDefect);
-  //game.registerCompetitorType(&rdm);
-  //game.registerCompetitorType(&alwaysCooperate);
-  //game.registerCompetitorType(&oppositeCompetitor);
-  //game.registerCompetitorType(&titForTatWithRandom);
+  game.registerCompetitorType(&rdm);
+  game.registerCompetitorType(&alwaysCooperate);
+  game.registerCompetitorType(&oppositeCompetitor);
+  game.registerCompetitorType(&titForTatWithRandom);
 
   game.setCompetitors();
   game.play();
