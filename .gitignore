@@ -2,3 +2,10 @@
 *.user
 cooperation
 output
+output.csv
+Makefile*
+debug_binary
+release_binary
+debug/*
+release/*
+

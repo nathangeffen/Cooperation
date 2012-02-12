@@ -1,5 +1,14 @@
 #include <cstdlib>
+#include "common.h"
 #include "competitor.h"
+
+const char* TITFORTAT = "titfortat";
+const char* ALWAYSDEFECT = "alwaysdefect";
+const char* ALWAYSCOOP = "alwayscoop";
+const char* RANDOM = "random";
+const char* TITFORTATRAND = "titfortatwithrandom";
+const char* OPPOSITE = "opposite";
+
 
 Competitor::Competitor()
 {
@@ -16,7 +25,7 @@ void Competitor::recordChoices(Choice myChoice,
           );
 }
 
-Choice TitForTatCompetitor::decision(int index)
+Choice TitForTatCompetitor::decision(int index) const
 {
   auto entry = history_.find( index );
   if ( entry  != history_.end() ) {
@@ -25,7 +34,7 @@ Choice TitForTatCompetitor::decision(int index)
   return COOPERATE;
 }
 
-Choice TitForTatWithRandomCompetitor::decision(int index)
+Choice TitForTatWithRandomCompetitor::decision(int index) const
 {
   auto entry = history_.find( index );
   if ( entry  != history_.end() ) {
@@ -38,13 +47,13 @@ Choice TitForTatWithRandomCompetitor::decision(int index)
   return COOPERATE;
 }
 
-Choice RandomCompetitor::decision(int )
+Choice RandomCompetitor::decision(int ) const
 {
   return ( drand() > 0.5 ) ? DEFECT : COOPERATE;
 };
 
 
-Choice OppositeCompetitor::decision(int index)
+Choice OppositeCompetitor::decision(int index) const
 {
   auto entry = history_.find( index );
   if ( entry != history_.end() ) {

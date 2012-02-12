@@ -4,23 +4,24 @@
 #include <QtCore>
 #include "competitor.h"
 
-
 class Game {
 public:
-  Game( int nIterations = 100, int nCompetitors = 100 );
+  Game();
+  void setIterations(int nIterations) { nIterations_ = nIterations; }
   void registerCompetitorType( Competitor* competitor );
+  void addCompetitor( const competitor_ptr& competitor );
   void setCompetitors();
   void play();
-  void chooseCompetitors();
-  void executeCompetitorDecision(Competitor& competitor);
-  void output();
+  void output() const;
 
 private:
+
+  void init();
   int nIterations_;
   int nCompetitors_;
-  QVector <Competitor*> competitorTypes_;
-  QVector <Competitor*> competitors_;
-  QVector <int> generateRandomIndices();
+  QVector < Competitor* > competitorTypes_;
+  QVector < competitor_ptr > competitors_;
+  QVector < int > generateRandomIndices() const;
   QMap < QPair < Choice, Choice >, QPair < int, int > > choiceTable_;
 };
 
