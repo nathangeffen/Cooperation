@@ -1,14 +1,9 @@
 #include <cstdlib>
+#include <QString>
 #include "common.h"
 #include "competitor.h"
 
-const char* TITFORTAT = "titfortat";
-const char* ALWAYSDEFECT = "alwaysdefect";
-const char* ALWAYSCOOP = "alwayscoop";
-const char* RANDOM = "random";
-const char* TITFORTATRAND = "titfortatwithrandom";
-const char* OPPOSITE = "opposite";
-
+std::map < QString, competitor_ptr >  registeredCompetitors;
 
 Competitor::Competitor()
 {
@@ -24,6 +19,13 @@ void Competitor::recordChoices(Choice myChoice,
             qMakePair(myChoice, opponentChoice)
           );
 }
+
+REGISTER_COMPETITOR_WITH_COLOR( TitForTatCompetitor, "red" );
+REGISTER_COMPETITOR_WITH_COLOR( AlwaysDefectCompetitor, "black" );
+REGISTER_COMPETITOR_WITH_COLOR( RandomCompetitor, "blue" );
+REGISTER_COMPETITOR_WITH_COLOR( AlwaysCooperateCompetitor, "yellow" );
+REGISTER_COMPETITOR_WITH_COLOR( OppositeCompetitor, "white" );
+REGISTER_COMPETITOR_WITH_COLOR( TitForTatWithRandomCompetitor, "green" );
 
 Choice TitForTatCompetitor::decision(int index) const
 {
@@ -46,6 +48,15 @@ Choice TitForTatWithRandomCompetitor::decision(int index) const
   }
   return COOPERATE;
 }
+
+Choice AlwaysCooperateCompetitor::decision(int) const {
+  return COOPERATE;
+};
+
+Choice AlwaysDefectCompetitor::decision(int) const {
+  return DEFECT;
+};
+
 
 Choice RandomCompetitor::decision(int ) const
 {

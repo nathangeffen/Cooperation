@@ -3,15 +3,11 @@
 
 #include <iostream>
 #include <memory>
+#include <vector>
+#include <QString>
+#include <utility>
+#include <vector>
 #include <QtCore>
-
-extern const char* TITFORTAT;
-extern const char* ALWAYSDEFECT;
-extern const char* ALWAYSCOOP;
-extern const char* RANDOM;
-extern const char* TITFORTATRAND;
-extern const char* OPPOSITE;
-
 
 enum Choice {
   DEFECT,
@@ -25,12 +21,14 @@ public:
   void changeScore( int score ) { score_ += score; };
   int getScore() const {return score_;};
   int operator() () const { return getScore(); };
-  virtual Choice decision(int competitorIndex) const = 0;
+  virtual Choice decision(int) const = 0;
   void recordChoices(Choice myChoice,
                      int opponentIndex,
                      Choice opponentChoice);
   virtual std::shared_ptr< Competitor >  create() const = 0;
-  virtual QString output() const { return "Competitor"; };
+  virtual QString output() const = 0;
+  void setColor(QString& color) {color_ = color; };
+  QString getColor() const { return color_; };
 
 protected:
   // This is a map from opponents to a vector of choices made by this competitor
@@ -39,62 +37,32 @@ protected:
 
 private:
   double score_;
+  QString color_;
 };
 
 typedef std::shared_ptr< Competitor > competitor_ptr;
 
-class TitForTatCompetitor : public Competitor {
-public:
-  virtual Choice decision(int index) const;
-  virtual competitor_ptr create() const {
-    return competitor_ptr( new TitForTatCompetitor );
-  };
-  virtual QString output() const {return "Tit for Tat"; };
-};
+extern std::map < QString, competitor_ptr >  registeredCompetitors;
 
-class AlwaysDefectCompetitor : public Competitor {
-public:
-  virtual Choice decision(int ) const {return DEFECT;};
-  virtual competitor_ptr create() const {
-    return competitor_ptr( new AlwaysDefectCompetitor );
-  };
-  virtual QString output() const {return "Always Defect"; };
-};
+#define REGISTER_COMPETITOR_WITH_COLOR( X, color) \
+  class X : public Competitor { \
+  public: \
+  X ( bool registerCompetitor = false ) : \
+      Competitor() { \
+        if ( registerCompetitor ) { \
+          registeredCompetitors[ this->output() ] = this->create(); \
+        } \
+        QString c(color); \
+        setColor( c ); \
+     }; \
+    virtual Choice decision(int index) const; \
+    virtual competitor_ptr  create() const { \
+      return competitor_ptr ( new X ); \
+    }; \
+    virtual QString output() const { return QString(#X).toLower(); }; \
+  }; \
+  X _ ## X (true)
 
-class RandomCompetitor : public Competitor {
-public:
-  virtual Choice decision(int index) const;
-  virtual competitor_ptr  create() const {
-    return competitor_ptr ( new RandomCompetitor );
-  };
-  virtual QString output() const {return "Random"; };
-};
-
-class AlwaysCooperateCompetitor : public Competitor {
-public:
-  virtual Choice decision(int ) const {return COOPERATE;};
-  virtual competitor_ptr  create() const {
-    return competitor_ptr ( new AlwaysCooperateCompetitor );
-  };
-  virtual QString output() const {return "Always Co-operate"; };
-};
-
-class OppositeCompetitor : public Competitor {
-public:
-  virtual Choice decision(int index) const;
-  virtual competitor_ptr  create() const {
-    return competitor_ptr ( new OppositeCompetitor );
-  };
-  virtual QString output() const {return "Opposite"; };
-};
-
-class TitForTatWithRandomCompetitor : public Competitor {
-public:
-  virtual Choice decision(int index) const;
-  virtual competitor_ptr  create() const {
-    return competitor_ptr ( new TitForTatWithRandomCompetitor );
-  };
-  virtual QString output() const {return "Tit for Tat with Random"; };
-};
+#define REGISTER_COMPETITOR(X) REGISTER_COMPETITOR_WITH_COLOR(X, "red")
 
 #endif // COMPETITOR_H

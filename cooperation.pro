@@ -6,8 +6,6 @@
 
 QT       += core
 
-QT       -= gui
-
 QMAKE_CXXFLAGS += -std=c++0x
 
 #QMAKE_CFLAGS+=-pg
@@ -25,12 +23,16 @@ unix:LIBS += -L/usr/lib -lboost_program_options
 SOURCES += main.cpp \
     game.cpp \
     competitor.cpp \
-    common.cpp
+    common.cpp \
+    gui.cpp \
+    competitorwidget.cpp
 
 HEADERS += \
     game.h \
     competitor.h \
-    common.h
+    common.h \
+    gui.h \
+    competitorwidget.h
 
 CONFIG += debug_and_release
 

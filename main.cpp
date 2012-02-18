@@ -2,6 +2,7 @@
 
 #include "competitor.h"
 #include "game.h"
+#include "gui.h"
 
 using namespace std;
 
@@ -12,15 +13,7 @@ int main(int argc, char *argv[])
 
   Game game;
   int iterations;
-
-  map < string, competitor_ptr > competitor_map;
-
-  competitor_map[TITFORTAT] = competitor_ptr ( new TitForTatCompetitor );
-  competitor_map[ALWAYSDEFECT] = competitor_ptr ( new AlwaysDefectCompetitor );
-  competitor_map[RANDOM] = competitor_ptr ( new RandomCompetitor );
-  competitor_map[ALWAYSCOOP] = competitor_ptr( new AlwaysCooperateCompetitor );
-  competitor_map[OPPOSITE] = competitor_ptr( new OppositeCompetitor );
-  competitor_map[TITFORTATRAND] = competitor_ptr( new TitForTatWithRandomCompetitor );
+  int rand_seed;
 
   try {
 
@@ -29,16 +22,17 @@ int main(int argc, char *argv[])
         ("help", "produce help message")
         ("iterations",  po::value<int>(&iterations)->default_value(1000),
                                   "iterations to execute")
+        ("verbose", "output as much as possible")
+        ("shuffle", "randomly shuffle the players before starting the game")
         ("print-contests-csv", "output results of individual contests in csv format")
-        ("print-stats-csv", "output final statistics in csv format")
-        ("randseed", "set the random seed")
+        ("print-results-csv", "output final results and statistics in csv format")
+        ("randseed", po::value<int>(&rand_seed), "set the random seed")
         ("gui", "run graphical user interface");
-      ;
 
-    for ( auto c : competitor_map ) {
-      string description = "include n copies of " + c.first + " in competition";
-      desc.add_options()(c.first.c_str(), po::value<int>(),
-                         description.c_str() );
+    for ( auto c : registeredCompetitors ) {
+      QString description = "include n copies of " + c.first + " in competition";
+      desc.add_options()(c.first.toStdString().c_str(), po::value<int>(),
+                         description.toLower().toStdString().c_str() );
     }
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -50,24 +44,39 @@ int main(int argc, char *argv[])
     }
     game.setIterations(iterations);
 
-    for ( auto entry : competitor_map ) {
-      if (vm.count( entry.first)) {
-        for (int i=0; i<vm[entry.first].as<int>(); i++) {
+    for ( auto entry : registeredCompetitors ) {
+      if (vm.count( entry.first.toLower().toStdString() )) {
+        for (int i=0; i<vm[entry.first.toLower().toStdString()].as<int>(); i++) {
           game.addCompetitor(entry.second);
         }
       }
+    }
+
+    if ( vm.count("randseed") ) {
+      game.setRandomSeed( rand_seed );
+    }
+
+    if ( vm.count("shuffle") ) {
+      game.shuffleCompetitors();
+    }
+
+    if ( vm.count("gui") ) {
+      Gui(game).execute();
+    }
+
+    bool print_contests_csv = false;
+    if ( vm.count("print-contests-csv") || vm.count("verbose") ) {
+      print_contests_csv = true;
+    }
+    game.play(print_contests_csv);
+
+    if ( vm.count("print-results-csv") || vm.count("verbose") ) {
+      game.output();
     }
   }
   catch(exception& e) {
       cerr << "error: " << e.what() << "\n";
       return 1;
   }
-  catch(...) {
-      cerr << "Exception of unknown type!\n";
-  }
-
-  game.play();
-  game.output();
-
   return 0;
 }

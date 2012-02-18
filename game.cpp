@@ -1,13 +1,17 @@
 #include <algorithm>
 #include <iostream>
+#include <QString>
 #include "common.h"
 #include "game.h"
+
+using namespace std;
 
 std::ostream& operator<<( std::ostream& os, const QString& s)
 {
   os << s.toStdString().c_str();
   return os;
 }
+
 
 Game::Game() {
   init();
@@ -36,12 +40,14 @@ void Game::setCompetitors()
 {
   int size = competitorTypes_.size();
   for ( int i = 0; i < nCompetitors_; i++ ) {
-    int rand = irand();
-    int index = rand % size;
-    auto c = competitorTypes_[ index ]->create();
+    auto c = competitorTypes_[ irand(size) ]->create();
     competitors_.push_back(c);
   }
 }
+
+void Game::setRandomSeed( int randomSeed ) {
+  mersenne_twister.seed( randomSeed);
+};
 
 QVector <int> Game::generateRandomIndices() const
 {
@@ -51,16 +57,24 @@ QVector <int> Game::generateRandomIndices() const
   }
   QVector <int> output;
   for ( int i = nCompetitors_; i > 0; i-- ) {
-    int index = irand() % i;
+    int index = irand(i);
     output.push_back( indices[index] );
     indices[ index ] = indices[ i - 1 ];
   }
   return output;
 }
 
-void Game::play()
+void Game::shuffleCompetitors()
 {
-  std::cout << "Match, Player1, Id1, Player2, Id2, Output1, Output2, Score1, Score2" << std::endl;
+  random_shuffle( competitors_.begin(), competitors_.end(), irand );
+}
+
+void Game::play( bool print_contests_csv )
+{
+  if ( print_contests_csv ) {
+    cout << "Match, Player1, Id1, Player2, Id2, Output1, Output2, Score1, Score2" << endl;
+  }
+
   for ( int i = 0; i < nIterations_; i++ ) {
     QVector <int> indices = generateRandomIndices();
 
@@ -76,20 +90,22 @@ void Game::play()
         competitors_[ player1 ]->recordChoices( decision1, player2, decision2 );
         competitors_[ player2 ]->recordChoices( decision2, player1, decision1 );
 
-        QString name1 = competitors_[ player1 ]->output();
-        QString name2 = competitors_[ player2 ]->output();
-        QString output1 = (decision1 == COOPERATE) ? "COOPERATE" : "DEFECT";
-        QString output2 = (decision2 == COOPERATE) ? "COOPERATE" : "DEFECT";
+        if ( print_contests_csv ) {
+          QString name1 = competitors_[ player1 ]->output();
+          QString name2 = competitors_[ player2 ]->output();
+          QString output1 = (decision1 == COOPERATE) ? "COOPERATE" : "DEFECT";
+          QString output2 = (decision2 == COOPERATE) ? "COOPERATE" : "DEFECT";
 
-        std::cout << "Match, ";
-        std::cout << ( (player1 < player2) ? name1 : name2 ) << ", ";
-        std::cout << ( (player1 < player2) ? player1 :  player2 ) << ", ";
-        std::cout << ( (player1 < player2) ? name2 : name1) << ", ";
-        std::cout << ( (player1 < player2) ? player2 :  player1 ) << ", ";
-        std::cout << ( (player1 < player2) ? output1 : output2) << ", ";
-        std::cout << ( (player1 < player2) ? output2 : output1) << ", ";
-        std::cout << ( (player1 < player2) ? scores.first : scores.second) << ", ";
-        std::cout << ( (player1 < player2) ? scores.second : scores.first) << std::endl;
+          cout << "Match, ";
+          cout << ( (player1 < player2) ? name1 : name2 ) << ", ";
+          cout << ( (player1 < player2) ? player1 :  player2 ) << ", ";
+          cout << ( (player1 < player2) ? name2 : name1) << ", ";
+          cout << ( (player1 < player2) ? player2 :  player1 ) << ", ";
+          cout << ( (player1 < player2) ? output1 : output2) << ", ";
+          cout << ( (player1 < player2) ? output2 : output1) << ", ";
+          cout << ( (player1 < player2) ? scores.first : scores.second) << ", ";
+          cout << ( (player1 < player2) ? scores.second : scores.first) << endl;
+        }
       }
     }
   }
@@ -98,70 +114,70 @@ void Game::play()
 void Game::output() const
 {
   // Print score for each competitor
-  std::cout << "Score, Competitor, Index, Amount" << std::endl;
+  cout << "Score, Competitor, Index, Amount" << endl;
   for ( int i = 0; i < nCompetitors_; i++ ) {
-    std::cout << "Score, ";
-    std::cout << competitors_[i]->output() << ", " << i << ", "
-            << competitors_[i]->getScore() << std::endl;
+    cout << "Score, ";
+    cout << competitors_[i]->output() << ", " << i << ", "
+            << competitors_[i]->getScore() << endl;
   }
 
   // Get minimum, maximum, median, mean, total and total on offer entry
 
   // Get maximum
-  std::cout << "Statistics, Description, Competitor, Index, Amount" << std::endl;
-  std::cout << "Statistics, Max, ";
-  auto competitor = std::max_element( competitors_.begin(), competitors_.end(),
+  cout << "Statistics, Description, Competitor, Index, Amount" << endl;
+  cout << "Statistics, Max, ";
+  auto competitor = max_element( competitors_.begin(), competitors_.end(),
                             [](const competitor_ptr& a, const competitor_ptr& b) {
                               return ( a->getScore() < b->getScore() )
                                       ? true : false;
                             });
-  std::cout << (*competitor)->output() << ", "
+  cout << (*competitor)->output() << ", "
           << competitor - competitors_.begin() << ", "
-          << (*competitor)->getScore() << std::endl;
+          << (*competitor)->getScore() << endl;
 
 
   // Get minimum
-  std::cout << "Statistics, Min, ";
-  competitor = std::min_element( competitors_.begin(), competitors_.end(),
+  cout << "Statistics, Min, ";
+  competitor = min_element( competitors_.begin(), competitors_.end(),
                             [](const competitor_ptr& a, const competitor_ptr& b) {
 
                               return ( a->getScore() < b->getScore() )
                                       ? true : false;
                             });
-  std::cout << (*competitor)->output() << ", "
+  cout << (*competitor)->output() << ", "
           << competitor - competitors_.begin() << ", "
-          << (*competitor)->getScore() << std::endl;
+          << (*competitor)->getScore() << endl;
 
   // Get total
-  std::cout << "Statistics, Total, ";
+  cout << "Statistics, Total, ";
   int total = 0;
   for ( auto competitor : competitors_ ) {
     total += competitor->getScore();
   }
-  std::cout << ", "
+  cout << ", "
           << ", "
-          << total << std::endl;
+          << total << endl;
 
 
   // Get maximum possible total
 
-  std::cout << "Statistics, MaxTotal, ";
-  std::cout << ", "
+  cout << "Statistics, MaxTotal, ";
+  cout << ", "
           << ", "
-          << competitors_.size() * nIterations_  << std::endl;
+          << competitors_.size() * nIterations_  << endl;
 
   // Get mean
-  std::cout << "Statistics, Mean, ";
+  cout << "Statistics, Mean, ";
   int mean = total / competitors_.size();
-  std::cout << ", "
+  cout << ", "
           << ", "
-          << mean << std::endl;
+          << mean << endl;
 
   // Get median
-  std::cout << "Statistics, Median, ";
+  cout << "Statistics, Median, ";
   QVector < competitor_ptr > c;
   copy ( competitors_.begin(), competitors_.end(), back_inserter(c) );
-  std::sort( c.begin(), c.end(),
+  sort( c.begin(), c.end(),
         [] (const competitor_ptr& a, const competitor_ptr& b) {
           return a->getScore() < b->getScore();
         });
@@ -172,8 +188,8 @@ void Game::output() const
     median = (c[ c.size() / 2 ]->getScore() +
              c[ c.size() / 2 + 1 ]->getScore() ) / 2;
   }
-  std::cout << ", "
+  cout << ", "
           << ", "
-          << median << std::endl;
+          << median << endl;
 }
 

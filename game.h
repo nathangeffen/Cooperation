@@ -11,7 +11,11 @@ public:
   void registerCompetitorType( Competitor* competitor );
   void addCompetitor( const competitor_ptr& competitor );
   void setCompetitors();
-  void play();
+  void setRandomSeed( int randomSeed );
+  void shuffleCompetitors();
+  int getNumberCompetitors() { return nCompetitors_; };
+  Competitor& getCompetitor( int i ) {return *competitors_[i]; };
+  void play( bool print_contests_csv = true );
   void output() const;
 
 private:
