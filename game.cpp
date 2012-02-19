@@ -76,39 +76,61 @@ void Game::play( bool print_contests_csv )
   }
 
   for ( int i = 0; i < nIterations_; i++ ) {
-    QVector <int> indices = generateRandomIndices();
+    executeRound(print_contests_csv);
+  }
+}
 
-    for ( int j = 0; j < indices.size(); j += 2 ) {
-      if ( j + 1 < indices.size() ) {
-        auto player1 = indices[ j ];
-        auto player2 = indices[ j + 1 ];
-        auto decision1 = competitors_[ player1 ]->decision( player2 );
-        auto decision2 = competitors_[ player2 ]->decision( player1 );
-        auto scores = choiceTable_[ qMakePair( decision1, decision2 ) ];
-        competitors_[ player1 ]->changeScore( scores.first );
-        competitors_[ player2 ]->changeScore( scores.second );
-        competitors_[ player1 ]->recordChoices( decision1, player2, decision2 );
-        competitors_[ player2 ]->recordChoices( decision2, player1, decision1 );
+void Game::executeRound(bool print_contests_csv)
+{
+  QVector <int> indices = generateRandomIndices();
+  for ( int j = 0; j < indices.size(); j += 2 ) {
+    if ( j + 1 < indices.size() ) {
+      auto player1 = indices[ j ];
+      auto player2 = indices[ j + 1 ];
+      auto decision1 = competitors_[ player1 ]->decision( player2 );
+      auto decision2 = competitors_[ player2 ]->decision( player1 );
+      auto scores = choiceTable_[ qMakePair( decision1, decision2 ) ];
+      competitors_[ player1 ]->changeScore( scores.first );
+      competitors_[ player2 ]->changeScore( scores.second );
+      competitors_[ player1 ]->recordChoices( decision1, player2, decision2 );
+      competitors_[ player2 ]->recordChoices( decision2, player1, decision1 );
 
-        if ( print_contests_csv ) {
-          QString name1 = competitors_[ player1 ]->output();
-          QString name2 = competitors_[ player2 ]->output();
-          QString output1 = (decision1 == COOPERATE) ? "COOPERATE" : "DEFECT";
-          QString output2 = (decision2 == COOPERATE) ? "COOPERATE" : "DEFECT";
+      if ( print_contests_csv ) {
+        QString name1 = competitors_[ player1 ]->output();
+        QString name2 = competitors_[ player2 ]->output();
+        QString output1 = (decision1 == COOPERATE) ? "COOPERATE" : "DEFECT";
+        QString output2 = (decision2 == COOPERATE) ? "COOPERATE" : "DEFECT";
 
-          cout << "Match, ";
-          cout << ( (player1 < player2) ? name1 : name2 ) << ", ";
-          cout << ( (player1 < player2) ? player1 :  player2 ) << ", ";
-          cout << ( (player1 < player2) ? name2 : name1) << ", ";
-          cout << ( (player1 < player2) ? player2 :  player1 ) << ", ";
-          cout << ( (player1 < player2) ? output1 : output2) << ", ";
-          cout << ( (player1 < player2) ? output2 : output1) << ", ";
-          cout << ( (player1 < player2) ? scores.first : scores.second) << ", ";
-          cout << ( (player1 < player2) ? scores.second : scores.first) << endl;
-        }
+        cout << "Match, ";
+        cout << ( (player1 < player2) ? name1 : name2 ) << ", ";
+        cout << ( (player1 < player2) ? player1 :  player2 ) << ", ";
+        cout << ( (player1 < player2) ? name2 : name1) << ", ";
+        cout << ( (player1 < player2) ? player2 :  player1 ) << ", ";
+        cout << ( (player1 < player2) ? output1 : output2) << ", ";
+        cout << ( (player1 < player2) ? output2 : output1) << ", ";
+        cout << ( (player1 < player2) ? scores.first : scores.second) << ", ";
+        cout << ( (player1 < player2) ? scores.second : scores.first) << endl;
       }
     }
   }
+}
+
+int Game::minScore() const
+{
+  auto competitor = max_element( competitors_.begin(), competitors_.end(),
+    [](const competitor_ptr& a, const competitor_ptr& b) {
+      return ( a->getScore() > b->getScore() ) ? true : false;
+    });
+  return (*competitor)->getScore();
+}
+
+int Game::maxScore() const
+{
+  auto competitor = max_element( competitors_.begin(), competitors_.end(),
+    [](const competitor_ptr& a, const competitor_ptr& b) {
+      return ( a->getScore() < b->getScore() ) ? true : false;
+    });
+  return (*competitor)->getScore();
 }
 
 void Game::output() const
@@ -127,10 +149,9 @@ void Game::output() const
   cout << "Statistics, Description, Competitor, Index, Amount" << endl;
   cout << "Statistics, Max, ";
   auto competitor = max_element( competitors_.begin(), competitors_.end(),
-                            [](const competitor_ptr& a, const competitor_ptr& b) {
-                              return ( a->getScore() < b->getScore() )
-                                      ? true : false;
-                            });
+    [](const competitor_ptr& a, const competitor_ptr& b) {
+      return ( a->getScore() < b->getScore() ) ? true : false;
+    });
   cout << (*competitor)->output() << ", "
           << competitor - competitors_.begin() << ", "
           << (*competitor)->getScore() << endl;

@@ -61,17 +61,16 @@ int main(int argc, char *argv[])
     }
 
     if ( vm.count("gui") ) {
-      Gui(game).execute();
+      Gui(game).start();
+    } else {
+      bool print_contests_csv = false;
+      if ( vm.count("print-contests-csv") || vm.count("verbose") ) {
+        print_contests_csv = true;
+      }
+      game.play(print_contests_csv);
     }
-
-    bool print_contests_csv = false;
-    if ( vm.count("print-contests-csv") || vm.count("verbose") ) {
-      print_contests_csv = true;
-    }
-    game.play(print_contests_csv);
-
     if ( vm.count("print-results-csv") || vm.count("verbose") ) {
-      game.output();
+        game.output();
     }
   }
   catch(exception& e) {

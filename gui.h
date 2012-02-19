@@ -9,7 +9,7 @@ class Gui
 {
 public:
   Gui( Game& game );
-  int execute();
+  int start();
 private:
   Game& game_;
 };

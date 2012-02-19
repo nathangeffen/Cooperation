@@ -14,8 +14,12 @@ public:
   void setRandomSeed( int randomSeed );
   void shuffleCompetitors();
   int getNumberCompetitors() { return nCompetitors_; };
-  Competitor& getCompetitor( int i ) {return *competitors_[i]; };
+  Competitor& getCompetitor( int i ) const {return *competitors_[i]; };
+  void executeRound( bool print_contests_csv = true );
   void play( bool print_contests_csv = true );
+  int getIterations() const { return nIterations_; };
+  int minScore() const;
+  int maxScore() const;
   void output() const;
 
 private:
