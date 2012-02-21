@@ -17,7 +17,7 @@ public:
   explicit GuiPlay(Game& game, QWidget *parent = 0);
 
 signals:
-  void runRound(int, int);
+  void runRound(int, int, bool);
 
 public slots:
   void startPlaying();

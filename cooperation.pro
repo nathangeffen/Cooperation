@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     common.cpp \
     gui.cpp \
     competitorwidget.cpp \
-    guiplay.cpp
+    guiplay.cpp \
+    competitorshape.cpp
 
 HEADERS += \
     game.h \
@@ -34,7 +35,8 @@ HEADERS += \
     common.h \
     gui.h \
     competitorwidget.h \
-    guiplay.h
+    guiplay.h \
+    competitorshape.h
 
 CONFIG += debug_and_release
 

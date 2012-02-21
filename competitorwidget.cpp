@@ -1,30 +1,37 @@
+#include <QVBoxLayout>
 #include <QLabel>
 #include "competitor.h"
 #include "competitorwidget.h"
 
-CompetitorWidget::CompetitorWidget(int circleSize, Competitor& competitor,
+CompetitorWidget::CompetitorWidget(int maxCircleSize, Competitor& competitor,
                                    QWidget *parent) :
-  QWidget(parent), circleSize_(circleSize),
-  competitor_(competitor), maxScore_(0)
+  QWidget(parent), competitor_(competitor),
+  maxCircleSize_(maxCircleSize / 2 - 5), maxScore_(0), savedScore_(0)
 {
   color_ = competitor.getColor();
-  label = new QLabel;
-  label->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-
 }
 
 void CompetitorWidget::paintEvent(QPaintEvent *)
 { 
   QPainter painter(this);
+
   painter.setBrush(QColor(color_));
 
-  label->setText( competitor_.output() + competitor_.getScore() );
   if ( maxScore_ == 0 ) {
-    painter.drawEllipse(0, 0, 5, 5);
+    painter.drawEllipse(0, maxCircleSize_, maxCircleSize_ / 2, maxCircleSize_ / 2);
   } else {
-    int circleSize = (double) ( competitor_.getScore() - minScore_) /
-                     (double) (maxScore_ - minScore_) * circleSize_;
-    if ( circleSize == 0 ) circleSize = 5;
-    painter.drawEllipse(0, 0, circleSize, circleSize);
+    if ( competitor_.getScore() == maxScore_ ) {
+      painter.drawRect(0, maxCircleSize_, maxCircleSize_, maxCircleSize_);
+    } else {
+      int circleSize = ( (double) competitor_.getScore() / maxScore_ ) * maxCircleSize_;
+      if ( circleSize == 0 ) circleSize = 5;
+      painter.drawEllipse( 0, maxCircleSize_, circleSize, circleSize );
+    }
+    if ( updateScore_ ) {
+      savedScore_ = competitor_.getScore();
+    }
   }
+  painter.setPen(Qt::SolidLine);
+  painter.drawText( 0, 15, competitor_.output() );
+  painter.drawText( maxCircleSize_ , 35, QString().setNum( savedScore_ ) );
 }
