@@ -4,39 +4,45 @@
 #include <QWidget>
 #include <QPainter>
 #include <QDebug>
+#include "common.h"
 
 class Competitor;
 class QLabel;
-class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
+class CompetitorShape;
 
 class CompetitorWidget: public QWidget
 {
   Q_OBJECT
 
 public:
-  CompetitorWidget(int circleSize, Competitor& competitor, QWidget *parent = 0);
-  void setMaxScore( int max_score ) { maxScore_ = max_score; };
-  void setMinScore( int min_score ) { minScore_ = min_score; };
+  CompetitorWidget(int circleSize, Competitor& competitor,
+                   DisplayMethodology displayMethodology, QWidget *parent = 0);
+  void setMaxScore( int max_score ) { maxScore_ = max_score; }
+  void setMinScore( int min_score ) { minScore_ = min_score; }
+  void updateUsingRatio();
+  void updateUsingRank();
+
+signals:
+   void sendUpdate();
 public slots:
-  void recalc(int min_score, int max_score, bool updateScore) {
-    setMinScore(min_score);
-    setMaxScore(max_score);
-    updateScore_ = updateScore;
-    update();
-  }
-protected:
-  void paintEvent(QPaintEvent *);
+  void executeUpdate(int min_score, int max_score, bool updateScore);
+
 private:
   QColor color_;
   Competitor& competitor_;
-  QVBoxLayout *layout_;
+  CompetitorShape* competitorShape_;
+  QHBoxLayout *topline_;
+  QGridLayout *layout_;
   QLabel *nameLabel_;
   QLabel *scoreLabel_;
-  int maxCircleSize_;
+  int maxDiameter_;
   int maxScore_;
   int minScore_;
   int savedScore_;
   bool updateScore_;
+  DisplayMethodology displayMethodology_;
 };
 
 #endif // PLAYER_H

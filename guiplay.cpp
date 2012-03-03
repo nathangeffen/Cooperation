@@ -8,11 +8,13 @@
 #include "guiplay.h"
 #include "game.h"
 #include "competitorwidget.h"
+#include "common.h"
 
-
-GuiPlay::GuiPlay(Game& game, QWidget *parent)
+GuiPlay::GuiPlay(Game& game, DisplayMethodology displayMethodology, QWidget *parent)
   : QWidget(parent), game_(game)
 {
+  setWindowTitle(tr("Prisoner's Dilemna"));
+
   QPushButton *quit = new QPushButton(tr("&Quit"));
   quit->setFont(QFont("Times", 12, QFont::Bold));
   connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
@@ -46,10 +48,11 @@ GuiPlay::GuiPlay(Game& game, QWidget *parent)
   for ( int i=0; i < square && counter < game_.getNumberCompetitors(); i++ ) {
     for (int j = 0; j < square && counter < game_.getNumberCompetitors(); j++) {
       CompetitorWidget *competitorWidget = new
-          CompetitorWidget( circleSize, game_.getCompetitor(counter) );
+          CompetitorWidget( circleSize, game_.getCompetitor(counter),
+                            displayMethodology);
       playerSection->addWidget(competitorWidget, i, j);
       connect(this, SIGNAL(runRound(int, int, bool)),
-              competitorWidget, SLOT(recalc(int, int, bool)));
+              competitorWidget, SLOT(executeUpdate(int, int, bool)));
       competitorWidgets_.push_back(competitorWidget);
       ++counter;
     }

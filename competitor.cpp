@@ -2,6 +2,7 @@
 #include <QString>
 #include "common.h"
 #include "competitor.h"
+#include "game.h"
 
 std::map < QString, competitor_ptr >  registeredCompetitors;
 
@@ -20,14 +21,25 @@ void Competitor::recordChoices(Choice myChoice,
           );
 }
 
-REGISTER_COMPETITOR_WITH_COLOR( TitForTatCompetitor, "red" );
-REGISTER_COMPETITOR_WITH_COLOR( AlwaysDefectCompetitor, "black" );
-REGISTER_COMPETITOR_WITH_COLOR( RandomCompetitor, "blue" );
-REGISTER_COMPETITOR_WITH_COLOR( AlwaysCooperateCompetitor, "yellow" );
-REGISTER_COMPETITOR_WITH_COLOR( OppositeCompetitor, "white" );
-REGISTER_COMPETITOR_WITH_COLOR( TitForTatWithRandomCompetitor, "green" );
+void Competitor::setGame(const Game* game)
+{
+  game_ = game;
+}
 
-Choice TitForTatCompetitor::decision(int index) const
+const Game* Competitor::getGame() const
+{
+  return game_;
+}
+
+
+REGISTER_COMPETITOR_WITH_COLOR( TitForTat, "red" );
+REGISTER_COMPETITOR_WITH_COLOR( AlwaysDefect, "black" );
+REGISTER_COMPETITOR_WITH_COLOR( Random, "blue" );
+REGISTER_COMPETITOR_WITH_COLOR( AlwaysCooperate, "yellow" );
+REGISTER_COMPETITOR_WITH_COLOR( Opposite, "white" );
+REGISTER_COMPETITOR_WITH_COLOR( TitForTatRandom, "green" );
+
+Choice TitForTat::decision(int index) const
 {
   auto entry = history_.find( index );
   if ( entry  != history_.end() ) {
@@ -36,7 +48,7 @@ Choice TitForTatCompetitor::decision(int index) const
   return COOPERATE;
 }
 
-Choice TitForTatWithRandomCompetitor::decision(int index) const
+Choice TitForTatRandom::decision(int index) const
 {
   auto entry = history_.find( index );
   if ( entry  != history_.end() ) {
@@ -49,22 +61,22 @@ Choice TitForTatWithRandomCompetitor::decision(int index) const
   return COOPERATE;
 }
 
-Choice AlwaysCooperateCompetitor::decision(int) const {
+Choice AlwaysCooperate::decision(int) const {
   return COOPERATE;
 };
 
-Choice AlwaysDefectCompetitor::decision(int) const {
+Choice AlwaysDefect::decision(int) const {
   return DEFECT;
 };
 
 
-Choice RandomCompetitor::decision(int ) const
+Choice Random::decision(int ) const
 {
   return ( drand() > 0.5 ) ? DEFECT : COOPERATE;
 };
 
 
-Choice OppositeCompetitor::decision(int index) const
+Choice Opposite::decision(int index) const
 {
   auto entry = history_.find( index );
   if ( entry != history_.end() ) {
@@ -73,3 +85,4 @@ Choice OppositeCompetitor::decision(int index) const
   }
   return ( drand() > 0.5 ) ? DEFECT : COOPERATE;
 }
+

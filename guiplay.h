@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QWidget>
 #include <QVector>
+#include "common.h"
 
 class Game;
 class QPushButton;
@@ -14,7 +15,9 @@ class GuiPlay: public QWidget
 {
   Q_OBJECT
 public:
-  explicit GuiPlay(Game& game, QWidget *parent = 0);
+  explicit GuiPlay(Game& game,
+                   DisplayMethodology displayMethodology,
+                   QWidget *parent = 0);
 
 signals:
   void runRound(int, int, bool);
@@ -24,7 +27,7 @@ public slots:
   void executeRound();
 
 private:
-  QTimer *timeBetweenRounds_;
+  QTimer* timeBetweenRounds_;
   Game& game_;
   QPushButton *playGame_;
   QVector<CompetitorWidget*> competitorWidgets_;

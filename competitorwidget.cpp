@@ -1,37 +1,102 @@
-#include <QVBoxLayout>
+#include <cmath>
+#include <QGridLayout>
 #include <QLabel>
+#include "game.h"
 #include "competitor.h"
 #include "competitorwidget.h"
+#include "competitorshape.h"
+#include "common.h"
 
-CompetitorWidget::CompetitorWidget(int maxCircleSize, Competitor& competitor,
+CompetitorWidget::CompetitorWidget(int maxDiameter, Competitor& competitor,
+                                   DisplayMethodology displayMethodology,
                                    QWidget *parent) :
   QWidget(parent), competitor_(competitor),
-  maxCircleSize_(maxCircleSize / 2 - 5), maxScore_(0), savedScore_(0)
+  maxDiameter_(maxDiameter ), maxScore_(0), savedScore_(0),
+  displayMethodology_(displayMethodology)
 {
-  color_ = competitor.getColor();
+  color_ = QColor( competitor.getColor() );
+  nameLabel_ = new QLabel( competitor_.output().toUpper() );
+  QFont font = nameLabel_->font();
+  font.setPointSize(6);
+
+  nameLabel_->setFont(font);
+
+  scoreLabel_ = new QLabel( QString().setNum(0) );
+  scoreLabel_->setFont(font);
+
+  topline_ = new QHBoxLayout;
+  topline_->addWidget(nameLabel_);
+  topline_->addWidget(scoreLabel_);
+
+  layout_ = new QGridLayout;
+  layout_->addLayout(topline_, 0, 0);
+
+  competitorShape_ = new CompetitorShape(maxDiameter / 6,
+                                         color_);
+  layout_->addWidget(competitorShape_, 1, 0);
+  layout_->setSpacing(0);
+
+  connect(this, SIGNAL(sendUpdate()),
+          competitorShape_, SLOT(executeUpdate()));
+
+  setLayout(layout_);
 }
 
-void CompetitorWidget::paintEvent(QPaintEvent *)
-{ 
-  QPainter painter(this);
+void CompetitorWidget::executeUpdate(int min_score,
+                                     int max_score,
+                                     bool updateScore)
+{
 
-  painter.setBrush(QColor(color_));
+  QRect rect = layout_->cellRect(1, 0);
+  maxDiameter_ = rect.height();
+
+  setMinScore(min_score);
+  setMaxScore(max_score);
+  updateScore_ = updateScore;
+  scoreLabel_->setText( QString().setNum( competitor_.getScore() ) );
 
   if ( maxScore_ == 0 ) {
-    painter.drawEllipse(0, maxCircleSize_, maxCircleSize_ / 2, maxCircleSize_ / 2);
+    competitorShape_->setRadius(5);
   } else {
     if ( competitor_.getScore() == maxScore_ ) {
-      painter.drawRect(0, maxCircleSize_, maxCircleSize_, maxCircleSize_);
+      competitorShape_->setShape(square);
+      double radius = (double) maxDiameter_ / 2.0;
+      double circleArea = PI * radius * radius;
+      competitorShape_->setRadius( (int) sqrt(circleArea) );
     } else {
-      int circleSize = ( (double) competitor_.getScore() / maxScore_ ) * maxCircleSize_;
-      if ( circleSize == 0 ) circleSize = 5;
-      painter.drawEllipse( 0, maxCircleSize_, circleSize, circleSize );
-    }
-    if ( updateScore_ ) {
-      savedScore_ = competitor_.getScore();
+      competitorShape_->setShape(circle);
+      if ( displayMethodology_ == RATIO) {
+        updateUsingRatio();
+      } else {
+        updateUsingRank();
+      }
     }
   }
-  painter.setPen(Qt::SolidLine);
-  painter.drawText( 0, 15, competitor_.output() );
-  painter.drawText( maxCircleSize_ , 35, QString().setNum( savedScore_ ) );
+
+  if ( updateScore_ ) {
+    savedScore_ = competitor_.getScore();
+  }
+
+  sendUpdate();
+}
+
+void CompetitorWidget::updateUsingRatio()
+{
+  competitorShape_->setShape(circle);
+  double ratio = (double) maxScore_ / competitor_.getScore() ;
+  double maxRadius = (double) maxDiameter_ / 2.0;
+  double radius = ( ratio > 0 ) ? sqrt( (maxRadius * maxRadius ) / ratio ) : 0;
+  if ( radius  == 0 ) radius = 5;
+  competitorShape_->setRadius( (int) radius );
+}
+
+void CompetitorWidget::updateUsingRank()
+{
+  const Game* game = competitor_.getGame();
+  int rank = game->getRank( competitor_.getScore() );
+  int competitors = game->getNumberCompetitors();
+
+  int diameter = (double) (competitors - rank) / competitors * maxDiameter_;
+  qDebug() << "Diameter: " << competitors << rank << diameter << maxDiameter_;
+  competitorShape_->setRadius( (int) diameter / 2);
 }

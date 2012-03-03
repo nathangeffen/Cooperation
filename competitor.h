@@ -9,26 +9,31 @@
 #include <vector>
 #include <QtCore>
 
+class Game;
+
 enum Choice {
   DEFECT,
   COOPERATE
 };
 
+
 class Competitor {
 public:
   Competitor();
-  void setScore( int score ) { score_ = score; };
-  void changeScore( int score ) { score_ += score; };
-  int getScore() const {return score_;};
-  int operator() () const { return getScore(); };
+  void setScore( int score ) { score_ = score; }
+  void changeScore( int score ) { score_ += score; }
+  int getScore() const {return score_; }
+  int operator() () const { return getScore(); }
   virtual Choice decision(int) const = 0;
   void recordChoices(Choice myChoice,
                      int opponentIndex,
                      Choice opponentChoice);
   virtual std::shared_ptr< Competitor >  create() const = 0;
   virtual QString output() const = 0;
-  void setColor(QString& color) {color_ = color; };
-  QString getColor() const { return color_; };
+  void setColor(QString& color) {color_ = color; }
+  void setGame(const Game* game);
+  const Game* getGame() const;
+  QString getColor() const { return color_; }
 
 protected:
   // This is a map from opponents to a vector of choices made by this competitor
@@ -38,6 +43,7 @@ protected:
 private:
   double score_;
   QString color_;
+  const Game* game_;
 };
 
 typedef std::shared_ptr< Competitor > competitor_ptr;

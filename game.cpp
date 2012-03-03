@@ -30,10 +30,11 @@ void Game::registerCompetitorType(Competitor *competitor)
   competitorTypes_.push_back(competitor);
 }
 
-void Game::addCompetitor( const competitor_ptr& competitor )
+void Game::addCompetitor( competitor_ptr& competitor )
 {
   competitors_.push_back( competitor->create() );
   nCompetitors_ = competitors_.size();
+  competitors_.back()->setGame(this);
 }
 
 void Game::setCompetitors()
@@ -214,3 +215,11 @@ void Game::output() const
           << median << endl;
 }
 
+int Game::getRank(int score) const
+{
+  int ranking = 0;
+  qDebug() << competitors_.size();
+  for( auto it = competitors_.begin(); it != competitors_.end(); it++ )
+    if ( (*it)->getScore() > score ) ++ranking;
+  return ranking;
+}

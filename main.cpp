@@ -1,6 +1,7 @@
 #include <boost/program_options.hpp>
 
 #include "competitor.h"
+#include "common.h"
 #include "game.h"
 #include "gui.h"
 
@@ -14,6 +15,8 @@ int main(int argc, char *argv[])
   Game game;
   int iterations;
   int rand_seed;
+  string displayMethodologyString;
+  DisplayMethodology displayMethodology;
 
   try {
 
@@ -27,7 +30,8 @@ int main(int argc, char *argv[])
         ("print-contests-csv", "output results of individual contests in csv format")
         ("print-results-csv", "output final results and statistics in csv format")
         ("randseed", po::value<int>(&rand_seed), "set the random seed")
-        ("gui", "run graphical user interface");
+        ("gui", po::value<string>(&displayMethodologyString)->default_value("ratio"),
+         "run graphical user interface and specify display methodology of 'ratio' or 'rank'");
 
     for ( auto c : registeredCompetitors ) {
       QString description = "include n copies of " + c.first + " in competition";
@@ -61,7 +65,8 @@ int main(int argc, char *argv[])
     }
 
     if ( vm.count("gui") ) {
-      Gui(game).start();
+      displayMethodology = (displayMethodologyString == "ratio") ? RATIO : RANK;
+      Gui(game, displayMethodology).start();
     } else {
       bool print_contests_csv = false;
       if ( vm.count("print-contests-csv") || vm.count("verbose") ) {
