@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <vector>
 #include <QString>
 #include "common.h"
 #include "game.h"
@@ -19,10 +20,25 @@ Game::Game() {
 
 void Game::init()
 {
+  if ( competitorTypes_.size() ) competitorTypes_.clear();
+  if ( competitors_.size() ) competitors_.clear();
+  if ( choiceTable_.size() ) choiceTable_.clear();
+  if ( numberCompetitorsMap_.size() ) {
+    numberCompetitorsMap_.clear();
+  }
+  for ( auto c : registeredCompetitors ) {
+    numberCompetitorsMap_[ c.first ] = 0;
+  }
+
+  setIterations( 100 );
+  setRandomSeed( 0 );
+  nCompetitors_ = 0;
+
   choiceTable_ [ qMakePair( COOPERATE, COOPERATE ) ] = qMakePair (1,1);
   choiceTable_ [ qMakePair( COOPERATE, DEFECT) ] = qMakePair (0,2);
   choiceTable_ [ qMakePair( DEFECT, DEFECT) ] = qMakePair (0,0);
   choiceTable_ [ qMakePair( DEFECT, COOPERATE) ] = qMakePair (2,0);
+
 }
 
 void Game::registerCompetitorType(Competitor *competitor)
@@ -30,25 +46,35 @@ void Game::registerCompetitorType(Competitor *competitor)
   competitorTypes_.push_back(competitor);
 }
 
-void Game::addCompetitor( competitor_ptr& competitor )
+void Game::addCompetitor( const competitor_ptr& competitor )
 {
   competitors_.push_back( competitor->create() );
   nCompetitors_ = competitors_.size();
   competitors_.back()->setGame(this);
+  ++numberCompetitorsMap_ [ competitor->output() ];
 }
 
-void Game::setCompetitors()
+void Game::setCompetitors( const vector<int>& nCompetitors )
 {
-  int size = competitorTypes_.size();
-  for ( int i = 0; i < nCompetitors_; i++ ) {
-    auto c = competitorTypes_[ irand(size) ]->create();
-    competitors_.push_back(c);
+  auto it = registeredCompetitors.begin();
+
+  for ( auto i : nCompetitors) {
+    for (int j = 0; j < i; j++ ) {
+      addCompetitor( it->second );
+    }
+    it++;
   }
 }
 
 void Game::setRandomSeed( int randomSeed ) {
-  mersenne_twister.seed( randomSeed);
+  randomSeed_ = randomSeed;
+  mersenne_twister.seed( randomSeed_);
 };
+
+int Game::getRandomSeed() const
+{
+  return randomSeed_;
+}
 
 QVector <int> Game::generateRandomIndices() const
 {
@@ -218,7 +244,6 @@ void Game::output() const
 int Game::getRank(int score) const
 {
   int ranking = 0;
-  qDebug() << competitors_.size();
   for( auto it = competitors_.begin(); it != competitors_.end(); it++ )
     if ( (*it)->getScore() > score ) ++ranking;
   return ranking;

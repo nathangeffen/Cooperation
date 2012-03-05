@@ -1,7 +1,8 @@
 #ifndef GAMELAYOUT_H
 #define GAMELAYOUT_H
 
-#include <QDebug>
+#include <vector>
+#include <map>
 #include <QWidget>
 #include <QVector>
 #include "common.h"
@@ -11,13 +12,15 @@ class QPushButton;
 class QTimer;
 class CompetitorWidget;
 
+using namespace std;
+
 class GuiPlay: public QWidget
 {
   Q_OBJECT
 public:
   explicit GuiPlay(Game& game,
                    DisplayMethodology displayMethodology,
-                   QWidget *parent = 0);
+                   map < QString, QColor >& colors, QWidget *parent = 0);
 
 signals:
   void runRound(int, int, bool);
@@ -29,7 +32,6 @@ public slots:
 private:
   QTimer* timeBetweenRounds_;
   Game& game_;
-  QPushButton *playGame_;
   QVector<CompetitorWidget*> competitorWidgets_;
   int timerCount_;
 };

@@ -15,8 +15,6 @@ int main(int argc, char *argv[])
   Game game;
   int iterations;
   int rand_seed;
-  string displayMethodologyString;
-  DisplayMethodology displayMethodology;
 
   try {
 
@@ -30,7 +28,7 @@ int main(int argc, char *argv[])
         ("print-contests-csv", "output results of individual contests in csv format")
         ("print-results-csv", "output final results and statistics in csv format")
         ("randseed", po::value<int>(&rand_seed), "set the random seed")
-        ("gui", po::value<string>(&displayMethodologyString)->default_value("ratio"),
+        ("gui",
          "run graphical user interface and specify display methodology of 'ratio' or 'rank'");
 
     for ( auto c : registeredCompetitors ) {
@@ -46,6 +44,12 @@ int main(int argc, char *argv[])
       cout << desc << "\n";
       return 1;
     }
+
+    if ( vm.count("gui") ) {
+      Gui(game).start();
+      return 0;
+    }
+
     game.setIterations(iterations);
 
     for ( auto entry : registeredCompetitors ) {
@@ -64,19 +68,16 @@ int main(int argc, char *argv[])
       game.shuffleCompetitors();
     }
 
-    if ( vm.count("gui") ) {
-      displayMethodology = (displayMethodologyString == "ratio") ? RATIO : RANK;
-      Gui(game, displayMethodology).start();
-    } else {
-      bool print_contests_csv = false;
-      if ( vm.count("print-contests-csv") || vm.count("verbose") ) {
-        print_contests_csv = true;
-      }
-      game.play(print_contests_csv);
+    bool print_contests_csv = false;
+    if ( vm.count("print-contests-csv") || vm.count("verbose") ) {
+      print_contests_csv = true;
     }
+    game.play(print_contests_csv);
+
     if ( vm.count("print-results-csv") || vm.count("verbose") ) {
-        game.output();
+      game.output();
     }
+
   }
   catch(exception& e) {
       cerr << "error: " << e.what() << "\n";

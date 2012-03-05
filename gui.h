@@ -9,11 +9,10 @@ class Game;
 class Gui
 {
 public:
-  Gui( Game& game, DisplayMethodology displaymethodology );
+  Gui( Game& game );
   int start();
 private:
   Game& game_;
-  DisplayMethodology displayMethodology_;
 };
 
 

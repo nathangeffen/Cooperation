@@ -18,7 +18,7 @@ class CompetitorWidget: public QWidget
 
 public:
   CompetitorWidget(int circleSize, Competitor& competitor,
-                   DisplayMethodology displayMethodology, QWidget *parent = 0);
+                   DisplayMethodology displayMethodology, QColor color, QWidget *parent = 0);
   void setMaxScore( int max_score ) { maxScore_ = max_score; }
   void setMinScore( int min_score ) { minScore_ = min_score; }
   void updateUsingRatio();
@@ -30,7 +30,6 @@ public slots:
   void executeUpdate(int min_score, int max_score, bool updateScore);
 
 private:
-  QColor color_;
   Competitor& competitor_;
   CompetitorShape* competitorShape_;
   QHBoxLayout *topline_;
@@ -43,6 +42,7 @@ private:
   int savedScore_;
   bool updateScore_;
   DisplayMethodology displayMethodology_;
+  QColor color_;
 };
 
 #endif // PLAYER_H

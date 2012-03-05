@@ -27,7 +27,9 @@ SOURCES += main.cpp \
     gui.cpp \
     competitorwidget.cpp \
     guiplay.cpp \
-    competitorshape.cpp
+    competitorshape.cpp \
+    mainwindow.cpp \
+    definegamedialog.cpp
 
 HEADERS += \
     game.h \
@@ -36,7 +38,9 @@ HEADERS += \
     gui.h \
     competitorwidget.h \
     guiplay.h \
-    competitorshape.h
+    competitorshape.h \
+    mainwindow.h \
+    definegamedialog.h
 
 CONFIG += debug_and_release
 

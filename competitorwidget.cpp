@@ -9,12 +9,11 @@
 
 CompetitorWidget::CompetitorWidget(int maxDiameter, Competitor& competitor,
                                    DisplayMethodology displayMethodology,
-                                   QWidget *parent) :
+                                   QColor color, QWidget *parent) :
   QWidget(parent), competitor_(competitor),
   maxDiameter_(maxDiameter ), maxScore_(0), savedScore_(0),
-  displayMethodology_(displayMethodology)
+  displayMethodology_(displayMethodology), color_(color)
 {
-  color_ = QColor( competitor.getColor() );
   nameLabel_ = new QLabel( competitor_.output().toUpper() );
   QFont font = nameLabel_->font();
   font.setPointSize(6);
@@ -97,6 +96,5 @@ void CompetitorWidget::updateUsingRank()
   int competitors = game->getNumberCompetitors();
 
   int diameter = (double) (competitors - rank) / competitors * maxDiameter_;
-  qDebug() << "Diameter: " << competitors << rank << diameter << maxDiameter_;
   competitorShape_->setRadius( (int) diameter / 2);
 }

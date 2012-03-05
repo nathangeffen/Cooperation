@@ -15,7 +15,8 @@ class QString;
 std::ostream& operator<<( const std::ostream& os, const QString& s);
 
 enum DisplayMethodology {
-  RATIO,
+  RATIO = 0,
+  RATIO_WITH_MIN_AT_0,
   RANK
 };
 

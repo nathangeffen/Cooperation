@@ -10,30 +10,12 @@
 #include "competitorwidget.h"
 #include "common.h"
 
-GuiPlay::GuiPlay(Game& game, DisplayMethodology displayMethodology, QWidget *parent)
+GuiPlay::GuiPlay(Game& game, DisplayMethodology displayMethodology,
+                 map < QString, QColor >& colors, QWidget *parent)
   : QWidget(parent), game_(game)
 {
-  setWindowTitle(tr("Prisoner's Dilemna"));
-
-  QPushButton *quit = new QPushButton(tr("&Quit"));
-  quit->setFont(QFont("Times", 12, QFont::Bold));
-  connect(quit, SIGNAL(clicked()), qApp, SLOT(quit()));
-
-  playGame_ = new QPushButton(tr("&Play"));
-  playGame_->setFont(QFont("Times", 12, QFont::Bold));
-  connect(playGame_, SIGNAL(clicked()), this, SLOT(startPlaying()));
-
   QGridLayout *playerSection = new QGridLayout;
-  QGridLayout *topLayout = new QGridLayout;
-
-  QGridLayout *menuLayout = new QGridLayout;
-  menuLayout->addWidget(playGame_, 0, 0);
-  menuLayout->addWidget(quit, 0, 1);
-  topLayout->addLayout(menuLayout, 0, 0);
-  topLayout->addLayout(playerSection, 1, 0);
-  setLayout(topLayout);
-  QRect screenSize = QApplication::desktop()->availableGeometry();
-  this->setGeometry(screenSize);
+  setLayout(playerSection);
 
   timeBetweenRounds_ = new QTimer(this);
   connect(timeBetweenRounds_, SIGNAL(timeout()), this, SLOT(executeRound()));
@@ -47,9 +29,10 @@ GuiPlay::GuiPlay(Game& game, DisplayMethodology displayMethodology, QWidget *par
   int counter = 0;
   for ( int i=0; i < square && counter < game_.getNumberCompetitors(); i++ ) {
     for (int j = 0; j < square && counter < game_.getNumberCompetitors(); j++) {
+      QColor color = colors[ game_.getCompetitor(counter).output() ];
       CompetitorWidget *competitorWidget = new
           CompetitorWidget( circleSize, game_.getCompetitor(counter),
-                            displayMethodology);
+                            displayMethodology, color);
       playerSection->addWidget(competitorWidget, i, j);
       connect(this, SIGNAL(runRound(int, int, bool)),
               competitorWidget, SLOT(executeUpdate(int, int, bool)));
@@ -64,7 +47,6 @@ void GuiPlay::startPlaying()
   if ( timeBetweenRounds_->isActive() ) {
     return;
   }
-  playGame_->setDisabled(true);
   timerCount_ = 0;
   timeBetweenRounds_->start(0);
 }
@@ -79,7 +61,6 @@ void GuiPlay::executeRound() {
     ++timerCount_;
   } else {
     timeBetweenRounds_->stop();
-    playGame_->setDisabled(false);
   }
 }
 
