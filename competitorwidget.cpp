@@ -29,11 +29,12 @@ CompetitorWidget::CompetitorWidget(int maxDiameter, Competitor& competitor,
 
   layout_ = new QGridLayout;
   layout_->addLayout(topline_, 0, 0);
+  layout_->setRowStretch(0, 1);
 
   competitorShape_ = new CompetitorShape(maxDiameter / 6,
                                          color_);
   layout_->addWidget(competitorShape_, 1, 0);
-  layout_->setSpacing(0);
+  layout_->setRowStretch(1, 10);
 
   connect(this, SIGNAL(sendUpdate()),
           competitorShape_, SLOT(executeUpdate()));
@@ -66,8 +67,10 @@ void CompetitorWidget::executeUpdate(int min_score,
       competitorShape_->setShape(circle);
       if ( displayMethodology_ == RATIO) {
         updateUsingRatio();
-      } else {
+      } else if ( displayMethodology_ == RANK ){
         updateUsingRank();
+      } else {
+        updateUsingRationNormalizedToZero();
       }
     }
   }
@@ -85,7 +88,18 @@ void CompetitorWidget::updateUsingRatio()
   double ratio = (double) maxScore_ / competitor_.getScore() ;
   double maxRadius = (double) maxDiameter_ / 2.0;
   double radius = ( ratio > 0 ) ? sqrt( (maxRadius * maxRadius ) / ratio ) : 0;
-  if ( radius  == 0 ) radius = 5;
+  if ( radius  < 3 ) radius = 3;
+  competitorShape_->setRadius( (int) radius );
+}
+
+void CompetitorWidget::updateUsingRationNormalizedToZero()
+{
+  competitorShape_->setShape(circle);
+  double ratio = (double) (maxScore_ - minScore_) /
+                 ( competitor_.getScore() - minScore_ + 1) ;
+  double maxRadius = (double) maxDiameter_ / 2.0;
+  double radius = ( ratio > 0 ) ? sqrt( (maxRadius * maxRadius ) / ratio ) : 0;
+  if ( radius  < 3 ) radius = 3;
   competitorShape_->setRadius( (int) radius );
 }
 
@@ -98,3 +112,4 @@ void CompetitorWidget::updateUsingRank()
   int diameter = (double) (competitors - rank) / competitors * maxDiameter_;
   competitorShape_->setRadius( (int) diameter / 2);
 }
+

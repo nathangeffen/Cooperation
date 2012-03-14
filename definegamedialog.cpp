@@ -10,15 +10,10 @@ DefineGameDialog::DefineGameDialog(QWidget* parent)
 
   int i = 0;
 
-  layout_ = new QGridLayout;
+  layout_ = new QGridLayout( this );
 
-  apply_ = new QPushButton( tr("&Apply"), this );
-  connect(apply_, SIGNAL(clicked()), this, SLOT(accept()));
-  cancel_ = new QPushButton(tr("&Cancel"));
-  connect(cancel_, SIGNAL(clicked()), this, SLOT(reject()));
-
-  iterationsLabel_ = new QLabel(tr("Iterations"));
-  iterationsEdit_ = new QSpinBox;
+  iterationsLabel_ = new QLabel( tr("Iterations"), this );
+  iterationsEdit_ = new QSpinBox( this );
   iterationsEdit_->setRange(1, 999999999);
   iterationsEdit_->setSingleStep(100);
   iterationsEdit_->setValue(1000);
@@ -28,8 +23,8 @@ DefineGameDialog::DefineGameDialog(QWidget* parent)
   layout_->addWidget( iterationsEdit_, i, 1 );
   ++i;
 
-  randomSeedLabel_ = new QLabel(tr("Random seed"));
-  randomSeedEdit_ = new QSpinBox;
+  randomSeedLabel_ = new QLabel( tr("Random seed"), this);
+  randomSeedEdit_ = new QSpinBox( this );
   randomSeedEdit_->setRange( 1, 999999999);
   randomSeedEdit_->setSingleStep(1);
   randomSeedEdit_->setValue( 1000 );
@@ -39,8 +34,8 @@ DefineGameDialog::DefineGameDialog(QWidget* parent)
   layout_->addWidget( randomSeedEdit_, i, 1 );
   ++i;
 
-  updateStyleLabel_ = new QLabel( tr("Update style") );
-  updateStyleCombo_ = new QComboBox;
+  updateStyleLabel_ = new QLabel( tr("Update style"), this );
+  updateStyleCombo_ = new QComboBox( this );
   updateStyleCombo_->addItem(tr("ratio"));
   updateStyleCombo_->addItem(tr("ratio with lowest set to 0"));
   updateStyleCombo_->addItem(tr("rank"));
@@ -50,8 +45,8 @@ DefineGameDialog::DefineGameDialog(QWidget* parent)
   layout_->addWidget( updateStyleCombo_, i, 1 );
   ++i;
 
-  updateFrequencyLabel_ = new QLabel( tr("Update frequency") );
-  updateFrequencyEdit_ = new QSpinBox;
+  updateFrequencyLabel_ = new QLabel( tr("Update frequency"), this );
+  updateFrequencyEdit_ = new QSpinBox( this );
   updateFrequencyEdit_->setRange(1, 999999999);
   updateFrequencyEdit_->setSingleStep(10);
   updateFrequencyEdit_->setValue(1);
@@ -61,44 +56,78 @@ DefineGameDialog::DefineGameDialog(QWidget* parent)
   layout_->addWidget( updateFrequencyEdit_, i, 1 );
   ++i;
 
-  competitorLayout_ = new QGridLayout;
+  timerLabel_ = new QLabel( tr( "Time between updates (milliseconds)" ), this );
+  timerEdit_ =  new QSpinBox( this );
+  timerEdit_->setRange( 0, 100000 );
+  timerEdit_->setSingleStep( 100 );
+  timerEdit_->setValue( 0 );
+  timerLabel_->setBuddy( timerEdit_ );
+
+  layout_->addWidget( timerLabel_, i, 0 );
+  layout_->addWidget( timerEdit_, i, 1 );
+  ++i;
+
+  competitorLayout_ = new QGridLayout( );
 
   layout_->addLayout( competitorLayout_, i, 0, 1, 4 );
   ++i;
 
-  layout_->addWidget( apply_, i , 1 );
-  layout_->addWidget( cancel_, i, 2 );
+  apply_ = new QPushButton( tr("&Apply"), this );
+  connect(apply_, SIGNAL(clicked()), this, SLOT(accept()));
+  cancel_ = new QPushButton(tr("&Cancel"));
+  connect(cancel_, SIGNAL(clicked()), this, SLOT(reject()));
 
+  buttonLayout_ = new QHBoxLayout( this );
+  buttonLayout_->addWidget( apply_ );
+  buttonLayout_->addWidget( cancel_ );
+  layout_->addLayout( buttonLayout_, i, 2 );
 }
 
 void DefineGameDialog::setCompetitors( const map<QString, int> nCompetitorsMap )
 {
 
   int i = 0;
-  competitorLayout_->addWidget(new QLabel("<b>Name</b>"), i, 0 );
-  competitorLayout_->addWidget(new QLabel("<b>Number</b>"), i, 1 );
-  competitorLayout_->addWidget(new QLabel("<b>Color</b>"), i, 2 );
+  competitorLayout_->addWidget(new QLabel("<b>Name</b>", this), i, 0 );
+  competitorLayout_->addWidget(new QLabel("<b>Number</b>", this), i, 1 );
+  competitorLayout_->addWidget(new QLabel("<b>Color</b>", this), i, 2 );
   ++i;
 
   int j = 0;
+  QWidget* last = 0;
   for ( auto c : nCompetitorsMap ) {
-    competitorLabels_.push_back( new QLabel( c.first.toUpper() ) );
+    competitorLabels_.push_back( new QLabel( c.first.toUpper(), this ) );
     competitorNumbers_.push_back( nCompetitorsSpinBox( c.second ) );
     competitorLayout_->addWidget( competitorLabels_.back(), i, 0 );
     competitorLayout_->addWidget( competitorNumbers_.back(), i, 1 );
     competitorLayout_->addWidget( competitorColors_[j], i, 2 );
     competitorLayout_->addWidget( colorButtons_[j], i, 3 );
-    connect( competitorColors_[j], SIGNAL( textChanged( QString ) ),
-             this, SLOT( setLineEditColor( QString ) ) );
-    connect( colorButtons_[ j ], SIGNAL( clicked() ),
-             this, SLOT( colorButtonClicked() ) );
+
+    if ( last )
+      setTabOrder( last, competitorNumbers_.back() );
+
+    last = colorButtons_[j];
+
+    setTabOrder( competitorNumbers_.back(), competitorColors_[j] );
+    setTabOrder( competitorColors_[j], colorButtons_[j] );
 
     i++; j++;
   }
+
+  if ( colorButtons_.size() ) {
+    setTabOrder( colorButtons_.back(), apply_ );
+    setTabOrder( apply_, cancel_ );
+  }
+
   connect( this, SIGNAL(specificButtonClicked( int ) ),
            this, SLOT( runColorDialog( int ) ) );
 
   setLayout(layout_);
+  iterationsEdit_->setFocus();
+}
+
+void DefineGameDialog::setNumberForAllCompetitors( int i )
+{
+  for ( auto c : competitorNumbers_ ) c->setValue( i );
 }
 
 void DefineGameDialog::setCompetitorColors( const map<QString, QColor>& colors )
@@ -109,7 +138,16 @@ void DefineGameDialog::setCompetitorColors( const map<QString, QColor>& colors )
     QFontMetrics metrics(QApplication::font());
     edit->setFixedWidth( metrics.width("mmmmmmmmmmmm") );
     competitorColors_.push_back( edit );
+
+    connect( competitorColors_.back(), SIGNAL( textChanged( QString ) ),
+             this, SLOT( setLineEditColor( QString ) ) );
+
+    setLineEditColor( competitorColors_.back() );
     colorButtons_.push_back( new ColorPickButton(i, this) );
+
+    connect( colorButtons_.back(), SIGNAL( clicked() ),
+             this, SLOT( colorButtonClicked() ) );
+
     i++;
   }
 }
@@ -136,7 +174,7 @@ map<QString, QColor> DefineGameDialog::getCompetitorColors() const
 
 QSpinBox* DefineGameDialog::nCompetitorsSpinBox( int i )
 {
-  QSpinBox* nCompetitors = new QSpinBox;
+  QSpinBox* nCompetitors = new QSpinBox( this );
   nCompetitors->setRange(0, 100);
   nCompetitors->setSingleStep(1);
   nCompetitors->setValue(i);
@@ -159,10 +197,8 @@ void DefineGameDialog::runColorDialog( int i )
     competitorColors_[i]->setText(color.name());
 }
 
-void DefineGameDialog::setLineEditColor( QString )
+void DefineGameDialog::setLineEditColor( QLineEdit* edit )
 {
-  qDebug() << "Got here";
-  QLineEdit *edit = (QLineEdit *) sender();
   QColor color = QColor( edit->text() );
   if ( color.isValid() ) {
     QPalette pal;
@@ -170,4 +206,10 @@ void DefineGameDialog::setLineEditColor( QString )
     edit->setPalette( pal );
     edit->setAutoFillBackground( true );
   }
+}
+
+void DefineGameDialog::setLineEditColor( QString )
+{
+  QLineEdit *edit = (QLineEdit *) sender();
+  setLineEditColor( edit );
 }

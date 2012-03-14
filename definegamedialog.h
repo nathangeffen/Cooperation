@@ -31,11 +31,14 @@ public:
   void setUpdateStyle(int i) { updateStyleCombo_->setCurrentIndex(i); }
   void setCompetitors( const map<QString, int> nCompetitorsMap );
   void setCompetitorColors( const map<QString, QColor>& colors );
+  void setTimer(int i) { timerEdit_->setValue(i); }
+  void setNumberForAllCompetitors( int i );
 
   int getIterations() const { return iterationsEdit_->text().toInt(); }
   int getRandomSeed() const { return randomSeedEdit_->text().toInt(); }
   int getUpdateFrequency() const { return updateFrequencyEdit_->text().toInt(); }
   int getUpdateStyle() const { return updateStyleCombo_->currentIndex(); }
+  int getTimer() const { return timerEdit_->text().toInt(); }
   vector<int> getCompetitors() const;
   map<QString, QColor> getCompetitorColors() const;
 
@@ -48,10 +51,12 @@ private slots:
   void setLineEditColor( QString );
 
 private:
+  void setLineEditColor( QLineEdit* edit );
   QSpinBox* nCompetitorsSpinBox( int i );
 
   QGridLayout* layout_;
   QGridLayout* competitorLayout_;
+  QHBoxLayout* buttonLayout_;
 
   QPushButton* apply_;
   QPushButton* cancel_;
@@ -66,6 +71,9 @@ private:
 
   QLabel* updateStyleLabel_;
   QComboBox* updateStyleCombo_;
+
+  QLabel* timerLabel_;
+  QSpinBox* timerEdit_;
 
   vector <QLabel*> competitorLabels_;
   vector <QSpinBox*> competitorNumbers_;

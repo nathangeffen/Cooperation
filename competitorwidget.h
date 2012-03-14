@@ -1,9 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <QWidget>
-#include <QPainter>
-#include <QDebug>
+#include <QtGui>
 #include "common.h"
 
 class Competitor;
@@ -23,6 +21,7 @@ public:
   void setMinScore( int min_score ) { minScore_ = min_score; }
   void updateUsingRatio();
   void updateUsingRank();
+  void updateUsingRationNormalizedToZero();
 
 signals:
    void sendUpdate();

@@ -8,22 +8,42 @@ using namespace std;
 
 MainWindow::MainWindow(Game& game) : game_(game)
 {
-  setWindowTitle(tr("Prisoner's Dilemna"));
+  setWindowTitle( tr("Prisoner's Dilemna") );
 
   updateFrequency_ = 1;
   displayMethodology_ = RANK;
+  timer_ = 0;
+  firstTime_ = true;
+
 
   QWidget *topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
   statusBar()->showMessage(tr("Welcome to the Prisoner's Dilemna game"));
 
+  uint colorStep = 0xFFFFFF / registeredCompetitors.size();
+  uint i = 0;
+
   for ( auto c : registeredCompetitors ) {
-    colors_[c.first] = QColor("#000000");
+    colors_[c.first] = QColor("#" + QString::number(i, 16).rightJustified(6, '0'));
+    i += colorStep;
   }
 
   createActions();
   createMenus();
+
+  inProgress_ = false;
+  playPixmap_ = new QPixmap( ":/icons/arrow-right.xpm" );
+  playIcon_ = new QIcon( *playPixmap_ );
+  pausePixmap_ = new QPixmap( ":/icons/pause.xpm");
+  pauseIcon_ = new QIcon( *pausePixmap_ );
+
+  toolBar_ = new QToolBar( this );
+
+  playAction_ = new QAction( *playIcon_, QString(tr("Play")), this );
+  playAction_->setDisabled( true );
+  toolBar_->addAction( playAction_ );
+  addToolBar( toolBar_ );
 
   QWidget* widget = new QWidget;
   setCentralWidget( widget );
@@ -40,12 +60,16 @@ void MainWindow::drawGameGrid()
 
   if ( guiPlay_ )
     delete guiPlay_;
-  else {
-    connect(executeGame_, SIGNAL(triggered()), this, SLOT(executeGame()));
-  }
+  else
+    connect(executeGame_, SIGNAL(triggered() ), this, SLOT(executeGame() ) );
 
+  playAction_->setEnabled( true );
   executeGame_->setEnabled(true);
-  guiPlay_ = new GuiPlay( game_, displayMethodology_, colors_, this );
+  pauseGame_->setDisabled(true);
+  pauseGame_->setText( tr( "&Pause game" ) );
+  guiPlay_ = new GuiPlay( game_, displayMethodology_, timer_,
+                          updateFrequency_, colors_, this );
+  connect(guiPlay_, SIGNAL( stopPlaying() ), this, SLOT(stopPlaying() ) );
   setCentralWidget( guiPlay_ );
 }
 
@@ -75,31 +99,53 @@ void MainWindow::defineGameDialog()
   dialog->setUpdateFrequency( updateFrequency_ );
   dialog->setUpdateStyle( displayMethodology_ );
   dialog->setCompetitorColors( colors_ );
+  dialog->setTimer( timer_ );
   dialog->setCompetitors( game_.getNumberCompetitorsPerCompetitor() );
+  if ( firstTime_ ) {
+    firstTime_ = false;
+    dialog->setNumberForAllCompetitors( 1 );
+  }
 
   if ( dialog->exec() ) {
     game_.init();
     game_.setIterations( dialog->getIterations() );
     game_.setRandomSeed( dialog->getRandomSeed() );
     updateFrequency_ = dialog->getUpdateFrequency();
+    timer_ = dialog->getTimer();
     displayMethodology_ = (DisplayMethodology) dialog->getUpdateStyle();
     game_.setCompetitors( dialog->getCompetitors() );
+    game_.shuffleCompetitors();
     colors_ = dialog->getCompetitorColors();
+    drawGameGrid();
   }
-
-  drawGameGrid();
-
 }
 
 void MainWindow::executeGame()
 {
+  inProgress_ = true;
   executeGame_->setDisabled(true);
+  pauseGame_->setEnabled(true);
+  setPlayActionToPause( true );
+  pauseGame_->setText( tr( "&Pause game" ) );
+  progressBar_= guiPlay_->getProgressBar();
+  this->statusBar()->addWidget( progressBar_ );
   guiPlay_->startPlaying();
 }
 
 void MainWindow::pauseGame()
 {
-  statusBar()->showMessage(tr("Pause a game in progress"));
+  if ( guiPlay_ ) {
+    if ( guiPlay_->isPaused() ) {
+      pauseGame_->setText( tr( "&Pause game" ) );
+      setPlayActionToPause( true );
+    }
+    else {
+      pauseGame_->setText( tr( "Un&Pause game" ) );
+      setPlayActionToPlay( true );
+    }
+
+    emit guiPlay_->pausePlaying();
+  }
 }
 
 void MainWindow::createActions()
@@ -136,6 +182,7 @@ void MainWindow::createActions()
 
   pauseGame_ = new QAction(tr("&Pause game"), this);
   pauseGame_->setStatusTip(tr("Pause a Prisoner's Dilemna game"));
+  pauseGame_->setDisabled(true);
   connect(pauseGame_, SIGNAL(triggered()), this, SLOT(pauseGame()));
 }
 
@@ -152,4 +199,35 @@ void MainWindow::createMenus()
   gameMenu_->addAction(defineGame_);
   gameMenu_->addAction(executeGame_);
   gameMenu_->addAction(pauseGame_);
+}
+
+void MainWindow::stopPlaying()
+{
+  inProgress_ = false;
+  statusBar()->removeWidget( progressBar_ );
+  QString s = tr("Game finished after ") +
+      QString().setNum( game_.getIterations() ) + tr( " iterations." );
+  statusBar()->showMessage( s );
+  setPlayActionToPlay( false);
+}
+
+void MainWindow::setPlayActionToPlay( bool enabled )
+{
+  playAction_->setIcon( *playIcon_ );
+  playAction_->setText( "&Play" );
+  playAction_->setEnabled( enabled );
+  playAction_->disconnect();
+  if ( inProgress_ )
+    connect( playAction_, SIGNAL(triggered()), this, SLOT(pauseGame()) );
+  else
+    connect( playAction_, SIGNAL(triggered()), this, SLOT(executeGame()) );
+}
+
+void MainWindow::setPlayActionToPause( bool enabled )
+{
+  playAction_->setIcon( *pauseIcon_ );
+  playAction_->setText( "&Pause" );
+  playAction_->setEnabled( enabled );
+  playAction_->disconnect();
+  connect( playAction_, SIGNAL(triggered()), this, SLOT(pauseGame()) );
 }

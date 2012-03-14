@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="arrow-right.xpm">icons/arrow-right.xpm</file>
+        <file alias="pause.xpm">icons/pause.xpm</file>
+    </qresource>
+</RCC>

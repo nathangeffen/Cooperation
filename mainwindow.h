@@ -24,8 +24,13 @@ private slots:
   void defineGameDialog();
   void executeGame();
   void pauseGame();
+  void stopPlaying();
 
 private:
+  void setPlayActionToPlay( bool enabled = true );
+  void setPlayActionToPause( bool enabled = false );
+  bool inProgress_;
+
   Game& game_;
   QMenu* fileMenu_;
   QMenu* gameMenu_;
@@ -39,9 +44,18 @@ private:
   QAction* defineGame_;
   QAction* executeGame_;
   QAction* pauseGame_;
+  QProgressBar* progressBar_;
+  QToolBar* toolBar_;
+  QIcon* playIcon_;
+  QIcon* pauseIcon_;
+  QPixmap* playPixmap_;
+  QPixmap* pausePixmap_;
+  QAction* playAction_;
 
   DisplayMethodology displayMethodology_;
   int updateFrequency_;
+  int timer_;
+  bool firstTime_;
   map <QString, QColor > colors_;
 
   void drawGameGrid();

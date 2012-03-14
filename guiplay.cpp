@@ -11,13 +11,18 @@
 #include "common.h"
 
 GuiPlay::GuiPlay(Game& game, DisplayMethodology displayMethodology,
-                 map < QString, QColor >& colors, QWidget *parent)
-  : QWidget(parent), game_(game)
+                 int time, int updateFrequency, map < QString, QColor >& colors,
+                 QWidget *parent)
+  : QWidget(parent), game_(game), time_(time), updateFrequency_(updateFrequency)
 {
   QGridLayout *playerSection = new QGridLayout;
   setLayout(playerSection);
+  paused_ = true;
+  stopped_ = true;
 
   timeBetweenRounds_ = new QTimer(this);
+  progressBar_ = new QProgressBar( this );
+  progressBar_->setVisible( false );
   connect(timeBetweenRounds_, SIGNAL(timeout()), this, SLOT(executeRound()));
 
   int square;
@@ -47,20 +52,44 @@ void GuiPlay::startPlaying()
   if ( timeBetweenRounds_->isActive() ) {
     return;
   }
+  progressBar_->reset();
+  progressBar_->setOrientation(Qt::Horizontal);
+  progressBar_->setRange(0, game_.getIterations() );
+  progressBar_->setVisible( true );
   timerCount_ = 0;
-  timeBetweenRounds_->start(0);
+  paused_ = false;
+  stopped_ = false;
+  timeBetweenRounds_->start(time_);
 }
 
-void GuiPlay::executeRound() {
+void GuiPlay::pausePlaying()
+{
+  if ( timeBetweenRounds_->isActive()  ) {
+    paused_ = true;
+    timeBetweenRounds_->stop();
+  }
+  else {
+    paused_ = false;
+    timeBetweenRounds_->start(time_);
+  }
+}
 
+void GuiPlay::executeRound()
+{
   if ( timerCount_ < game_.getIterations() ) {
     game_.executeRound();
     bool updateScore = timerCount_ % 500 == 0 ||
                        timerCount_ == game_.getIterations() - 1;
-    runRound( game_.minScore(), game_.maxScore(), updateScore );
+    if ( timerCount_ % updateFrequency_ == 0 ) {
+      runRound( game_.minScore(), game_.maxScore(), updateScore );
+    }
     ++timerCount_;
+    progressBar_->setValue( timerCount_ );
   } else {
     timeBetweenRounds_->stop();
+    paused_ = false;
+    stopped_ = true;
+    emit stopPlaying();
   }
 }
 

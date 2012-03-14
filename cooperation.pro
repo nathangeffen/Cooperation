@@ -17,6 +17,7 @@ CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
+RESOURCES = application.qrc
 
 unix:LIBS += -L/usr/lib -lboost_program_options
 

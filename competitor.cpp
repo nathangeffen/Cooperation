@@ -32,12 +32,12 @@ const Game* Competitor::getGame() const
 }
 
 
-REGISTER_COMPETITOR_WITH_COLOR( TitForTat, "red" );
-REGISTER_COMPETITOR_WITH_COLOR( AlwaysDefect, "black" );
-REGISTER_COMPETITOR_WITH_COLOR( Random, "blue" );
-REGISTER_COMPETITOR_WITH_COLOR( AlwaysCooperate, "yellow" );
-REGISTER_COMPETITOR_WITH_COLOR( Opposite, "white" );
-REGISTER_COMPETITOR_WITH_COLOR( TitForTatRandom, "green" );
+REGISTER_COMPETITOR( TitForTat );
+REGISTER_COMPETITOR( AlwaysDefect );
+REGISTER_COMPETITOR( Random );
+REGISTER_COMPETITOR( AlwaysCooperate );
+REGISTER_COMPETITOR( Opposite );
+REGISTER_COMPETITOR( TitForTatRandom );
 
 Choice TitForTat::decision(int index) const
 {
