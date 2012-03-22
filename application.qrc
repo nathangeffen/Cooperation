@@ -1,6 +1,11 @@
 <RCC>
     <qresource prefix="/icons">
-        <file alias="arrow-right.xpm">icons/arrow-right.xpm</file>
-        <file alias="pause.xpm">icons/pause.xpm</file>
+        <file alias="pause">icons/pause.xpm</file>
+        <file alias="play">icons/play.xpm</file>
+        <file alias="save">icons/save.xpm</file>
+        <file alias="open">icons/open.xpm</file>
+        <file alias="new">icons/new.xpm</file>
+        <file alias="savegame">icons/savegame.xpm</file>
+        <file alias="saveoutput">icons/saveoutput.xpm</file>
     </qresource>
 </RCC>

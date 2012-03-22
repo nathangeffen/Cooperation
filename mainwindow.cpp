@@ -1,5 +1,12 @@
 #include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <exception>
+#include <string>
+#include <sstream>
+
 #include <QtGui>
+
 #include "guiplay.h"
 #include "mainwindow.h"
 #include "definegamedialog.h"
@@ -15,7 +22,6 @@ MainWindow::MainWindow(Game& game) : game_(game)
   timer_ = 0;
   firstTime_ = true;
 
-
   QWidget *topFiller = new QWidget;
   topFiller->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 
@@ -29,21 +35,13 @@ MainWindow::MainWindow(Game& game) : game_(game)
     i += colorStep;
   }
 
-  createActions();
-  createMenus();
+  this->menuBar()->setVisible( false );
 
   inProgress_ = false;
-  playPixmap_ = new QPixmap( ":/icons/arrow-right.xpm" );
-  playIcon_ = new QIcon( *playPixmap_ );
-  pausePixmap_ = new QPixmap( ":/icons/pause.xpm");
-  pauseIcon_ = new QIcon( *pausePixmap_ );
 
-  toolBar_ = new QToolBar( this );
+  // Set up the toolbar, the actions on it and the icons for those actions
 
-  playAction_ = new QAction( *playIcon_, QString(tr("Play")), this );
-  playAction_->setDisabled( true );
-  toolBar_->addAction( playAction_ );
-  addToolBar( toolBar_ );
+  setupToolBar();
 
   QWidget* widget = new QWidget;
   setCentralWidget( widget );
@@ -54,6 +52,55 @@ MainWindow::MainWindow(Game& game) : game_(game)
   resize(480, 320);
 }
 
+void MainWindow::setupToolBar()
+{
+  toolBar_ = new QToolBar( this );
+
+  openGamePixmap_ = new QPixmap( ":/icons/open" );
+  saveGamePixmap_ = new QPixmap( ":/icons/savegame" );
+  saveOutputPixmap_ = new QPixmap( ":/icons/saveoutput" );
+  newGamePixmap_ = new QPixmap( ":/icons/new" );
+  playPixmap_ = new QPixmap( ":/icons/play" );
+  pausePixmap_ = new QPixmap( ":/icons/pause");
+
+  openGameIcon_ = new QIcon( *openGamePixmap_ );
+  saveGameIcon_ = new QIcon( *saveGamePixmap_ );
+  saveOutputIcon_ = new QIcon( *saveOutputPixmap_ );
+  newGameIcon_ = new QIcon( *newGamePixmap_ );
+  playIcon_ = new QIcon( *playPixmap_ );
+  pauseIcon_ = new QIcon( *pausePixmap_ );
+
+  openGameAction_ = new QAction( *openGameIcon_, QString(tr("Open")), this );
+  openGameAction_->setShortcut( QKeySequence::Open );
+  connect( openGameAction_, SIGNAL(triggered()), this, SLOT(openGameDefinition() ) );
+
+  saveGameAction_ = new QAction( *saveGameIcon_, QString(tr("Save game")), this );
+  saveGameAction_->setShortcut( QKeySequence::Save );
+  saveGameAction_->setDisabled( true );
+  connect( saveGameAction_, SIGNAL(triggered()), this, SLOT(saveGameDefinition() ) );
+
+  saveOutputAction_ = new QAction( *saveOutputIcon_, QString(tr("Save output")), this);
+  saveOutputAction_->setShortcut( QKeySequence( "CTRL+W" ) );
+  saveOutputAction_->setDisabled( true );
+  connect( saveOutputAction_, SIGNAL(triggered()), this, SLOT(saveGameOutput()) );
+
+  newGameAction_ = new QAction( *newGameIcon_, QString(tr("New game")), this);
+  newGameAction_->setShortcut( QKeySequence::New );
+
+  playAction_ = new QAction( *playIcon_, QString(tr("Play")), this );
+  playAction_->setShortcut( QKeySequence( "CTRL+P") );
+  playAction_->setDisabled( true );
+
+  toolBar_->addAction( newGameAction_ );
+  toolBar_->addAction( openGameAction_ );
+  toolBar_->addAction( saveGameAction_ );
+  toolBar_->addAction( saveOutputAction_ );
+  connect( newGameAction_, SIGNAL(triggered()), this, SLOT(newGameDialog()) );
+  toolBar_->addAction( playAction_ );
+
+  addToolBar( toolBar_ );
+}
+
 void MainWindow::drawGameGrid()
 {
   if ( game_.getNumberCompetitors() == 0 ) return;
@@ -61,12 +108,10 @@ void MainWindow::drawGameGrid()
   if ( guiPlay_ )
     delete guiPlay_;
   else
-    connect(executeGame_, SIGNAL(triggered() ), this, SLOT(executeGame() ) );
+    connect(playAction_, SIGNAL(triggered() ), this, SLOT(executeGame() ) );
 
   playAction_->setEnabled( true );
-  executeGame_->setEnabled(true);
-  pauseGame_->setDisabled(true);
-  pauseGame_->setText( tr( "&Pause game" ) );
+  playAction_->setEnabled(true);
   guiPlay_ = new GuiPlay( game_, displayMethodology_, timer_,
                           updateFrequency_, colors_, this );
   connect(guiPlay_, SIGNAL( stopPlaying() ), this, SLOT(stopPlaying() ) );
@@ -74,23 +119,161 @@ void MainWindow::drawGameGrid()
 }
 
 
-void MainWindow::open()
+void MainWindow::saveGameDefinition()
 {
-  statusBar()->showMessage(tr("Open a game profile"));
+  if ( firstTime_ )
+    return;
+
+  QString filename;
+  try {
+    QFileDialog dialog( this );
+    dialog.setFileMode( QFileDialog::AnyFile );
+    dialog.setDefaultSuffix( QString("pdi") );
+    dialog.setAcceptMode( QFileDialog::AcceptSave );
+    dialog.setNameFilters( QStringList(QString("Game files (*.pdi)")) );
+
+    if ( dialog.exec() ) {
+      filename = dialog.selectedFiles()[0];
+      ofstream out;
+      out.exceptions(ios::failbit);
+      out.open( filename.toStdString() );
+      out << "numbercompetitors ";
+      out << game_.getNumberCompetitorsPerCompetitor().size();
+      for ( auto nCompetitors : game_.getNumberCompetitorsPerCompetitor() )
+        out << " " << nCompetitors.first.toStdString() << " "
+            << nCompetitors.second;
+      out << endl;
+      out << "iterations " << game_.getIterations() << endl;
+      out << "randomseed " << game_.getRandomSeed() << endl;
+      out << "updatefrequency " << updateFrequency_ << endl;
+      out << "displaymethodology " << displayMethodology_ << endl;
+      out << "competitorcolors ";
+      for ( auto color : colors_ )
+        out << " " << color.first.toStdString() << " "
+            << color.second.name().toStdString();
+      out << endl;
+      out << "timer " << timer_ << endl;
+
+      out.close();
+      QMessageBox msgBox;
+      msgBox.setText( tr("File successfully saved") );
+      msgBox.exec();
+    }
+  } catch (exception &e) {
+    QMessageBox msgBox;
+    msgBox.setText( tr("Error writing to file: " ) +
+                    QString( filename ) + QString("\n") );
+    msgBox.exec();
+  }
 }
 
-void MainWindow::save()
+void MainWindow::saveGameOutput()
 {
-  statusBar()->showMessage(tr("Save a game profile"));
+  if ( firstTime_ || inProgress_ )
+    return;
+
+  QString filename;
+  try {
+    QFileDialog dialog( this );
+    dialog.setFileMode( QFileDialog::AnyFile );
+    dialog.setDefaultSuffix( QString("csv") );
+    dialog.setAcceptMode( QFileDialog::AcceptSave );
+    dialog.setNameFilters( QStringList(QString("CSV files (*.csv)")) );
+
+    if ( dialog.exec() ) {
+      filename = dialog.selectedFiles()[0];
+      ofstream out;
+      out.exceptions(ios::failbit);
+      out.open( filename.toStdString() );
+      out << outputStream_.str();
+      out.close();
+      QMessageBox msgBox;
+      msgBox.setText( tr("File successfully saved") );
+      msgBox.exec();
+    }
+  } catch (exception &e) {
+    QMessageBox msgBox;
+    msgBox.setText( tr("Error writing to file: " ) +
+                    QString( filename ) + QString("\n") );
+    msgBox.exec();
+  }
 }
 
-void MainWindow::print()
+void MainWindow::openGameDefinition()
 {
-  statusBar()->showMessage(tr("Print a game profile"));
+  QString filename;
+  int value, nCompetitors;
+  try {
+    filename = QFileDialog::getOpenFileName (this,
+                                             tr("Open file"),
+                                             QDir::homePath(),
+                                             "Game files (*.pdi)" );
+    if ( !filename.compare("") ) return;
+    game_.init();
+    ifstream in;
+    in.exceptions(ios::badbit);
+    in.open( filename.toStdString() );
+    string s;
+    while ( in >> s ) {
+      qDebug() << QString().fromStdString( s );
+      if ( s == "numbercompetitors" ) {
+        in >> nCompetitors;
+        qDebug() << nCompetitors;
+        if ( nCompetitors > 10000 || nCompetitors < 1 ) {
+          throw string( "Number of competitors invalid." );
+        }
+        map <string, int> competitors;
+        qDebug() << "Got here ...";
+        for ( int i = 0; i < nCompetitors; i++ ) {
+          in >> s;
+          in >> value;
+          competitors[ s ] = value;
+        }
+        qDebug() << "and here ...";
+        game_.setCompetitors( competitors );
+      } else if ( s == "iterations" ) {
+        in >> value;
+        game_.setIterations( value );
+      } else if ( s == "randomseed" ) {
+        in >> value;
+        game_.setRandomSeed( value );
+      } else if ( s == "updatefrequency" ) {
+        in >> updateFrequency_;
+      } else if ( s == "displaymethodology" ) {
+        in >> value;
+        displayMethodology_ = DisplayMethodology( value );
+      } else if ( s == "competitorcolors" ) {
+        for ( int i = 0; i < nCompetitors; i++ ) {
+          string stringColor;
+          in >> s;
+          in >> stringColor;
+          colors_[ QString().fromStdString(s) ] =
+              QColor( QString().fromStdString( stringColor ) );
+        }
+      } else if ( s == "timer" ) {
+        if ( in >> value ) {
+          timer_ = value;
+        } else throw string("Invalid value for timer" );
+      } else throw string("Unknown value: ") + s;
+    }
+    in.close();
+    firstTime_ = false;
+    game_.shuffleCompetitors();
+    this->drawGameGrid();
+    qDebug() << "After draw";
+  } catch (const string &s) {
+    QMessageBox msgBox;
+    msgBox.setText( QString().fromStdString(s) );
+    msgBox.exec();
+  } catch (exception &e) {
+    QMessageBox msgBox;
+    msgBox.setText( QString( tr("Error opening or reading from the file: " ) ) +
+                    QString( filename ) + QString("\n") );
+    msgBox.exec();
+  }
 }
 
-
-void MainWindow::defineGameDialog()
+void MainWindow::newGameDialog()
 {
   DefineGameDialog* dialog = new DefineGameDialog();
 
@@ -102,11 +285,14 @@ void MainWindow::defineGameDialog()
   dialog->setTimer( timer_ );
   dialog->setCompetitors( game_.getNumberCompetitorsPerCompetitor() );
   if ( firstTime_ ) {
-    firstTime_ = false;
     dialog->setNumberForAllCompetitors( 1 );
   }
 
   if ( dialog->exec() ) {
+    if ( inProgress_ )
+      this->stopPlaying();
+    else
+      firstTime_ = false;
     game_.init();
     game_.setIterations( dialog->getIterations() );
     game_.setRandomSeed( dialog->getRandomSeed() );
@@ -116,6 +302,7 @@ void MainWindow::defineGameDialog()
     game_.setCompetitors( dialog->getCompetitors() );
     game_.shuffleCompetitors();
     colors_ = dialog->getCompetitorColors();
+    saveGameAction_->setDisabled( false );
     drawGameGrid();
   }
 }
@@ -123,82 +310,40 @@ void MainWindow::defineGameDialog()
 void MainWindow::executeGame()
 {
   inProgress_ = true;
-  executeGame_->setDisabled(true);
-  pauseGame_->setEnabled(true);
+  playAction_->setDisabled( true );
+  saveOutputAction_->setDisabled( true );
   setPlayActionToPause( true );
-  pauseGame_->setText( tr( "&Pause game" ) );
   progressBar_= guiPlay_->getProgressBar();
   this->statusBar()->addWidget( progressBar_ );
+  redirectCout();
+  game_.csvHeader();
   guiPlay_->startPlaying();
+}
+
+void MainWindow::redirectCout()
+{
+  coutBackup_ = cout.rdbuf();
+  outputBuffer_= outputStream_.rdbuf();
+  cout.rdbuf( outputBuffer_ );
+}
+
+void MainWindow::resetCout()
+{
+  cout.rdbuf( coutBackup_ );
 }
 
 void MainWindow::pauseGame()
 {
   if ( guiPlay_ ) {
     if ( guiPlay_->isPaused() ) {
-      pauseGame_->setText( tr( "&Pause game" ) );
       setPlayActionToPause( true );
     }
     else {
-      pauseGame_->setText( tr( "Un&Pause game" ) );
       setPlayActionToPlay( true );
     }
 
     emit guiPlay_->pausePlaying();
   }
-}
-
-void MainWindow::createActions()
-{
-
-  openAct_ = new QAction(tr("&Open..."), this);
-  openAct_->setShortcuts(QKeySequence::Open);
-  openAct_->setStatusTip(tr("Open an existing game definition file"));
-  connect(openAct_, SIGNAL(triggered()), this, SLOT(open()));
-
-  saveAct_ = new QAction(tr("&Save"), this);
-  saveAct_->setShortcuts(QKeySequence::Save);
-  saveAct_->setStatusTip(tr("Save a game definition file to disk"));
-  connect(saveAct_, SIGNAL(triggered()), this, SLOT(save()));
-
-  printAct_ = new QAction(tr("&Print..."), this);
-  printAct_->setShortcuts(QKeySequence::Print);
-  printAct_->setStatusTip(tr("Print the game definition file"));
-  connect(printAct_, SIGNAL(triggered()), this, SLOT(print()));
-
-  exitAct_ = new QAction(tr("E&xit"), this);
-  exitAct_->setShortcuts(QKeySequence::Quit);
-  exitAct_->setStatusTip(tr("Exit Prisoner's Dilemna"));
-  connect(exitAct_, SIGNAL(triggered()), this, SLOT(close()));
-
-  defineGame_ = new QAction(tr("&Define game"), this);
-  defineGame_->setStatusTip(tr("Define the parameters of a Prisoner's Dilemna game"));
-  connect(defineGame_, SIGNAL(triggered()), this, SLOT(defineGameDialog()));
-
-  executeGame_ = new QAction(tr("&Execute game"), this);
-  executeGame_->setStatusTip(tr("Execute a Prisoner's Dilemna game"));
-  executeGame_->setDisabled(true);
-  connect(executeGame_, SIGNAL(triggered()), this, SLOT(executeGame()));
-
-  pauseGame_ = new QAction(tr("&Pause game"), this);
-  pauseGame_->setStatusTip(tr("Pause a Prisoner's Dilemna game"));
-  pauseGame_->setDisabled(true);
-  connect(pauseGame_, SIGNAL(triggered()), this, SLOT(pauseGame()));
-}
-
-void MainWindow::createMenus()
-{
-  fileMenu_ = menuBar()->addMenu(tr("&File"));
-  fileMenu_->addAction(openAct_);
-  fileMenu_->addAction(saveAct_);
-  fileMenu_->addAction(printAct_);
-  fileMenu_->addSeparator();
-  fileMenu_->addAction(exitAct_);
-
-  gameMenu_ = menuBar()->addMenu(tr("&Game"));
-  gameMenu_->addAction(defineGame_);
-  gameMenu_->addAction(executeGame_);
-  gameMenu_->addAction(pauseGame_);
 }
 
 void MainWindow::stopPlaying()
@@ -209,6 +354,9 @@ void MainWindow::stopPlaying()
       QString().setNum( game_.getIterations() ) + tr( " iterations." );
   statusBar()->showMessage( s );
   setPlayActionToPlay( false);
+  saveOutputAction_->setDisabled( false );
+  game_.output();
+  resetCout();
 }
 
 void MainWindow::setPlayActionToPlay( bool enabled )

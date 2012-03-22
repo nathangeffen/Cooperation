@@ -14,6 +14,7 @@ public:
   void registerCompetitorType( Competitor* competitor );
   void addCompetitor( const competitor_ptr& competitor );
   void setCompetitors( const vector <int>& nCompetitors );
+  void setCompetitors( const map<string, int>& nCompetitorsMap );
   void setRandomSeed( int randomSeed );
   void shuffleCompetitors();
   int getNumberCompetitors() const { return nCompetitors_; }
@@ -21,6 +22,7 @@ public:
   Competitor& getCompetitor( int i ) const {return *competitors_[i]; }
   void executeRound( bool print_contests_csv = true );
   void play( bool print_contests_csv = true );
+  void csvHeader();
   int getIterations() const { return nIterations_; }
   int minScore() const;
   int maxScore() const;

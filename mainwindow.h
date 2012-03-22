@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <iostream>
+#include <sstream>
+
 #include <QtGui>
 #include "common.h"
 #include "game.h"
@@ -17,18 +20,16 @@ public:
   Game& getGame() const { return game_; }
 
 private slots:
-  void open();
-  void save();
-  void print();
+  void openGameDefinition();
+  void saveGameDefinition();
+  void saveGameOutput();
 
-  void defineGameDialog();
+  void newGameDialog();
   void executeGame();
   void pauseGame();
   void stopPlaying();
 
 private:
-  void setPlayActionToPlay( bool enabled = true );
-  void setPlayActionToPause( bool enabled = false );
   bool inProgress_;
 
   Game& game_;
@@ -36,31 +37,45 @@ private:
   QMenu* gameMenu_;
   GuiPlay* guiPlay_;
 
-  QAction* openAct_;
-  QAction* saveAct_;
-  QAction* printAct_;
-  QAction* exitAct_;
-
-  QAction* defineGame_;
-  QAction* executeGame_;
-  QAction* pauseGame_;
-  QProgressBar* progressBar_;
-  QToolBar* toolBar_;
-  QIcon* playIcon_;
-  QIcon* pauseIcon_;
+  QPixmap* openGamePixmap_;
+  QPixmap* saveGamePixmap_;
+  QPixmap* saveOutputPixmap_;
+  QPixmap* newGamePixmap_;
   QPixmap* playPixmap_;
   QPixmap* pausePixmap_;
+
+  QIcon* openGameIcon_;
+  QIcon* saveGameIcon_;
+  QIcon* saveOutputIcon_;
+  QIcon* newGameIcon_;
+  QIcon* playIcon_;
+  QIcon* pauseIcon_;
+
+  QAction* openGameAction_;
+  QAction* saveGameAction_;
+  QAction* saveOutputAction_;
+  QAction* newGameAction_;
   QAction* playAction_;
+
+  QToolBar* toolBar_;
+
+  QProgressBar* progressBar_;
+
 
   DisplayMethodology displayMethodology_;
   int updateFrequency_;
   int timer_;
   bool firstTime_;
   map <QString, QColor > colors_;
+  std::streambuf *outputBuffer_, *coutBackup_;
+  std::stringstream outputStream_;
 
+  void setPlayActionToPlay( bool enabled = true );
+  void setPlayActionToPause( bool enabled = false );
   void drawGameGrid();
-  void createMenus();
-  void createActions();
+  void setupToolBar();
+  void redirectCout();
+  void resetCout();
 };
 
 #endif // MAINWINDOW_H

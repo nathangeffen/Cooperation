@@ -1,0 +1,10 @@
+-* Remove menu
+-* Define game button
+* Save buttons
+  - Save game definition
+  - Save outputs
+* Load game definition
+* Pavlov competitor
+* Move game code into separate folder to gui
+* Doxygen & fix code & code names
+* Readme

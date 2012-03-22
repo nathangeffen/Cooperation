@@ -66,6 +66,20 @@ void Game::setCompetitors( const vector<int>& nCompetitors )
   }
 }
 
+void Game::setCompetitors( const map<string, int>& nCompetitorsMap )
+{
+  for( auto it = nCompetitorsMap.begin(); it != nCompetitorsMap.end(); ++it ) {
+    auto c = registeredCompetitors.find( QString().fromStdString(it->first) );
+    if ( c != registeredCompetitors.end() ) {
+      for ( int i = 0; i < it->second; i++ ) {
+        addCompetitor( c->second );
+      }
+    } else {
+      throw string( "Unknown competitor: ") + it->first;
+    }
+  }
+}
+
 void Game::setRandomSeed( int randomSeed ) {
   randomSeed_ = randomSeed;
   mersenne_twister.seed( randomSeed_);
@@ -99,12 +113,17 @@ void Game::shuffleCompetitors()
 void Game::play( bool print_contests_csv )
 {
   if ( print_contests_csv ) {
-    cout << "Match, Player1, Id1, Player2, Id2, Output1, Output2, Score1, Score2" << endl;
+    csvHeader();
   }
 
   for ( int i = 0; i < nIterations_; i++ ) {
     executeRound(print_contests_csv);
   }
+}
+
+void Game::csvHeader()
+{
+  cout << "Match, Player1, Id1, Player2, Id2, Output1, Output2, Score1, Score2" << endl;
 }
 
 void Game::executeRound(bool print_contests_csv)
