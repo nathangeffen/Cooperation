@@ -1,6 +1,7 @@
 *.o
 *.user
 *~
+todo.txt
 cooperation
 output
 output.csv
