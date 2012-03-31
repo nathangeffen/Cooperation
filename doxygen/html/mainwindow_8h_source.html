@@ -94,77 +94,75 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00011"></a>00011 
 <a name="l00012"></a>00012 <span class="keyword">class </span><a class="code" href="class_gui_play.html">GuiPlay</a>;
 <a name="l00013"></a>00013 
-<a name="l00014"></a><a class="code" href="class_main_window.html">00014</a> <span class="keyword">class </span><a class="code" href="class_main_window.html">MainWindow</a> : <span class="keyword">public</span> QMainWindow
-<a name="l00015"></a>00015 {
-<a name="l00016"></a>00016   Q_OBJECT
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">public</span>:
-<a name="l00019"></a>00019   <a class="code" href="class_main_window.html#ac97b2dbf0bcea3618287c8becbae4c14">MainWindow</a>( <a class="code" href="class_game.html">Game</a>&amp; game );
-<a name="l00020"></a><a class="code" href="class_main_window.html#a23939ffce41e3ec9bbb176a77115d03e">00020</a>   <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a23939ffce41e3ec9bbb176a77115d03e">setGame</a>(<a class="code" href="class_game.html">Game</a>&amp; game) { game_ = game; }
-<a name="l00021"></a><a class="code" href="class_main_window.html#af47d4ab72271c8fc57079bdd4f0ecfb7">00021</a>   <a class="code" href="class_game.html">Game</a>&amp; <a class="code" href="class_main_window.html#af47d4ab72271c8fc57079bdd4f0ecfb7">getGame</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> game_; }
-<a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="keyword">private</span> slots:
-<a name="l00024"></a>00024   <span class="keywordtype">void</span> openGameDefinition();
-<a name="l00025"></a>00025   <span class="keywordtype">void</span> saveGameDefinition();
+<a name="l00017"></a><a class="code" href="class_main_window.html">00017</a> <span class="keyword">class </span><a class="code" href="class_main_window.html">MainWindow</a> : <span class="keyword">public</span> QMainWindow
+<a name="l00018"></a>00018 {
+<a name="l00019"></a>00019   Q_OBJECT
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keyword">public</span>:
+<a name="l00025"></a>00025   <a class="code" href="class_main_window.html#ac97b2dbf0bcea3618287c8becbae4c14">MainWindow</a>( <a class="code" href="class_game.html">Game</a>&amp; game );
 <a name="l00026"></a>00026 
-<a name="l00027"></a>00027   <span class="keywordtype">void</span> newGameDialog();
-<a name="l00028"></a>00028   <span class="keywordtype">void</span> executeGame();
-<a name="l00029"></a>00029   <span class="keywordtype">void</span> pauseGame();
-<a name="l00030"></a>00030   <span class="keywordtype">void</span> stopPlaying();
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">private</span>:
-<a name="l00033"></a>00033   <span class="keywordtype">bool</span> inProgress_;
+<a name="l00029"></a><a class="code" href="class_main_window.html#a23939ffce41e3ec9bbb176a77115d03e">00029</a>   <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a23939ffce41e3ec9bbb176a77115d03e">setGame</a>(<a class="code" href="class_game.html">Game</a>&amp; game) { game_ = game; }
+<a name="l00030"></a>00030 
+<a name="l00033"></a><a class="code" href="class_main_window.html#af47d4ab72271c8fc57079bdd4f0ecfb7">00033</a>   <a class="code" href="class_game.html">Game</a>&amp; <a class="code" href="class_main_window.html#af47d4ab72271c8fc57079bdd4f0ecfb7">getGame</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> game_; }
 <a name="l00034"></a>00034 
-<a name="l00035"></a>00035   <a class="code" href="class_game.html">Game</a>&amp; game_;
-<a name="l00036"></a>00036   QMenu* fileMenu_;
-<a name="l00037"></a>00037   QMenu* gameMenu_;
-<a name="l00038"></a>00038   <a class="code" href="class_gui_play.html">GuiPlay</a>* guiPlay_;
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040   QPixmap* openGamePixmap_;
-<a name="l00041"></a>00041   QPixmap* saveGamePixmap_;
-<a name="l00042"></a>00042   QPixmap* newGamePixmap_;
-<a name="l00043"></a>00043   QPixmap* playPixmap_;
-<a name="l00044"></a>00044   QPixmap* pausePixmap_;
-<a name="l00045"></a>00045 
-<a name="l00046"></a>00046   QIcon* openGameIcon_;
-<a name="l00047"></a>00047   QIcon* saveGameIcon_;
-<a name="l00048"></a>00048   QIcon* newGameIcon_;
-<a name="l00049"></a>00049   QIcon* playIcon_;
-<a name="l00050"></a>00050   QIcon* pauseIcon_;
+<a name="l00035"></a>00035 <span class="keyword">private</span> slots:
+<a name="l00036"></a>00036   <span class="keywordtype">void</span> openGameDefinition();
+<a name="l00037"></a>00037   <span class="keywordtype">void</span> saveGameDefinition();
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039   <span class="keywordtype">void</span> newGameDialog();
+<a name="l00040"></a>00040   <span class="keywordtype">void</span> executeGame();
+<a name="l00041"></a>00041   <span class="keywordtype">void</span> pauseGame();
+<a name="l00042"></a>00042   <span class="keywordtype">void</span> stopPlaying();
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 <span class="keyword">private</span>:
+<a name="l00045"></a>00045   <span class="keywordtype">bool</span> inProgress_;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047   <a class="code" href="class_game.html">Game</a>&amp; game_;
+<a name="l00048"></a>00048   QMenu* fileMenu_;
+<a name="l00049"></a>00049   QMenu* gameMenu_;
+<a name="l00050"></a>00050   <a class="code" href="class_gui_play.html">GuiPlay</a>* guiPlay_;
 <a name="l00051"></a>00051 
-<a name="l00052"></a>00052   QAction* openGameAction_;
-<a name="l00053"></a>00053   QAction* saveGameAction_;
-<a name="l00054"></a>00054   QAction* newGameAction_;
-<a name="l00055"></a>00055   QAction* playAction_;
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057   QToolBar* toolBar_;
-<a name="l00058"></a>00058 
-<a name="l00059"></a>00059   QProgressBar* progressBar_;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062   <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology_;
-<a name="l00063"></a>00063   <span class="keywordtype">int</span> updateFrequency_;
-<a name="l00064"></a>00064   <span class="keywordtype">int</span> timer_;
-<a name="l00065"></a>00065   <span class="keywordtype">bool</span> firstTime_;
-<a name="l00066"></a>00066   map &lt;QString, QColor &gt; colors_;
-<a name="l00067"></a>00067   std::streambuf *outputBuffer_, *coutBackup_;
-<a name="l00068"></a>00068   std::ofstream outputFile_;
+<a name="l00052"></a>00052   QTextEdit* helpText_;
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054   QIcon openGameIcon_;
+<a name="l00055"></a>00055   QIcon saveGameIcon_;
+<a name="l00056"></a>00056   QIcon newGameIcon_;
+<a name="l00057"></a>00057   QIcon playIcon_;
+<a name="l00058"></a>00058   QIcon pauseIcon_;
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060   QAction* openGameAction_;
+<a name="l00061"></a>00061   QAction* saveGameAction_;
+<a name="l00062"></a>00062   QAction* newGameAction_;
+<a name="l00063"></a>00063   QAction* playAction_;
+<a name="l00064"></a>00064 
+<a name="l00065"></a>00065   QToolBar* toolBar_;
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067   QProgressBar* progressBar_;
+<a name="l00068"></a>00068 
 <a name="l00069"></a>00069 
-<a name="l00070"></a>00070   <span class="keywordtype">void</span> setPlayActionToPlay( <span class="keywordtype">bool</span> enabled = <span class="keyword">true</span> );
-<a name="l00071"></a>00071   <span class="keywordtype">void</span> setPlayActionToPause( <span class="keywordtype">bool</span> enabled = <span class="keyword">false</span> );
-<a name="l00072"></a>00072   <span class="keywordtype">void</span> drawGameGrid();
-<a name="l00073"></a>00073   <span class="keywordtype">void</span> setupToolBar();
-<a name="l00074"></a>00074   <span class="keywordtype">void</span> redirectCout();
-<a name="l00075"></a>00075   <span class="keywordtype">void</span> resetCout();
-<a name="l00076"></a>00076 };
+<a name="l00070"></a>00070   <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology_;
+<a name="l00071"></a>00071   <span class="keywordtype">int</span> updateFrequency_;
+<a name="l00072"></a>00072   <span class="keywordtype">int</span> timer_;
+<a name="l00073"></a>00073   <span class="keywordtype">bool</span> firstTime_;
+<a name="l00074"></a>00074   map &lt;QString, QColor &gt; colors_;
+<a name="l00075"></a>00075   std::streambuf *outputBuffer_, *coutBackup_;
+<a name="l00076"></a>00076   std::ofstream outputFile_;
 <a name="l00077"></a>00077 
-<a name="l00078"></a>00078 <span class="preprocessor">#endif // MAINWINDOW_H</span>
+<a name="l00078"></a>00078   <span class="keywordtype">void</span> setPlayActionToPlay( <span class="keywordtype">bool</span> enabled = <span class="keyword">true</span> );
+<a name="l00079"></a>00079   <span class="keywordtype">void</span> setPlayActionToPause( <span class="keywordtype">bool</span> enabled = <span class="keyword">false</span> );
+<a name="l00080"></a>00080   <span class="keywordtype">void</span> drawGameGrid();
+<a name="l00081"></a>00081   <span class="keywordtype">void</span> setupToolBar();
+<a name="l00082"></a>00082   <span class="keywordtype">void</span> redirectCout();
+<a name="l00083"></a>00083   <span class="keywordtype">void</span> resetCout();
+<a name="l00084"></a>00084 };
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086 <span class="preprocessor">#endif // MAINWINDOW_H</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="mainwindow_8h.html">mainwindow.h</a>      </li>
-      <li class="footer">Generated on Sat Mar 31 2012 10:40:25 for Prisoner's Dilemna by&#160;
+      <li class="footer">Generated on Sun Apr 1 2012 01:05:06 for Prisoner's Dilemna by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

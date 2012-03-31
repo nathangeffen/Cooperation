@@ -1,4 +1,4 @@
-.TH "CompetitorShape" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.TH "CompetitorShape" 3 "Sun Apr 1 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -19,7 +19,7 @@ CompetitorShape \-
 
 .in +1c
 .ti -1c
-.RI "\fBCompetitorShape\fP (int initialLength, QColor &color, QWidget *parent=0)"
+.RI "\fBCompetitorShape\fP (int initialRadius, QColor &color, QWidget *parent=0)"
 .br
 .ti -1c
 .RI "void \fBsetRadius\fP (int radius)"
@@ -37,26 +37,28 @@ CompetitorShape \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 14 of file competitorshape.h.
+Class responsible for managing the shape of a competitor. 
+.PP
+Definition at line 23 of file competitorshape.h.
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "CompetitorShape::CompetitorShape (intinitialLength, QColor &color, QWidget *parent = \fC0\fP)"
+.SS "CompetitorShape::CompetitorShape (intinitialRadius, QColor &color, QWidget *parent = \fC0\fP)"Constructor that sets the initial radius of the shape and its color. 
 .PP
 Definition at line 6 of file competitorshape.cpp.
 .SH "Member Function Documentation"
 .PP 
 .SS "void CompetitorShape::executeUpdate ()\fC [inline, slot]\fP"
 .PP
-Definition at line 25 of file competitorshape.h.
+Definition at line 43 of file competitorshape.h.
 .SS "void CompetitorShape::paintEvent (QPaintEvent *)\fC [protected]\fP"
 .PP
 Definition at line 14 of file competitorshape.cpp.
-.SS "void CompetitorShape::setRadius (intradius)\fC [inline]\fP"
+.SS "void CompetitorShape::setRadius (intradius)\fC [inline]\fP"Sets a new radius for the shape. 
 .PP
-Definition at line 19 of file competitorshape.h.
-.SS "void CompetitorShape::setShape (\fBShape\fPshape)\fC [inline]\fP"
+Definition at line 34 of file competitorshape.h.
+.SS "void CompetitorShape::setShape (\fBShape\fPshape)\fC [inline]\fP"Changes the competitor's shape to the shape specified in the parameter. 
 .PP
-Definition at line 20 of file competitorshape.h.
+Definition at line 38 of file competitorshape.h.
 
 .SH "Author"
 .PP 

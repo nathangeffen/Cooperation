@@ -98,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00015"></a>00015                  QWidget *parent)
 <a name="l00016"></a>00016   : QWidget(parent), game_(game), time_(time), updateFrequency_(updateFrequency)
 <a name="l00017"></a>00017 {
-<a name="l00018"></a>00018   QGridLayout *playerSection = <span class="keyword">new</span> QGridLayout;
+<a name="l00018"></a>00018   QGridLayout *playerSection = <span class="keyword">new</span> QGridLayout( <span class="keyword">this</span> );
 <a name="l00019"></a>00019   setLayout(playerSection);
 <a name="l00020"></a>00020   paused_ = <span class="keyword">true</span>;
 <a name="l00021"></a>00021   stopped_ = <span class="keyword">true</span>;
@@ -142,7 +142,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00059"></a>00059   timerCount_ = 0;
 <a name="l00060"></a>00060   paused_ = <span class="keyword">false</span>;
 <a name="l00061"></a>00061   stopped_ = <span class="keyword">false</span>;
-<a name="l00062"></a>00062   timeBetweenRounds_-&gt;start(time_);
+<a name="l00062"></a>00062   timeBetweenRounds_-&gt;start();
 <a name="l00063"></a>00063 }
 <a name="l00064"></a>00064 
 <a name="l00065"></a><a class="code" href="class_gui_play.html#a28ceab1b46e252e30c9f7858450b0de9">00065</a> <span class="keywordtype">void</span> <a class="code" href="class_gui_play.html#a28ceab1b46e252e30c9f7858450b0de9">GuiPlay::pausePlaying</a>()
@@ -181,7 +181,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="guiplay_8cpp.html">guiplay.cpp</a>      </li>
-      <li class="footer">Generated on Sat Mar 31 2012 10:40:25 for Prisoner's Dilemna by&#160;
+      <li class="footer">Generated on Sun Apr 1 2012 01:05:06 for Prisoner's Dilemna by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

@@ -18,8 +18,6 @@ void \hyperlink{class_gui_play_a56e08410e19c420ee0b25864178c406c}{executeRound} 
 \item 
 void \hyperlink{class_gui_play_a84eda0efc5b7998010283eddfa9cf6b8}{runRound} (int, int, bool)
 \item 
-void \hyperlink{class_gui_play_a6cb81bd99ab909e863217bb5696455ab}{signalStartPlaying} ()
-\item 
 void \hyperlink{class_gui_play_abc7f6a475d57e71822b0dff2851497ad}{stopPlaying} ()
 \end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
@@ -36,9 +34,9 @@ QProgressBar $\ast$ \hyperlink{class_gui_play_aeb3c459efc257be1e8dd8846189fb98c}
 
 
 \subsection{Detailed Description}
+Instances of this class play the game of Prisoner's Dilemna using the GUI. 
 
-
-Definition at line 16 of file guiplay.h.
+Definition at line 19 of file guiplay.h.
 
 
 
@@ -57,6 +55,21 @@ Definition at line 16 of file guiplay.h.
 \end{DoxyParamCaption}
 )}}
 \label{class_gui_play_a763720422125bc6ddde93472bc161eee}
+The constructor takes several parameters.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em game} & a reference to an instance of \hyperlink{class_game}{Game} class. \\
+\hline
+\mbox{\tt in}  & {\em displayMethodology} & the type of method used to display the competitors int the GUI. \\
+\hline
+\mbox{\tt in}  & {\em time} & time between iterations, usually to 0 \\
+\hline
+\mbox{\tt in}  & {\em updateFrequency} & specifies the number of iterations to execute before updating the GUI, usually 1. \\
+\hline
+\mbox{\tt in}  & {\em colors} & map from QString to QColor specifying the color for each competitor type. \\
+\hline
+\end{DoxyParams}
 
 
 Definition at line 13 of file guiplay.cpp.
@@ -73,7 +86,7 @@ Definition at line 13 of file guiplay.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
 \label{class_gui_play_a56e08410e19c420ee0b25864178c406c}
-
+Plays one iteration of the game on the GUI. 
 
 Definition at line 77 of file guiplay.cpp.
 
@@ -86,9 +99,9 @@ Definition at line 77 of file guiplay.cpp.
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_gui_play_aeb3c459efc257be1e8dd8846189fb98c}
+Retrieves the progress bar used to indicate to the user how far the game still have to go before completion. 
 
-
-Definition at line 25 of file guiplay.h.
+Definition at line 51 of file guiplay.h.
 
 \hypertarget{class_gui_play_ae67f437ee24b0bc1758e2176b9c119d5}{
 \index{GuiPlay@{GuiPlay}!isPaused@{isPaused}}
@@ -99,9 +112,9 @@ Definition at line 25 of file guiplay.h.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_gui_play_ae67f437ee24b0bc1758e2176b9c119d5}
+Checks if the game is paused. 
 
-
-Definition at line 24 of file guiplay.h.
+Definition at line 46 of file guiplay.h.
 
 \hypertarget{class_gui_play_a28ceab1b46e252e30c9f7858450b0de9}{
 \index{GuiPlay@{GuiPlay}!pausePlaying@{pausePlaying}}
@@ -112,7 +125,7 @@ Definition at line 24 of file guiplay.h.
 \end{DoxyParamCaption}
 )}}
 \label{class_gui_play_a28ceab1b46e252e30c9f7858450b0de9}
-
+Pauses the game, usually when user toggles the play button on the GUI. 
 
 Definition at line 65 of file guiplay.cpp.
 
@@ -127,22 +140,9 @@ Definition at line 65 of file guiplay.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
 \label{class_gui_play_a84eda0efc5b7998010283eddfa9cf6b8}
+When this is emitted, every competitor widget is updated. 
 
-
-Definition at line 93 of file moc\_\-guiplay.cpp.
-
-\hypertarget{class_gui_play_a6cb81bd99ab909e863217bb5696455ab}{
-\index{GuiPlay@{GuiPlay}!signalStartPlaying@{signalStartPlaying}}
-\index{signalStartPlaying@{signalStartPlaying}!GuiPlay@{GuiPlay}}
-\subsubsection[{signalStartPlaying}]{\setlength{\rightskip}{0pt plus 5cm}void GuiPlay::signalStartPlaying (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
-\label{class_gui_play_a6cb81bd99ab909e863217bb5696455ab}
-
-
-Definition at line 100 of file moc\_\-guiplay.cpp.
+Definition at line 91 of file moc\_\-guiplay.cpp.
 
 \hypertarget{class_gui_play_a3ee52f6eafb9e770ac3c7c08338de5a0}{
 \index{GuiPlay@{GuiPlay}!startPlaying@{startPlaying}}
@@ -153,7 +153,7 @@ Definition at line 100 of file moc\_\-guiplay.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}slot\mbox{]}}}}
 \label{class_gui_play_a3ee52f6eafb9e770ac3c7c08338de5a0}
-
+Slot that starts playing the game on the GUI. 
 
 Definition at line 50 of file guiplay.cpp.
 
@@ -166,9 +166,9 @@ Definition at line 50 of file guiplay.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
 \label{class_gui_play_abc7f6a475d57e71822b0dff2851497ad}
+Used the mainWindow as a signal to its stopPlaying slot. 
 
-
-Definition at line 106 of file moc\_\-guiplay.cpp.
+Definition at line 98 of file moc\_\-guiplay.cpp.
 
 
 

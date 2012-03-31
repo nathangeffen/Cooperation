@@ -14,7 +14,7 @@ void \hyperlink{class_competitor_shape_a31047bfe507825f68a8be6f0e049f24d}{execut
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_competitor_shape_a14c22d71983b4af0ff1a5c79d9a09f26}{CompetitorShape} (int initialLength, QColor \&color, QWidget $\ast$parent=0)
+\hyperlink{class_competitor_shape_a39e77ba8fc8ff7496fc7bfc49dd4f428}{CompetitorShape} (int initialRadius, QColor \&color, QWidget $\ast$parent=0)
 \item 
 void \hyperlink{class_competitor_shape_aaf524721fabe4ea41932e0e6f0f7fa40}{setRadius} (int radius)
 \item 
@@ -28,25 +28,25 @@ void \hyperlink{class_competitor_shape_a6500304e1d7e51046e3852b4a04dcbe4}{paintE
 
 
 \subsection{Detailed Description}
+Class responsible for managing the shape of a competitor. 
 
-
-Definition at line 14 of file competitorshape.h.
+Definition at line 23 of file competitorshape.h.
 
 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_competitor_shape_a14c22d71983b4af0ff1a5c79d9a09f26}{
+\hypertarget{class_competitor_shape_a39e77ba8fc8ff7496fc7bfc49dd4f428}{
 \index{CompetitorShape@{CompetitorShape}!CompetitorShape@{CompetitorShape}}
 \index{CompetitorShape@{CompetitorShape}!CompetitorShape@{CompetitorShape}}
 \subsubsection[{CompetitorShape}]{\setlength{\rightskip}{0pt plus 5cm}CompetitorShape::CompetitorShape (
 \begin{DoxyParamCaption}
-\item[{int}]{initialLength, }
+\item[{int}]{initialRadius, }
 \item[{QColor \&}]{color, }
 \item[{QWidget $\ast$}]{parent = {\ttfamily 0}}
 \end{DoxyParamCaption}
 )}}
-\label{class_competitor_shape_a14c22d71983b4af0ff1a5c79d9a09f26}
-
+\label{class_competitor_shape_a39e77ba8fc8ff7496fc7bfc49dd4f428}
+Constructor that sets the initial radius of the shape and its color. 
 
 Definition at line 6 of file competitorshape.cpp.
 
@@ -64,7 +64,7 @@ Definition at line 6 of file competitorshape.cpp.
 \label{class_competitor_shape_a31047bfe507825f68a8be6f0e049f24d}
 
 
-Definition at line 25 of file competitorshape.h.
+Definition at line 43 of file competitorshape.h.
 
 \hypertarget{class_competitor_shape_a6500304e1d7e51046e3852b4a04dcbe4}{
 \index{CompetitorShape@{CompetitorShape}!paintEvent@{paintEvent}}
@@ -88,9 +88,9 @@ Definition at line 14 of file competitorshape.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_competitor_shape_aaf524721fabe4ea41932e0e6f0f7fa40}
+Sets a new radius for the shape. 
 
-
-Definition at line 19 of file competitorshape.h.
+Definition at line 34 of file competitorshape.h.
 
 \hypertarget{class_competitor_shape_a76059e0a7e097e44d1fa29c8cdb9ff80}{
 \index{CompetitorShape@{CompetitorShape}!setShape@{setShape}}
@@ -101,9 +101,9 @@ Definition at line 19 of file competitorshape.h.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_competitor_shape_a76059e0a7e097e44d1fa29c8cdb9ff80}
+Changes the competitor's shape to the shape specified in the parameter. 
 
-
-Definition at line 20 of file competitorshape.h.
+Definition at line 38 of file competitorshape.h.
 
 
 

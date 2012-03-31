@@ -1,4 +1,4 @@
-.TH "MainWindow" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.TH "MainWindow" 3 "Sun Apr 1 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -23,20 +23,22 @@ MainWindow \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 14 of file mainwindow.h.
+Main window of the GUI. 
+.PP
+Definition at line 17 of file mainwindow.h.
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "MainWindow::MainWindow (\fBGame\fP &game)"
+.SS "MainWindow::MainWindow (\fBGame\fP &game)"Every main window keeps an instance of a \fBGame\fP that is passed to the constructor. 
 .PP
 Definition at line 17 of file mainwindow.cpp.
 .SH "Member Function Documentation"
 .PP 
-.SS "\fBGame\fP& MainWindow::getGame () const\fC [inline]\fP"
+.SS "\fBGame\fP& MainWindow::getGame () const\fC [inline]\fP"Retrieve the main window's game instance. 
 .PP
-Definition at line 21 of file mainwindow.h.
-.SS "void MainWindow::setGame (\fBGame\fP &game)\fC [inline]\fP"
+Definition at line 33 of file mainwindow.h.
+.SS "void MainWindow::setGame (\fBGame\fP &game)\fC [inline]\fP"Change the main window's game instance. 
 .PP
-Definition at line 20 of file mainwindow.h.
+Definition at line 29 of file mainwindow.h.
 
 .SH "Author"
 .PP 

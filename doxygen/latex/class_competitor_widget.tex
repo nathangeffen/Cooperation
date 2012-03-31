@@ -11,49 +11,45 @@
 \item 
 void \hyperlink{class_competitor_widget_a92ca3213de6dd2fa310cb4cd2b709422}{executeUpdate} (int min\_\-score, int max\_\-score, bool updateScore)
 \end{DoxyCompactItemize}
-\subsection*{Signals}
-\begin{DoxyCompactItemize}
-\item 
-void \hyperlink{class_competitor_widget_abcad447a64b4f728cce7c6bee676fd0b}{sendUpdate} ()
-\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_competitor_widget_a17095373d11b29b5d3fa03f4ed54db32}{CompetitorWidget} (int circleSize, \hyperlink{class_competitor}{Competitor} \&competitor, \hyperlink{guicommon_8h_ab73f4a618a1a86d78e9cc82ff1c376df}{DisplayMethodology} displayMethodology, QColor color, QWidget $\ast$parent=0)
-\item 
-void \hyperlink{class_competitor_widget_ad0c35ac6b0e2a2b7507f1ce41a956c5b}{setMaxScore} (int max\_\-score)
-\item 
-void \hyperlink{class_competitor_widget_a9692e0db6844444a82c857a767781a3e}{setMinScore} (int min\_\-score)
-\item 
-void \hyperlink{class_competitor_widget_a72aa5486d6b0b7c2f1ef127d8a663661}{updateUsingRatio} ()
-\item 
-void \hyperlink{class_competitor_widget_acbcc082639251e7107a738bca6b97190}{updateUsingRank} ()
-\item 
-void \hyperlink{class_competitor_widget_a0700b92a8a5e76a8f01e358ecbd52f3b}{updateUsingRationNormalizedToZero} ()
+\hyperlink{class_competitor_widget_ab74c5e087edd81103532188a3d3c6226}{CompetitorWidget} (int maxDiameter, \hyperlink{class_competitor}{Competitor} \&competitor, \hyperlink{guicommon_8h_ab73f4a618a1a86d78e9cc82ff1c376df}{DisplayMethodology} displayMethodology, QColor color, QWidget $\ast$parent=0)
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
+Manages the widget used to represent a competitor. 
 
-
-Definition at line 13 of file competitorwidget.h.
+Definition at line 16 of file competitorwidget.h.
 
 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_competitor_widget_a17095373d11b29b5d3fa03f4ed54db32}{
+\hypertarget{class_competitor_widget_ab74c5e087edd81103532188a3d3c6226}{
 \index{CompetitorWidget@{CompetitorWidget}!CompetitorWidget@{CompetitorWidget}}
 \index{CompetitorWidget@{CompetitorWidget}!CompetitorWidget@{CompetitorWidget}}
 \subsubsection[{CompetitorWidget}]{\setlength{\rightskip}{0pt plus 5cm}CompetitorWidget::CompetitorWidget (
 \begin{DoxyParamCaption}
-\item[{int}]{circleSize, }
+\item[{int}]{maxDiameter, }
 \item[{{\bf Competitor} \&}]{competitor, }
 \item[{{\bf DisplayMethodology}}]{displayMethodology, }
 \item[{QColor}]{color, }
 \item[{QWidget $\ast$}]{parent = {\ttfamily 0}}
 \end{DoxyParamCaption}
 )}}
-\label{class_competitor_widget_a17095373d11b29b5d3fa03f4ed54db32}
+\label{class_competitor_widget_ab74c5e087edd81103532188a3d3c6226}
+Constructs the widget. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em maxDiameter} & the maximum diameter of the shape of the widget. \\
+\hline
+\mbox{\tt in}  & {\em competitor} & associated with this widget. \\
+\hline
+\mbox{\tt in}  & {\em displayMethodology} & how to display the competitors relative to each others scores. \\
+\hline
+\mbox{\tt in}  & {\em color} & of the widget \\
+\hline
+\end{DoxyParams}
 
 
 Definition at line 10 of file competitorwidget.cpp.
@@ -74,90 +70,11 @@ Definition at line 10 of file competitorwidget.cpp.
 \label{class_competitor_widget_a92ca3213de6dd2fa310cb4cd2b709422}
 
 
-Definition at line 45 of file competitorwidget.cpp.
-
-\hypertarget{class_competitor_widget_abcad447a64b4f728cce7c6bee676fd0b}{
-\index{CompetitorWidget@{CompetitorWidget}!sendUpdate@{sendUpdate}}
-\index{sendUpdate@{sendUpdate}!CompetitorWidget@{CompetitorWidget}}
-\subsubsection[{sendUpdate}]{\setlength{\rightskip}{0pt plus 5cm}void CompetitorWidget::sendUpdate (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
-\label{class_competitor_widget_abcad447a64b4f728cce7c6bee676fd0b}
-
-
-Definition at line 87 of file moc\_\-competitorwidget.cpp.
-
-\hypertarget{class_competitor_widget_ad0c35ac6b0e2a2b7507f1ce41a956c5b}{
-\index{CompetitorWidget@{CompetitorWidget}!setMaxScore@{setMaxScore}}
-\index{setMaxScore@{setMaxScore}!CompetitorWidget@{CompetitorWidget}}
-\subsubsection[{setMaxScore}]{\setlength{\rightskip}{0pt plus 5cm}void CompetitorWidget::setMaxScore (
-\begin{DoxyParamCaption}
-\item[{int}]{max\_\-score}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
-\label{class_competitor_widget_ad0c35ac6b0e2a2b7507f1ce41a956c5b}
-
-
-Definition at line 20 of file competitorwidget.h.
-
-\hypertarget{class_competitor_widget_a9692e0db6844444a82c857a767781a3e}{
-\index{CompetitorWidget@{CompetitorWidget}!setMinScore@{setMinScore}}
-\index{setMinScore@{setMinScore}!CompetitorWidget@{CompetitorWidget}}
-\subsubsection[{setMinScore}]{\setlength{\rightskip}{0pt plus 5cm}void CompetitorWidget::setMinScore (
-\begin{DoxyParamCaption}
-\item[{int}]{min\_\-score}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
-\label{class_competitor_widget_a9692e0db6844444a82c857a767781a3e}
-
-
-Definition at line 21 of file competitorwidget.h.
-
-\hypertarget{class_competitor_widget_acbcc082639251e7107a738bca6b97190}{
-\index{CompetitorWidget@{CompetitorWidget}!updateUsingRank@{updateUsingRank}}
-\index{updateUsingRank@{updateUsingRank}!CompetitorWidget@{CompetitorWidget}}
-\subsubsection[{updateUsingRank}]{\setlength{\rightskip}{0pt plus 5cm}void CompetitorWidget::updateUsingRank (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_competitor_widget_acbcc082639251e7107a738bca6b97190}
-
-
-Definition at line 106 of file competitorwidget.cpp.
-
-\hypertarget{class_competitor_widget_a72aa5486d6b0b7c2f1ef127d8a663661}{
-\index{CompetitorWidget@{CompetitorWidget}!updateUsingRatio@{updateUsingRatio}}
-\index{updateUsingRatio@{updateUsingRatio}!CompetitorWidget@{CompetitorWidget}}
-\subsubsection[{updateUsingRatio}]{\setlength{\rightskip}{0pt plus 5cm}void CompetitorWidget::updateUsingRatio (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_competitor_widget_a72aa5486d6b0b7c2f1ef127d8a663661}
-
-
-Definition at line 85 of file competitorwidget.cpp.
-
-\hypertarget{class_competitor_widget_a0700b92a8a5e76a8f01e358ecbd52f3b}{
-\index{CompetitorWidget@{CompetitorWidget}!updateUsingRationNormalizedToZero@{updateUsingRationNormalizedToZero}}
-\index{updateUsingRationNormalizedToZero@{updateUsingRationNormalizedToZero}!CompetitorWidget@{CompetitorWidget}}
-\subsubsection[{updateUsingRationNormalizedToZero}]{\setlength{\rightskip}{0pt plus 5cm}void CompetitorWidget::updateUsingRationNormalizedToZero (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_competitor_widget_a0700b92a8a5e76a8f01e358ecbd52f3b}
-
-
-Definition at line 95 of file competitorwidget.cpp.
+Definition at line 44 of file competitorwidget.cpp.
 
 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
 /home/nathan/workspace/cooperation/\hyperlink{competitorwidget_8h}{competitorwidget.h}\item 
-/home/nathan/workspace/cooperation/\hyperlink{competitorwidget_8cpp}{competitorwidget.cpp}\item 
-/home/nathan/workspace/cooperation/release/\hyperlink{moc__competitorwidget_8cpp}{moc\_\-competitorwidget.cpp}\end{DoxyCompactItemize}
+/home/nathan/workspace/cooperation/\hyperlink{competitorwidget_8cpp}{competitorwidget.cpp}\end{DoxyCompactItemize}

@@ -96,45 +96,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00013"></a>00013 
 <a name="l00014"></a>00014 <span class="keyword">using namespace </span>std;
 <a name="l00015"></a>00015 
-<a name="l00016"></a><a class="code" href="class_gui_play.html">00016</a> <span class="keyword">class </span><a class="code" href="class_gui_play.html">GuiPlay</a>: <span class="keyword">public</span> QWidget
-<a name="l00017"></a>00017 {
-<a name="l00018"></a>00018   Q_OBJECT
-<a name="l00019"></a>00019 <span class="keyword">public</span>:
-<a name="l00020"></a>00020   <a class="code" href="class_gui_play.html">GuiPlay</a>(<a class="code" href="class_game.html">Game</a>&amp; game, <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology,
-<a name="l00021"></a>00021           <span class="keywordtype">int</span> time, <span class="keywordtype">int</span> updateFrequency, map &lt; QString, QColor &gt;&amp; colors,
-<a name="l00022"></a>00022           QWidget *parent = 0);
-<a name="l00023"></a>00023   <span class="keywordtype">void</span> pausePlaying();
-<a name="l00024"></a><a class="code" href="class_gui_play.html#ae67f437ee24b0bc1758e2176b9c119d5">00024</a>   <span class="keywordtype">bool</span> <a class="code" href="class_gui_play.html#ae67f437ee24b0bc1758e2176b9c119d5">isPaused</a>() { <span class="keywordflow">return</span> paused_; }
-<a name="l00025"></a><a class="code" href="class_gui_play.html#aeb3c459efc257be1e8dd8846189fb98c">00025</a>   QProgressBar* <a class="code" href="class_gui_play.html#aeb3c459efc257be1e8dd8846189fb98c">getProgressBar</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> progressBar_; }
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 signals:
-<a name="l00028"></a>00028   <span class="keywordtype">void</span> runRound(<span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">bool</span>);
-<a name="l00029"></a>00029   <span class="keywordtype">void</span> signalStartPlaying();
-<a name="l00030"></a>00030   <span class="keywordtype">void</span> stopPlaying();
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 <span class="keyword">public</span> slots:
-<a name="l00033"></a>00033   <span class="keywordtype">void</span> startPlaying();
-<a name="l00034"></a>00034   <span class="keywordtype">void</span> executeRound();
-<a name="l00035"></a>00035 
-<a name="l00036"></a>00036 <span class="keyword">private</span>:
-<a name="l00037"></a>00037   QTimer* timeBetweenRounds_;
-<a name="l00038"></a>00038   QProgressBar* progressBar_;
-<a name="l00039"></a>00039   <a class="code" href="class_game.html">Game</a>&amp; game_;
-<a name="l00040"></a>00040   QVector&lt;CompetitorWidget*&gt; competitorWidgets_;
-<a name="l00041"></a>00041   <span class="keywordtype">int</span> timerCount_;
-<a name="l00042"></a>00042   <span class="keywordtype">int</span> time_;
-<a name="l00043"></a>00043   <span class="keywordtype">int</span> updateFrequency_;
-<a name="l00044"></a>00044   <span class="keywordtype">bool</span> paused_;
-<a name="l00045"></a>00045   <span class="keywordtype">bool</span> stopped_;
-<a name="l00046"></a>00046 };
+<a name="l00019"></a><a class="code" href="class_gui_play.html">00019</a> <span class="keyword">class </span><a class="code" href="class_gui_play.html">GuiPlay</a>: <span class="keyword">public</span> QWidget
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021   Q_OBJECT
+<a name="l00022"></a>00022 <span class="keyword">public</span>:
+<a name="l00023"></a>00023 
+<a name="l00036"></a>00036   <a class="code" href="class_gui_play.html">GuiPlay</a>(<a class="code" href="class_game.html">Game</a>&amp; game, <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology,
+<a name="l00037"></a>00037           <span class="keywordtype">int</span> time, <span class="keywordtype">int</span> updateFrequency, map &lt; QString, QColor &gt;&amp; colors,
+<a name="l00038"></a>00038           QWidget *parent = 0);
+<a name="l00039"></a>00039 
+<a name="l00042"></a>00042   <span class="keywordtype">void</span> pausePlaying();
+<a name="l00043"></a>00043 
+<a name="l00046"></a><a class="code" href="class_gui_play.html#ae67f437ee24b0bc1758e2176b9c119d5">00046</a>   <span class="keywordtype">bool</span> <a class="code" href="class_gui_play.html#ae67f437ee24b0bc1758e2176b9c119d5">isPaused</a>() { <span class="keywordflow">return</span> paused_; }
 <a name="l00047"></a>00047 
-<a name="l00048"></a>00048 <span class="preprocessor">#endif // GAMELAYOUT_H</span>
+<a name="l00051"></a><a class="code" href="class_gui_play.html#aeb3c459efc257be1e8dd8846189fb98c">00051</a>   QProgressBar* <a class="code" href="class_gui_play.html#aeb3c459efc257be1e8dd8846189fb98c">getProgressBar</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> progressBar_; }
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053 signals:
+<a name="l00054"></a>00054 
+<a name="l00057"></a>00057   <span class="keywordtype">void</span> runRound(<span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">bool</span>);
+<a name="l00058"></a>00058 
+<a name="l00061"></a>00061   <span class="keywordtype">void</span> stopPlaying();
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063 <span class="keyword">public</span> slots:
+<a name="l00066"></a>00066   <span class="keywordtype">void</span> startPlaying();
+<a name="l00069"></a>00069   <span class="keywordtype">void</span> executeRound();
+<a name="l00070"></a>00070 
+<a name="l00071"></a>00071 <span class="keyword">private</span>:
+<a name="l00072"></a>00072   QTimer* timeBetweenRounds_;
+<a name="l00073"></a>00073   QProgressBar* progressBar_;
+<a name="l00074"></a>00074   <a class="code" href="class_game.html">Game</a>&amp; game_;
+<a name="l00075"></a>00075   QVector&lt;CompetitorWidget*&gt; competitorWidgets_;
+<a name="l00076"></a>00076   <span class="keywordtype">int</span> timerCount_;
+<a name="l00077"></a>00077   <span class="keywordtype">int</span> time_;
+<a name="l00078"></a>00078   <span class="keywordtype">int</span> updateFrequency_;
+<a name="l00079"></a>00079   <span class="keywordtype">bool</span> paused_;
+<a name="l00080"></a>00080   <span class="keywordtype">bool</span> stopped_;
+<a name="l00081"></a>00081 };
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083 <span class="preprocessor">#endif // GAMELAYOUT_H</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="guiplay_8h.html">guiplay.h</a>      </li>
-      <li class="footer">Generated on Sat Mar 31 2012 10:40:25 for Prisoner's Dilemna by&#160;
+      <li class="footer">Generated on Sun Apr 1 2012 01:05:06 for Prisoner's Dilemna by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

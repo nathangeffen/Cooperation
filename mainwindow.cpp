@@ -44,8 +44,31 @@ MainWindow::MainWindow(Game& game) : game_(game)
 
   setupToolBar();
 
-  QWidget* widget = new QWidget( this );
-  setCentralWidget( widget );
+  QString helpText = "<h1>Welcome to Cooperation</h1>\n"
+    "<h2>An implementation of the Prisoner's Dilemna game</h2>\n"
+    "<ul>\n"
+    "<li><b>CTRL-n</b> Define a new game</li>\n"
+    "<li><b>CTRL-o</b> Open a saved game definition</li>"
+    "<li><b>CTRL-s</b> Save game definition (only active once a game has been defined)</li>\n"
+    "<li><b>CTRL-p</b> Play a game (only active once a game has been defined or opened)</li>\n"
+    "</ul>\n"
+    "<p>Match results and game statistics are written to the logfile <i>prisonerslog.csv</i></p>\n"
+    "<p>See the README file for more information.</p>"
+    "<p>This software is still under development. It comes with absolutely no guarantees. "
+    "If you want to help improve it please fork "
+    "<a href='http://github.com/nathangeffen/Cooperation'>http://github.com/nathangeffen/Cooperation</p>"
+    "<p>If you wish to learn more about the Prisoner's Dilemna game, here are some useful webpages:</p>"
+    "<ul><li><a href='http://en.wikipedia.org/wiki/Prisoner%27s_Dilemna'>http://en.wikipedia.org/wiki/Prisoner%27s_Dilemna</a></li>"
+    "<li><a href='http://plato.stanford.edu/entries/prisoner-dilemma'>http://plato.stanford.edu/entries/prisoner-dilemma</a></li>"
+    "</ul>"
+    "<p>Copyright (C) Nathan Geffen 2012. "
+    "This is free software published under the "
+    "GNU General Public License version 3.</p>"
+    "<p>Send questions, queries and comments to nathangeffen at gmail.com</p>"
+      ;
+  helpText_ = new QTextEdit( helpText, this );
+  helpText_->setReadOnly( true );
+  setCentralWidget( helpText_ );
   guiPlay_ = 0;
 
   this->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);

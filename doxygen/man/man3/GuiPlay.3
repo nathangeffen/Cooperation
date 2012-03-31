@@ -1,4 +1,4 @@
-.TH "GuiPlay" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.TH "GuiPlay" 3 "Sun Apr 1 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -25,9 +25,6 @@ GuiPlay \-
 .RI "void \fBrunRound\fP (int, int, bool)"
 .br
 .ti -1c
-.RI "void \fBsignalStartPlaying\fP ()"
-.br
-.ti -1c
 .RI "void \fBstopPlaying\fP ()"
 .br
 .in -1c
@@ -49,38 +46,52 @@ GuiPlay \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 16 of file guiplay.h.
+Instances of this class play the game of Prisoner's Dilemna using the GUI. 
+.PP
+Definition at line 19 of file guiplay.h.
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "GuiPlay::GuiPlay (\fBGame\fP &game, \fBDisplayMethodology\fPdisplayMethodology, inttime, intupdateFrequency, map< QString, QColor > &colors, QWidget *parent = \fC0\fP)"
+.SS "GuiPlay::GuiPlay (\fBGame\fP &game, \fBDisplayMethodology\fPdisplayMethodology, inttime, intupdateFrequency, map< QString, QColor > &colors, QWidget *parent = \fC0\fP)"The constructor takes several parameters.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIgame\fP a reference to an instance of \fBGame\fP class. 
+.br
+\fIdisplayMethodology\fP the type of method used to display the competitors int the GUI. 
+.br
+\fItime\fP time between iterations, usually to 0 
+.br
+\fIupdateFrequency\fP specifies the number of iterations to execute before updating the GUI, usually 1. 
+.br
+\fIcolors\fP map from QString to QColor specifying the color for each competitor type. 
+.RE
+.PP
+
 .PP
 Definition at line 13 of file guiplay.cpp.
 .SH "Member Function Documentation"
 .PP 
-.SS "void GuiPlay::executeRound ()\fC [slot]\fP"
+.SS "void GuiPlay::executeRound ()\fC [slot]\fP"Plays one iteration of the game on the GUI. 
 .PP
 Definition at line 77 of file guiplay.cpp.
-.SS "QProgressBar* GuiPlay::getProgressBar () const\fC [inline]\fP"
+.SS "QProgressBar* GuiPlay::getProgressBar () const\fC [inline]\fP"Retrieves the progress bar used to indicate to the user how far the game still have to go before completion. 
 .PP
-Definition at line 25 of file guiplay.h.
-.SS "bool GuiPlay::isPaused ()\fC [inline]\fP"
+Definition at line 51 of file guiplay.h.
+.SS "bool GuiPlay::isPaused ()\fC [inline]\fP"Checks if the game is paused. 
 .PP
-Definition at line 24 of file guiplay.h.
-.SS "void GuiPlay::pausePlaying ()"
+Definition at line 46 of file guiplay.h.
+.SS "void GuiPlay::pausePlaying ()"Pauses the game, usually when user toggles the play button on the GUI. 
 .PP
 Definition at line 65 of file guiplay.cpp.
-.SS "void GuiPlay::runRound (int_t1, int_t2, bool_t3)\fC [signal]\fP"
+.SS "void GuiPlay::runRound (int_t1, int_t2, bool_t3)\fC [signal]\fP"When this is emitted, every competitor widget is updated. 
 .PP
-Definition at line 93 of file moc_guiplay.cpp.
-.SS "void GuiPlay::signalStartPlaying ()\fC [signal]\fP"
-.PP
-Definition at line 100 of file moc_guiplay.cpp.
-.SS "void GuiPlay::startPlaying ()\fC [slot]\fP"
+Definition at line 91 of file moc_guiplay.cpp.
+.SS "void GuiPlay::startPlaying ()\fC [slot]\fP"Slot that starts playing the game on the GUI. 
 .PP
 Definition at line 50 of file guiplay.cpp.
-.SS "void GuiPlay::stopPlaying ()\fC [signal]\fP"
+.SS "void GuiPlay::stopPlaying ()\fC [signal]\fP"Used the mainWindow as a signal to its stopPlaying slot. 
 .PP
-Definition at line 106 of file moc_guiplay.cpp.
+Definition at line 98 of file moc_guiplay.cpp.
 
 .SH "Author"
 .PP 

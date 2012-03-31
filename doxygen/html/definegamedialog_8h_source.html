@@ -83,94 +83,108 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <a href="definegamedialog_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef DEFINEGAMEDIALOGUE_H</span>
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define DEFINEGAMEDIALOGUE_H</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;map&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;vector&gt;</span>
-<a name="l00006"></a>00006 
-<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;QtGui&gt;</span>
-<a name="l00008"></a>00008 
-<a name="l00009"></a>00009 <span class="keyword">using namespace </span>std;
-<a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="class_color_pick_button.html">00011</a> <span class="keyword">class </span><a class="code" href="class_color_pick_button.html">ColorPickButton</a> : <span class="keyword">public</span> QPushButton
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013 <span class="keyword">public</span>:
-<a name="l00014"></a><a class="code" href="class_color_pick_button.html#a0b86dfd4cf468f41c33130998b967889">00014</a>   <a class="code" href="class_color_pick_button.html">ColorPickButton</a>( <span class="keywordtype">int</span> i, QWidget *parent ) :
-<a name="l00015"></a>00015     QPushButton(parent), index_(i) { setText( tr(<span class="stringliteral">&quot;Choose color&quot;</span>) ); }
-<a name="l00016"></a><a class="code" href="class_color_pick_button.html#a77a52520100d38a38b52ab094fab2cd6">00016</a>   <span class="keywordtype">int</span> <a class="code" href="class_color_pick_button.html#a77a52520100d38a38b52ab094fab2cd6">getIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index_; }
-<a name="l00017"></a>00017 <span class="keyword">private</span>:
-<a name="l00018"></a>00018   <span class="keywordtype">int</span> index_;
-<a name="l00019"></a>00019 };
-<a name="l00020"></a>00020 
-<a name="l00021"></a>00021 
-<a name="l00022"></a><a class="code" href="class_define_game_dialog.html">00022</a> <span class="keyword">class </span><a class="code" href="class_define_game_dialog.html">DefineGameDialog</a> : <span class="keyword">public</span> QDialog
-<a name="l00023"></a>00023 {
-<a name="l00024"></a>00024   Q_OBJECT
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="keyword">public</span>:
-<a name="l00027"></a>00027   <a class="code" href="class_define_game_dialog.html">DefineGameDialog</a>(QWidget* parent = 0);
-<a name="l00028"></a><a class="code" href="class_define_game_dialog.html#a33728191a5e1eeb299231366a34a7755">00028</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#a33728191a5e1eeb299231366a34a7755">setIterations</a>(<span class="keywordtype">int</span> i) { iterationsEdit_-&gt;setValue(i); }
-<a name="l00029"></a><a class="code" href="class_define_game_dialog.html#ae25df866135fe7bf0b0fbeb07e0afce8">00029</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#ae25df866135fe7bf0b0fbeb07e0afce8">setRandomSeed</a>( <span class="keywordtype">int</span> i ) { randomSeedEdit_-&gt;setValue(i); }
-<a name="l00030"></a><a class="code" href="class_define_game_dialog.html#ac3c15aa4373e80a2d1f48e351fbec22d">00030</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#ac3c15aa4373e80a2d1f48e351fbec22d">setUpdateFrequency</a>(<span class="keywordtype">int</span> i) { updateFrequencyEdit_-&gt;setValue(i); }
-<a name="l00031"></a><a class="code" href="class_define_game_dialog.html#a1f8fb573eed31f5ca51bab1fc95dfd96">00031</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#a1f8fb573eed31f5ca51bab1fc95dfd96">setUpdateStyle</a>(<span class="keywordtype">int</span> i) { updateStyleCombo_-&gt;setCurrentIndex(i); }
-<a name="l00032"></a>00032   <span class="keywordtype">void</span> setCompetitors( <span class="keyword">const</span> map&lt;QString, int&gt; nCompetitorsMap );
-<a name="l00033"></a>00033   <span class="keywordtype">void</span> setCompetitorColors( <span class="keyword">const</span> map&lt;QString, QColor&gt;&amp; colors );
-<a name="l00034"></a><a class="code" href="class_define_game_dialog.html#ab87cb307a2e7df3db01f011d4ec521f6">00034</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#ab87cb307a2e7df3db01f011d4ec521f6">setTimer</a>(<span class="keywordtype">int</span> i) { timerEdit_-&gt;setValue(i); }
-<a name="l00035"></a>00035   <span class="keywordtype">void</span> setNumberForAllCompetitors( <span class="keywordtype">int</span> i );
-<a name="l00036"></a>00036 
-<a name="l00037"></a><a class="code" href="class_define_game_dialog.html#aab8b573f7013cfc7517604f821846811">00037</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#aab8b573f7013cfc7517604f821846811">getIterations</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> iterationsEdit_-&gt;text().toInt(); }
-<a name="l00038"></a><a class="code" href="class_define_game_dialog.html#a92f8df459fdfe50d4970bc720cc49df5">00038</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#a92f8df459fdfe50d4970bc720cc49df5">getRandomSeed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> randomSeedEdit_-&gt;text().toInt(); }
-<a name="l00039"></a><a class="code" href="class_define_game_dialog.html#a7aa948035e602f797fb12cfcf35f1887">00039</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#a7aa948035e602f797fb12cfcf35f1887">getUpdateFrequency</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> updateFrequencyEdit_-&gt;text().toInt(); }
-<a name="l00040"></a><a class="code" href="class_define_game_dialog.html#ac876a8f37fcbb32d35fc7f5811709acd">00040</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#ac876a8f37fcbb32d35fc7f5811709acd">getUpdateStyle</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> updateStyleCombo_-&gt;currentIndex(); }
-<a name="l00041"></a><a class="code" href="class_define_game_dialog.html#a961536538a0eb16d9c309b1344b5da14">00041</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#a961536538a0eb16d9c309b1344b5da14">getTimer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> timerEdit_-&gt;text().toInt(); }
-<a name="l00042"></a>00042   vector&lt;int&gt; getCompetitors() <span class="keyword">const</span>;
-<a name="l00043"></a>00043   map&lt;QString, QColor&gt; getCompetitorColors() <span class="keyword">const</span>;
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045 signals:
-<a name="l00046"></a>00046   <span class="keywordtype">void</span> specificButtonClicked( <span class="keywordtype">int</span> );
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048 <span class="keyword">private</span> slots:
-<a name="l00049"></a>00049   <span class="keywordtype">void</span> colorButtonClicked();
-<a name="l00050"></a>00050   <span class="keywordtype">void</span> runColorDialog( <span class="keywordtype">int</span> );
-<a name="l00051"></a>00051   <span class="keywordtype">void</span> setLineEditColor( QString );
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053 <span class="keyword">private</span>:
-<a name="l00054"></a>00054   <span class="keywordtype">void</span> setLineEditColor( QLineEdit* edit );
-<a name="l00055"></a>00055   QSpinBox* nCompetitorsSpinBox( <span class="keywordtype">int</span> i );
-<a name="l00056"></a>00056 
-<a name="l00057"></a>00057   QGridLayout* layout_;
-<a name="l00058"></a>00058   QGridLayout* competitorLayout_;
-<a name="l00059"></a>00059   QHBoxLayout* buttonLayout_;
-<a name="l00060"></a>00060 
-<a name="l00061"></a>00061   QPushButton* apply_;
-<a name="l00062"></a>00062   QPushButton* cancel_;
-<a name="l00063"></a>00063   QLabel* iterationsLabel_;
-<a name="l00064"></a>00064   QSpinBox* iterationsEdit_;
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066   QLabel* randomSeedLabel_;
-<a name="l00067"></a>00067   QSpinBox* randomSeedEdit_;
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069   QLabel* updateFrequencyLabel_;
-<a name="l00070"></a>00070   QSpinBox* updateFrequencyEdit_;
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072   QLabel* updateStyleLabel_;
-<a name="l00073"></a>00073   QComboBox* updateStyleCombo_;
-<a name="l00074"></a>00074 
-<a name="l00075"></a>00075   QLabel* timerLabel_;
-<a name="l00076"></a>00076   QSpinBox* timerEdit_;
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078   vector &lt;QLabel*&gt; competitorLabels_;
-<a name="l00079"></a>00079   vector &lt;QSpinBox*&gt; competitorNumbers_;
-<a name="l00080"></a>00080   vector &lt;QLineEdit*&gt; competitorColors_;
-<a name="l00081"></a>00081   vector &lt;ColorPickButton*&gt; colorButtons_;
-<a name="l00082"></a>00082 };
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084 <span class="preprocessor">#endif // DEFINEGAMEDIALOGUE_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="preprocessor">#include &lt;map&gt;</span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;vector&gt;</span>
+<a name="l00005"></a>00005 
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;QtGui&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">using namespace </span>std;
+<a name="l00009"></a>00009 
+<a name="l00014"></a><a class="code" href="class_color_pick_button.html">00014</a> <span class="keyword">class </span><a class="code" href="class_color_pick_button.html">ColorPickButton</a> : <span class="keyword">public</span> QPushButton
+<a name="l00015"></a>00015 {
+<a name="l00016"></a>00016 <span class="keyword">public</span>:
+<a name="l00017"></a><a class="code" href="class_color_pick_button.html#a0b86dfd4cf468f41c33130998b967889">00017</a>   <a class="code" href="class_color_pick_button.html">ColorPickButton</a>( <span class="keywordtype">int</span> i, QWidget *parent ) :
+<a name="l00018"></a>00018     QPushButton(parent), index_(i) { setText( tr(<span class="stringliteral">&quot;Choose color&quot;</span>) ); }
+<a name="l00019"></a><a class="code" href="class_color_pick_button.html#a77a52520100d38a38b52ab094fab2cd6">00019</a>   <span class="keywordtype">int</span> <a class="code" href="class_color_pick_button.html#a77a52520100d38a38b52ab094fab2cd6">getIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index_; }
+<a name="l00020"></a>00020 <span class="keyword">private</span>:
+<a name="l00021"></a>00021   <span class="keywordtype">int</span> index_;
+<a name="l00022"></a>00022 };
+<a name="l00023"></a>00023 
+<a name="l00024"></a>00024 
+<a name="l00029"></a><a class="code" href="class_define_game_dialog.html">00029</a> <span class="keyword">class </span><a class="code" href="class_define_game_dialog.html">DefineGameDialog</a> : <span class="keyword">public</span> QDialog
+<a name="l00030"></a>00030 {
+<a name="l00031"></a>00031   Q_OBJECT
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033 <span class="keyword">public</span>:
+<a name="l00034"></a>00034   <a class="code" href="class_define_game_dialog.html">DefineGameDialog</a>(QWidget* parent = 0);
+<a name="l00035"></a>00035 
+<a name="l00038"></a><a class="code" href="class_define_game_dialog.html#a33728191a5e1eeb299231366a34a7755">00038</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#a33728191a5e1eeb299231366a34a7755">setIterations</a>(<span class="keywordtype">int</span> i) { iterationsEdit_-&gt;setValue(i); }
+<a name="l00039"></a>00039 
+<a name="l00042"></a><a class="code" href="class_define_game_dialog.html#ae25df866135fe7bf0b0fbeb07e0afce8">00042</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#ae25df866135fe7bf0b0fbeb07e0afce8">setRandomSeed</a>( <span class="keywordtype">int</span> i ) { randomSeedEdit_-&gt;setValue(i); }
+<a name="l00043"></a>00043 
+<a name="l00048"></a><a class="code" href="class_define_game_dialog.html#ac3c15aa4373e80a2d1f48e351fbec22d">00048</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#ac3c15aa4373e80a2d1f48e351fbec22d">setUpdateFrequency</a>(<span class="keywordtype">int</span> i) { updateFrequencyEdit_-&gt;setValue(i); }
+<a name="l00049"></a>00049 
+<a name="l00053"></a><a class="code" href="class_define_game_dialog.html#a1f8fb573eed31f5ca51bab1fc95dfd96">00053</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#a1f8fb573eed31f5ca51bab1fc95dfd96">setUpdateStyle</a>(<span class="keywordtype">int</span> i) { updateStyleCombo_-&gt;setCurrentIndex(i); }
+<a name="l00054"></a>00054 
+<a name="l00061"></a>00061   <span class="keywordtype">void</span> setCompetitors( <span class="keyword">const</span> map&lt;QString, int&gt; nCompetitorsMap );
+<a name="l00062"></a>00062 
+<a name="l00069"></a>00069   <span class="keywordtype">void</span> setCompetitorColors( <span class="keyword">const</span> map&lt;QString, QColor&gt;&amp; colors );
+<a name="l00070"></a>00070 
+<a name="l00074"></a><a class="code" href="class_define_game_dialog.html#ab87cb307a2e7df3db01f011d4ec521f6">00074</a>   <span class="keywordtype">void</span> <a class="code" href="class_define_game_dialog.html#ab87cb307a2e7df3db01f011d4ec521f6">setTimer</a>(<span class="keywordtype">int</span> i) { timerEdit_-&gt;setValue(i); }
+<a name="l00075"></a>00075 
+<a name="l00079"></a>00079   <span class="keywordtype">void</span> setNumberForAllCompetitors( <span class="keywordtype">int</span> i );
+<a name="l00080"></a>00080 
+<a name="l00083"></a><a class="code" href="class_define_game_dialog.html#aab8b573f7013cfc7517604f821846811">00083</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#aab8b573f7013cfc7517604f821846811">getIterations</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> iterationsEdit_-&gt;text().toInt(); }
+<a name="l00084"></a>00084 
+<a name="l00087"></a><a class="code" href="class_define_game_dialog.html#a92f8df459fdfe50d4970bc720cc49df5">00087</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#a92f8df459fdfe50d4970bc720cc49df5">getRandomSeed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> randomSeedEdit_-&gt;text().toInt(); }
+<a name="l00088"></a>00088 
+<a name="l00092"></a><a class="code" href="class_define_game_dialog.html#a7aa948035e602f797fb12cfcf35f1887">00092</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#a7aa948035e602f797fb12cfcf35f1887">getUpdateFrequency</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> updateFrequencyEdit_-&gt;text().toInt(); }
+<a name="l00093"></a>00093 
+<a name="l00096"></a><a class="code" href="class_define_game_dialog.html#ac876a8f37fcbb32d35fc7f5811709acd">00096</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#ac876a8f37fcbb32d35fc7f5811709acd">getUpdateStyle</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> updateStyleCombo_-&gt;currentIndex(); }
+<a name="l00097"></a>00097 
+<a name="l00101"></a><a class="code" href="class_define_game_dialog.html#a961536538a0eb16d9c309b1344b5da14">00101</a>   <span class="keywordtype">int</span> <a class="code" href="class_define_game_dialog.html#a961536538a0eb16d9c309b1344b5da14">getTimer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> timerEdit_-&gt;text().toInt(); }
+<a name="l00102"></a>00102 
+<a name="l00107"></a>00107   vector&lt;int&gt; getCompetitors() <span class="keyword">const</span>;
+<a name="l00108"></a>00108 
+<a name="l00112"></a>00112   map&lt;QString, QColor&gt; getCompetitorColors() <span class="keyword">const</span>;
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114 signals:
+<a name="l00115"></a>00115 
+<a name="l00121"></a>00121   <span class="keywordtype">void</span> specificButtonClicked( <span class="keywordtype">int</span> );
+<a name="l00122"></a>00122 
+<a name="l00123"></a>00123 <span class="keyword">private</span> slots:
+<a name="l00124"></a>00124   <span class="keywordtype">void</span> colorButtonClicked();
+<a name="l00125"></a>00125   <span class="keywordtype">void</span> runColorDialog( <span class="keywordtype">int</span> );
+<a name="l00126"></a>00126   <span class="keywordtype">void</span> setLineEditColor( QString );
+<a name="l00127"></a>00127 
+<a name="l00128"></a>00128 <span class="keyword">private</span>:
+<a name="l00129"></a>00129   <span class="keywordtype">void</span> setLineEditColor( QLineEdit* edit );
+<a name="l00130"></a>00130   QSpinBox* nCompetitorsSpinBox( <span class="keywordtype">int</span> i );
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132   QGridLayout* layout_;
+<a name="l00133"></a>00133   QGridLayout* competitorLayout_;
+<a name="l00134"></a>00134   QHBoxLayout* buttonLayout_;
+<a name="l00135"></a>00135 
+<a name="l00136"></a>00136   QPushButton* apply_;
+<a name="l00137"></a>00137   QPushButton* cancel_;
+<a name="l00138"></a>00138   QLabel* iterationsLabel_;
+<a name="l00139"></a>00139   QSpinBox* iterationsEdit_;
+<a name="l00140"></a>00140 
+<a name="l00141"></a>00141   QLabel* randomSeedLabel_;
+<a name="l00142"></a>00142   QSpinBox* randomSeedEdit_;
+<a name="l00143"></a>00143 
+<a name="l00144"></a>00144   QLabel* updateFrequencyLabel_;
+<a name="l00145"></a>00145   QSpinBox* updateFrequencyEdit_;
+<a name="l00146"></a>00146 
+<a name="l00147"></a>00147   QLabel* updateStyleLabel_;
+<a name="l00148"></a>00148   QComboBox* updateStyleCombo_;
+<a name="l00149"></a>00149 
+<a name="l00150"></a>00150   QLabel* timerLabel_;
+<a name="l00151"></a>00151   QSpinBox* timerEdit_;
+<a name="l00152"></a>00152 
+<a name="l00153"></a>00153   vector &lt;QLabel*&gt; competitorLabels_;
+<a name="l00154"></a>00154   vector &lt;QSpinBox*&gt; competitorNumbers_;
+<a name="l00155"></a>00155   vector &lt;QLineEdit*&gt; competitorColors_;
+<a name="l00156"></a>00156   vector &lt;ColorPickButton*&gt; colorButtons_;
+<a name="l00157"></a>00157 };
+<a name="l00158"></a>00158 
+<a name="l00159"></a>00159 <span class="preprocessor">#endif // DEFINEGAMEDIALOGUE_H</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="definegamedialog_8h.html">definegamedialog.h</a>      </li>
-      <li class="footer">Generated on Sat Mar 31 2012 10:40:25 for Prisoner's Dilemna by&#160;
+      <li class="footer">Generated on Sun Apr 1 2012 01:05:06 for Prisoner's Dilemna by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

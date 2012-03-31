@@ -49,9 +49,9 @@ map$<$ QString, QColor $>$ \hyperlink{class_define_game_dialog_ae5997315e5d87ff3
 
 
 \subsection{Detailed Description}
+This class handles the main dialog in the GUI, that is used to set the parameters of a new game. 
 
-
-Definition at line 22 of file definegamedialog.h.
+Definition at line 29 of file definegamedialog.h.
 
 
 
@@ -81,9 +81,9 @@ Definition at line 5 of file definegamedialog.cpp.
 \end{DoxyParamCaption}
 ) const}}
 \label{class_define_game_dialog_ae5997315e5d87ff38f075d810575eafe}
+Returns a map from QString to QColor of competitor type names and their corresponding color as specified by the user on the dialog.. 
 
-
-Definition at line 163 of file definegamedialog.cpp.
+Definition at line 179 of file definegamedialog.cpp.
 
 \hypertarget{class_define_game_dialog_a01961f0e810461d5d133d9b1414e23ab}{
 \index{DefineGameDialog@{DefineGameDialog}!getCompetitors@{getCompetitors}}
@@ -94,9 +94,9 @@ Definition at line 163 of file definegamedialog.cpp.
 \end{DoxyParamCaption}
 ) const}}
 \label{class_define_game_dialog_a01961f0e810461d5d133d9b1414e23ab}
+Returns a vector of integers with each integer representing the number of competitors for a particular competitor type in the global variable registeredCompetitors. 
 
-
-Definition at line 155 of file definegamedialog.cpp.
+Definition at line 171 of file definegamedialog.cpp.
 
 \hypertarget{class_define_game_dialog_aab8b573f7013cfc7517604f821846811}{
 \index{DefineGameDialog@{DefineGameDialog}!getIterations@{getIterations}}
@@ -107,9 +107,9 @@ Definition at line 155 of file definegamedialog.cpp.
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_aab8b573f7013cfc7517604f821846811}
+Returns the number of iterations set on the dialog by the user. 
 
-
-Definition at line 37 of file definegamedialog.h.
+Definition at line 83 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_a92f8df459fdfe50d4970bc720cc49df5}{
 \index{DefineGameDialog@{DefineGameDialog}!getRandomSeed@{getRandomSeed}}
@@ -120,9 +120,9 @@ Definition at line 37 of file definegamedialog.h.
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_a92f8df459fdfe50d4970bc720cc49df5}
+Returns the random seed set on the dialog by the user. 
 
-
-Definition at line 38 of file definegamedialog.h.
+Definition at line 87 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_a961536538a0eb16d9c309b1344b5da14}{
 \index{DefineGameDialog@{DefineGameDialog}!getTimer@{getTimer}}
@@ -133,9 +133,9 @@ Definition at line 38 of file definegamedialog.h.
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_a961536538a0eb16d9c309b1344b5da14}
+Returns the time between iterations specified by the user on the dialog. 
 
-
-Definition at line 41 of file definegamedialog.h.
+Definition at line 101 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_a7aa948035e602f797fb12cfcf35f1887}{
 \index{DefineGameDialog@{DefineGameDialog}!getUpdateFrequency@{getUpdateFrequency}}
@@ -146,9 +146,9 @@ Definition at line 41 of file definegamedialog.h.
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_a7aa948035e602f797fb12cfcf35f1887}
+Returns the frequency with which the competitor widgets must be updated, as set on the dialog by the user. 
 
-
-Definition at line 39 of file definegamedialog.h.
+Definition at line 92 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_ac876a8f37fcbb32d35fc7f5811709acd}{
 \index{DefineGameDialog@{DefineGameDialog}!getUpdateStyle@{getUpdateStyle}}
@@ -159,9 +159,9 @@ Definition at line 39 of file definegamedialog.h.
 \end{DoxyParamCaption}
 ) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_ac876a8f37fcbb32d35fc7f5811709acd}
+Returns the update style specified by the user on the dialog. 
 
-
-Definition at line 40 of file definegamedialog.h.
+Definition at line 96 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_af620552efe0e2745c0597f86b27faa54}{
 \index{DefineGameDialog@{DefineGameDialog}!setCompetitorColors@{setCompetitorColors}}
@@ -172,9 +172,16 @@ Definition at line 40 of file definegamedialog.h.
 \end{DoxyParamCaption}
 )}}
 \label{class_define_game_dialog_af620552efe0e2745c0597f86b27faa54}
+Tells the dialog what color to initiate each competitor type to.
 
 
-Definition at line 133 of file definegamedialog.cpp.
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em colors} & a map from QString to QColor where the key is the name of a competitor in the registeredCompetitors global variable and the integer is the number of competitors. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 149 of file definegamedialog.cpp.
 
 \hypertarget{class_define_game_dialog_ae69dba8751b7d1c7a9a37dc93194c940}{
 \index{DefineGameDialog@{DefineGameDialog}!setCompetitors@{setCompetitors}}
@@ -185,9 +192,16 @@ Definition at line 133 of file definegamedialog.cpp.
 \end{DoxyParamCaption}
 )}}
 \label{class_define_game_dialog_ae69dba8751b7d1c7a9a37dc93194c940}
+Tells the dialog how many of each competitor there are when it starts up.
 
 
-Definition at line 86 of file definegamedialog.cpp.
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em nCompetitorsMap} & a map from QString to int where the key is the name of a competitor in the registeredCompetitors global variable and the integer is the number of competitors. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 102 of file definegamedialog.cpp.
 
 \hypertarget{class_define_game_dialog_a33728191a5e1eeb299231366a34a7755}{
 \index{DefineGameDialog@{DefineGameDialog}!setIterations@{setIterations}}
@@ -198,9 +212,9 @@ Definition at line 86 of file definegamedialog.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_a33728191a5e1eeb299231366a34a7755}
+Sets the number of iterations for the game. 
 
-
-Definition at line 28 of file definegamedialog.h.
+Definition at line 38 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_a744104a9111b8162e8caf0b7407e6a9b}{
 \index{DefineGameDialog@{DefineGameDialog}!setNumberForAllCompetitors@{setNumberForAllCompetitors}}
@@ -211,9 +225,9 @@ Definition at line 28 of file definegamedialog.h.
 \end{DoxyParamCaption}
 )}}
 \label{class_define_game_dialog_a744104a9111b8162e8caf0b7407e6a9b}
+Convenience function to set the dialog's initial number of competitors for each competitor to the same number. 
 
-
-Definition at line 128 of file definegamedialog.cpp.
+Definition at line 144 of file definegamedialog.cpp.
 
 \hypertarget{class_define_game_dialog_ae25df866135fe7bf0b0fbeb07e0afce8}{
 \index{DefineGameDialog@{DefineGameDialog}!setRandomSeed@{setRandomSeed}}
@@ -224,9 +238,9 @@ Definition at line 128 of file definegamedialog.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_ae25df866135fe7bf0b0fbeb07e0afce8}
+Sets the random seed for the game. 
 
-
-Definition at line 29 of file definegamedialog.h.
+Definition at line 42 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_ab87cb307a2e7df3db01f011d4ec521f6}{
 \index{DefineGameDialog@{DefineGameDialog}!setTimer@{setTimer}}
@@ -237,9 +251,9 @@ Definition at line 29 of file definegamedialog.h.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_ab87cb307a2e7df3db01f011d4ec521f6}
+Sets the dialog's initial time in milliseconds between each iteration of the game. 
 
-
-Definition at line 34 of file definegamedialog.h.
+Definition at line 74 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_ac3c15aa4373e80a2d1f48e351fbec22d}{
 \index{DefineGameDialog@{DefineGameDialog}!setUpdateFrequency@{setUpdateFrequency}}
@@ -250,9 +264,11 @@ Definition at line 34 of file definegamedialog.h.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_ac3c15aa4373e80a2d1f48e351fbec22d}
+Specify how frequently the competitor widgets are updated.
 
+Set the parameter to 1 for an update after every iteration. 
 
-Definition at line 30 of file definegamedialog.h.
+Definition at line 48 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_a1f8fb573eed31f5ca51bab1fc95dfd96}{
 \index{DefineGameDialog@{DefineGameDialog}!setUpdateStyle@{setUpdateStyle}}
@@ -263,9 +279,9 @@ Definition at line 30 of file definegamedialog.h.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
 \label{class_define_game_dialog_a1f8fb573eed31f5ca51bab1fc95dfd96}
+Choose an update methodology that corresponds to an entry in the in the DisplayMethodology. 
 
-
-Definition at line 31 of file definegamedialog.h.
+Definition at line 53 of file definegamedialog.h.
 
 \hypertarget{class_define_game_dialog_aedaa55de22c0486cf558e5a90bc05b50}{
 \index{DefineGameDialog@{DefineGameDialog}!specificButtonClicked@{specificButtonClicked}}
@@ -276,7 +292,9 @@ Definition at line 31 of file definegamedialog.h.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}signal\mbox{]}}}}
 \label{class_define_game_dialog_aedaa55de22c0486cf558e5a90bc05b50}
+This signal is generated when a user clicks one of the choose color pushbuttons.
 
+Its parameter corresponds to the index of the pushbutton. 
 
 Definition at line 91 of file moc\_\-definegamedialog.cpp.
 

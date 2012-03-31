@@ -47,7 +47,7 @@ HEADERS += \
 CONFIG += debug_and_release
 
  CONFIG(debug, debug|release) {
-     TARGET = debug_binary
+     TARGET = cooperation_debug
  } else {
-     TARGET = release_binary
+     TARGET = cooperation
  }

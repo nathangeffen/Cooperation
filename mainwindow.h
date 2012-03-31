@@ -49,6 +49,8 @@ private:
   QMenu* gameMenu_;
   GuiPlay* guiPlay_;
 
+  QTextEdit* helpText_;
+
   QIcon openGameIcon_;
   QIcon saveGameIcon_;
   QIcon newGameIcon_;

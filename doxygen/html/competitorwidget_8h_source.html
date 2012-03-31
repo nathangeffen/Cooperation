@@ -93,47 +93,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00010"></a>00010 <span class="keyword">class </span>QGridLayout;
 <a name="l00011"></a>00011 <span class="keyword">class </span><a class="code" href="class_competitor_shape.html">CompetitorShape</a>;
 <a name="l00012"></a>00012 
-<a name="l00013"></a><a class="code" href="class_competitor_widget.html">00013</a> <span class="keyword">class </span><a class="code" href="class_competitor_widget.html">CompetitorWidget</a>: <span class="keyword">public</span> QWidget
-<a name="l00014"></a>00014 {
-<a name="l00015"></a>00015   Q_OBJECT
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="keyword">public</span>:
-<a name="l00018"></a>00018   <a class="code" href="class_competitor_widget.html#a17095373d11b29b5d3fa03f4ed54db32">CompetitorWidget</a>(<span class="keywordtype">int</span> circleSize, <a class="code" href="class_competitor.html">Competitor</a>&amp; competitor,
-<a name="l00019"></a>00019                    <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology, QColor color, QWidget *parent = 0);
-<a name="l00020"></a><a class="code" href="class_competitor_widget.html#ad0c35ac6b0e2a2b7507f1ce41a956c5b">00020</a>   <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#ad0c35ac6b0e2a2b7507f1ce41a956c5b">setMaxScore</a>( <span class="keywordtype">int</span> max_score ) { maxScore_ = max_score; }
-<a name="l00021"></a><a class="code" href="class_competitor_widget.html#a9692e0db6844444a82c857a767781a3e">00021</a>   <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#a9692e0db6844444a82c857a767781a3e">setMinScore</a>( <span class="keywordtype">int</span> min_score ) { minScore_ = min_score; }
-<a name="l00022"></a>00022   <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#a72aa5486d6b0b7c2f1ef127d8a663661">updateUsingRatio</a>();
-<a name="l00023"></a>00023   <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#acbcc082639251e7107a738bca6b97190">updateUsingRank</a>();
-<a name="l00024"></a>00024   <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#a0700b92a8a5e76a8f01e358ecbd52f3b">updateUsingRationNormalizedToZero</a>();
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026 signals:
-<a name="l00027"></a>00027    <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#abcad447a64b4f728cce7c6bee676fd0b">sendUpdate</a>();
-<a name="l00028"></a>00028 <span class="keyword">public</span> slots:
-<a name="l00029"></a>00029   <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#a92ca3213de6dd2fa310cb4cd2b709422">executeUpdate</a>(<span class="keywordtype">int</span> min_score, <span class="keywordtype">int</span> max_score, <span class="keywordtype">bool</span> updateScore);
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031 <span class="keyword">private</span>:
-<a name="l00032"></a>00032   <a class="code" href="class_competitor.html">Competitor</a>&amp; competitor_;
-<a name="l00033"></a>00033   <a class="code" href="class_competitor_shape.html">CompetitorShape</a>* competitorShape_;
-<a name="l00034"></a>00034   QHBoxLayout *topline_;
-<a name="l00035"></a>00035   QGridLayout *layout_;
-<a name="l00036"></a>00036   QLabel *nameLabel_;
-<a name="l00037"></a>00037   QLabel *scoreLabel_;
-<a name="l00038"></a>00038   <span class="keywordtype">int</span> maxDiameter_;
-<a name="l00039"></a>00039   <span class="keywordtype">int</span> maxScore_;
-<a name="l00040"></a>00040   <span class="keywordtype">int</span> minScore_;
-<a name="l00041"></a>00041   <span class="keywordtype">int</span> savedScore_;
-<a name="l00042"></a>00042   <span class="keywordtype">bool</span> updateScore_;
-<a name="l00043"></a>00043   <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology_;
-<a name="l00044"></a>00044   QColor color_;
-<a name="l00045"></a>00045 };
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047 <span class="preprocessor">#endif // PLAYER_H</span>
+<a name="l00016"></a><a class="code" href="class_competitor_widget.html">00016</a> <span class="keyword">class </span><a class="code" href="class_competitor_widget.html">CompetitorWidget</a>: <span class="keyword">public</span> QWidget
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018   Q_OBJECT
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="keyword">public</span>:
+<a name="l00021"></a>00021 
+<a name="l00029"></a>00029   <a class="code" href="class_competitor_widget.html#ab74c5e087edd81103532188a3d3c6226">CompetitorWidget</a>(<span class="keywordtype">int</span> maxDiameter,
+<a name="l00030"></a>00030                    <a class="code" href="class_competitor.html">Competitor</a>&amp; competitor,
+<a name="l00031"></a>00031                    <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology,
+<a name="l00032"></a>00032                    QColor color,
+<a name="l00033"></a>00033                    QWidget *parent = 0);
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="keyword">public</span> slots:
+<a name="l00036"></a>00036   <span class="keywordtype">void</span> <a class="code" href="class_competitor_widget.html#a92ca3213de6dd2fa310cb4cd2b709422">executeUpdate</a>(<span class="keywordtype">int</span> min_score, <span class="keywordtype">int</span> max_score, <span class="keywordtype">bool</span> updateScore);
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="keyword">private</span>:
+<a name="l00039"></a>00039   <a class="code" href="class_competitor.html">Competitor</a>&amp; competitor_;
+<a name="l00040"></a>00040   <a class="code" href="class_competitor_shape.html">CompetitorShape</a>* competitorShape_;
+<a name="l00041"></a>00041   QHBoxLayout *topline_;
+<a name="l00042"></a>00042   QGridLayout *layout_;
+<a name="l00043"></a>00043   QLabel *nameLabel_;
+<a name="l00044"></a>00044   QLabel *scoreLabel_;
+<a name="l00045"></a>00045   <span class="keywordtype">int</span> maxDiameter_;
+<a name="l00046"></a>00046   <span class="keywordtype">int</span> maxScore_;
+<a name="l00047"></a>00047   <span class="keywordtype">int</span> minScore_;
+<a name="l00048"></a>00048   <span class="keywordtype">int</span> savedScore_;
+<a name="l00049"></a>00049   <span class="keywordtype">bool</span> updateScore_;
+<a name="l00050"></a>00050   <a class="code" href="guicommon_8h.html#ab73f4a618a1a86d78e9cc82ff1c376df">DisplayMethodology</a> displayMethodology_;
+<a name="l00051"></a>00051   QColor color_;
+<a name="l00052"></a>00052 
+<a name="l00057"></a>00057   <span class="keywordtype">void</span> updateUsingRatio();
+<a name="l00058"></a>00058 
+<a name="l00062"></a>00062   <span class="keywordtype">void</span> setMaxScore( <span class="keywordtype">int</span> max_score ) { maxScore_ = max_score; }
+<a name="l00063"></a>00063 
+<a name="l00067"></a>00067   <span class="keywordtype">void</span> setMinScore( <span class="keywordtype">int</span> min_score ) { minScore_ = min_score; }
+<a name="l00068"></a>00068 
+<a name="l00073"></a>00073   <span class="keywordtype">void</span> updateUsingRank();
+<a name="l00074"></a>00074 
+<a name="l00079"></a>00079   <span class="keywordtype">void</span> updateUsingRatioNormalizedToZero();
+<a name="l00080"></a>00080 
+<a name="l00081"></a>00081 };
+<a name="l00082"></a>00082 
+<a name="l00083"></a>00083 <span class="preprocessor">#endif // PLAYER_H</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="competitorwidget_8h.html">competitorwidget.h</a>      </li>
-      <li class="footer">Generated on Sat Mar 31 2012 10:40:25 for Prisoner's Dilemna by&#160;
+      <li class="footer">Generated on Sun Apr 1 2012 01:05:06 for Prisoner's Dilemna by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </li>
     </ul>

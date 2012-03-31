@@ -1,4 +1,4 @@
-.TH "DefineGameDialog" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.TH "DefineGameDialog" 3 "Sun Apr 1 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -69,7 +69,9 @@ DefineGameDialog \-
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line 22 of file definegamedialog.h.
+This class handles the main dialog in the GUI, that is used to set the parameters of a new game. 
+.PP
+Definition at line 29 of file definegamedialog.h.
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "DefineGameDialog::DefineGameDialog (QWidget *parent = \fC0\fP)"
@@ -77,52 +79,70 @@ Definition at line 22 of file definegamedialog.h.
 Definition at line 5 of file definegamedialog.cpp.
 .SH "Member Function Documentation"
 .PP 
-.SS "map< QString, QColor > DefineGameDialog::getCompetitorColors () const"
+.SS "map< QString, QColor > DefineGameDialog::getCompetitorColors () const"Returns a map from QString to QColor of competitor type names and their corresponding color as specified by the user on the dialog.. 
 .PP
-Definition at line 163 of file definegamedialog.cpp.
-.SS "vector< int > DefineGameDialog::getCompetitors () const"
+Definition at line 179 of file definegamedialog.cpp.
+.SS "vector< int > DefineGameDialog::getCompetitors () const"Returns a vector of integers with each integer representing the number of competitors for a particular competitor type in the global variable registeredCompetitors. 
 .PP
-Definition at line 155 of file definegamedialog.cpp.
-.SS "int DefineGameDialog::getIterations () const\fC [inline]\fP"
+Definition at line 171 of file definegamedialog.cpp.
+.SS "int DefineGameDialog::getIterations () const\fC [inline]\fP"Returns the number of iterations set on the dialog by the user. 
 .PP
-Definition at line 37 of file definegamedialog.h.
-.SS "int DefineGameDialog::getRandomSeed () const\fC [inline]\fP"
+Definition at line 83 of file definegamedialog.h.
+.SS "int DefineGameDialog::getRandomSeed () const\fC [inline]\fP"Returns the random seed set on the dialog by the user. 
+.PP
+Definition at line 87 of file definegamedialog.h.
+.SS "int DefineGameDialog::getTimer () const\fC [inline]\fP"Returns the time between iterations specified by the user on the dialog. 
+.PP
+Definition at line 101 of file definegamedialog.h.
+.SS "int DefineGameDialog::getUpdateFrequency () const\fC [inline]\fP"Returns the frequency with which the competitor widgets must be updated, as set on the dialog by the user. 
+.PP
+Definition at line 92 of file definegamedialog.h.
+.SS "int DefineGameDialog::getUpdateStyle () const\fC [inline]\fP"Returns the update style specified by the user on the dialog. 
+.PP
+Definition at line 96 of file definegamedialog.h.
+.SS "void DefineGameDialog::setCompetitorColors (const map< QString, QColor > &colors)"Tells the dialog what color to initiate each competitor type to.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcolors\fP a map from QString to QColor where the key is the name of a competitor in the registeredCompetitors global variable and the integer is the number of competitors. 
+.RE
+.PP
+
+.PP
+Definition at line 149 of file definegamedialog.cpp.
+.SS "void DefineGameDialog::setCompetitors (const map< QString, int >nCompetitorsMap)"Tells the dialog how many of each competitor there are when it starts up.
+.PP
+\fBParameters:\fP
+.RS 4
+\fInCompetitorsMap\fP a map from QString to int where the key is the name of a competitor in the registeredCompetitors global variable and the integer is the number of competitors. 
+.RE
+.PP
+
+.PP
+Definition at line 102 of file definegamedialog.cpp.
+.SS "void DefineGameDialog::setIterations (inti)\fC [inline]\fP"Sets the number of iterations for the game. 
 .PP
 Definition at line 38 of file definegamedialog.h.
-.SS "int DefineGameDialog::getTimer () const\fC [inline]\fP"
+.SS "void DefineGameDialog::setNumberForAllCompetitors (inti)"Convenience function to set the dialog's initial number of competitors for each competitor to the same number. 
 .PP
-Definition at line 41 of file definegamedialog.h.
-.SS "int DefineGameDialog::getUpdateFrequency () const\fC [inline]\fP"
+Definition at line 144 of file definegamedialog.cpp.
+.SS "void DefineGameDialog::setRandomSeed (inti)\fC [inline]\fP"Sets the random seed for the game. 
 .PP
-Definition at line 39 of file definegamedialog.h.
-.SS "int DefineGameDialog::getUpdateStyle () const\fC [inline]\fP"
+Definition at line 42 of file definegamedialog.h.
+.SS "void DefineGameDialog::setTimer (inti)\fC [inline]\fP"Sets the dialog's initial time in milliseconds between each iteration of the game. 
 .PP
-Definition at line 40 of file definegamedialog.h.
-.SS "void DefineGameDialog::setCompetitorColors (const map< QString, QColor > &colors)"
+Definition at line 74 of file definegamedialog.h.
+.SS "void DefineGameDialog::setUpdateFrequency (inti)\fC [inline]\fP"Specify how frequently the competitor widgets are updated.
 .PP
-Definition at line 133 of file definegamedialog.cpp.
-.SS "void DefineGameDialog::setCompetitors (const map< QString, int >nCompetitorsMap)"
+Set the parameter to 1 for an update after every iteration. 
 .PP
-Definition at line 86 of file definegamedialog.cpp.
-.SS "void DefineGameDialog::setIterations (inti)\fC [inline]\fP"
+Definition at line 48 of file definegamedialog.h.
+.SS "void DefineGameDialog::setUpdateStyle (inti)\fC [inline]\fP"Choose an update methodology that corresponds to an entry in the in the DisplayMethodology. 
 .PP
-Definition at line 28 of file definegamedialog.h.
-.SS "void DefineGameDialog::setNumberForAllCompetitors (inti)"
+Definition at line 53 of file definegamedialog.h.
+.SS "void DefineGameDialog::specificButtonClicked (int_t1)\fC [signal]\fP"This signal is generated when a user clicks one of the choose color pushbuttons.
 .PP
-Definition at line 128 of file definegamedialog.cpp.
-.SS "void DefineGameDialog::setRandomSeed (inti)\fC [inline]\fP"
-.PP
-Definition at line 29 of file definegamedialog.h.
-.SS "void DefineGameDialog::setTimer (inti)\fC [inline]\fP"
-.PP
-Definition at line 34 of file definegamedialog.h.
-.SS "void DefineGameDialog::setUpdateFrequency (inti)\fC [inline]\fP"
-.PP
-Definition at line 30 of file definegamedialog.h.
-.SS "void DefineGameDialog::setUpdateStyle (inti)\fC [inline]\fP"
-.PP
-Definition at line 31 of file definegamedialog.h.
-.SS "void DefineGameDialog::specificButtonClicked (int_t1)\fC [signal]\fP"
+Its parameter corresponds to the index of the pushbutton. 
 .PP
 Definition at line 91 of file moc_definegamedialog.cpp.
 
