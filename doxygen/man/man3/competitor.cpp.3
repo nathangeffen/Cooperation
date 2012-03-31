@@ -1,0 +1,68 @@
+.TH "/home/nathan/workspace/cooperation/game/competitor.cpp" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/nathan/workspace/cooperation/game/competitor.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <cstdlib>\fP
+.br
+\fC#include <QString>\fP
+.br
+\fC#include 'common.h'\fP
+.br
+\fC#include 'competitor.h'\fP
+.br
+\fC#include 'game.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBREGISTER_COMPETITOR\fP (TitForTat)"
+.br
+.ti -1c
+.RI "\fBREGISTER_COMPETITOR\fP (AlwaysDefect)"
+.br
+.ti -1c
+.RI "\fBREGISTER_COMPETITOR\fP (Random)"
+.br
+.ti -1c
+.RI "\fBREGISTER_COMPETITOR\fP (AlwaysCooperate)"
+.br
+.ti -1c
+.RI "\fBREGISTER_COMPETITOR\fP (Opposite)"
+.br
+.ti -1c
+.RI "\fBREGISTER_COMPETITOR\fP (TitForTatRandom)"
+.br
+.ti -1c
+.RI "\fBREGISTER_COMPETITOR\fP (Pavlov)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "std::map< QString, \fBcompetitor_ptr\fP > \fBregisteredCompetitors\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "REGISTER_COMPETITOR (TitForTat)"
+.SS "REGISTER_COMPETITOR (Pavlov)"
+.SS "REGISTER_COMPETITOR (TitForTatRandom)"
+.SS "REGISTER_COMPETITOR (Opposite)"
+.SS "REGISTER_COMPETITOR (AlwaysCooperate)"
+.SS "REGISTER_COMPETITOR (Random)"
+.SS "REGISTER_COMPETITOR (AlwaysDefect)"
+.SH "Variable Documentation"
+.PP 
+.SS "std::map< QString, \fBcompetitor_ptr\fP > \fBregisteredCompetitors\fP"Global map storing the name of each competitor and a shared pointer to an instance of it. 
+.PP
+Definition at line 7 of file competitor.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

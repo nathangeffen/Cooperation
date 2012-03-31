@@ -5,11 +5,11 @@
 #include <QGridLayout>
 #include <QPushButton>
 
-#include "game.h"
+#include "game/game.h"
 #include "gui.h"
 #include "competitorwidget.h"
 #include "mainwindow.h"
-#include "common.h"
+#include "game/common.h"
 
 
 Gui::Gui( Game& game ) : game_(game) {}

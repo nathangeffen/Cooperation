@@ -1,6 +1,6 @@
 #include <QtGui>
 #include "definegamedialog.h"
-#include "competitor.h"
+#include "game/competitor.h"
 
 DefineGameDialog::DefineGameDialog(QWidget* parent)
   : QDialog(parent)
@@ -67,20 +67,36 @@ DefineGameDialog::DefineGameDialog(QWidget* parent)
   layout_->addWidget( timerEdit_, i, 1 );
   ++i;
 
-  competitorLayout_ = new QGridLayout( );
+  /*** NOT SURE IF THIS CODE IS PRECISE ***/
+  /* If "this" is passed to QGridLayout then
+   * the programme stil executes ok, but it generates a message
+   * "Attempting to add QLayout". If "this" is removed the message disappers
+   * but this begs the question, is this object ever freed from the heap?
+   */
+  competitorLayout_ = new QGridLayout();
 
   layout_->addLayout( competitorLayout_, i, 0, 1, 4 );
   ++i;
 
-  apply_ = new QPushButton( tr("&Apply"), this );
+  apply_ = new QPushButton( tr("&Ok"), this );
   connect(apply_, SIGNAL(clicked()), this, SLOT(accept()));
-  cancel_ = new QPushButton(tr("&Cancel"));
+  cancel_ = new QPushButton(tr("&Cancel"), this );
   connect(cancel_, SIGNAL(clicked()), this, SLOT(reject()));
 
-  buttonLayout_ = new QHBoxLayout( this );
+  /*** NOT SURE IF THIS CODE IS PRECISE ***/
+  /* If "this" is passed to QHBoxLayout then
+   * the programme stil executes ok, but it generates a message
+   * "Attempting to add QLayout". If "this" is removed the message disappers
+   * but this begs the question, is this object ever freed from the heap?
+   */
+  buttonLayout_ = new QHBoxLayout();
+  /***/
+
   buttonLayout_->addWidget( apply_ );
   buttonLayout_->addWidget( cancel_ );
+
   layout_->addLayout( buttonLayout_, i, 2 );
+
 }
 
 void DefineGameDialog::setCompetitors( const map<QString, int> nCompetitorsMap )

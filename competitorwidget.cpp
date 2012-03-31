@@ -1,33 +1,35 @@
 #include <cmath>
 #include <QGridLayout>
 #include <QLabel>
-#include "game.h"
-#include "competitor.h"
+#include "game/game.h"
+#include "game/competitor.h"
 #include "competitorwidget.h"
 #include "competitorshape.h"
-#include "common.h"
+#include "game/common.h"
 
-CompetitorWidget::CompetitorWidget(int maxDiameter, Competitor& competitor,
+CompetitorWidget::CompetitorWidget(int maxDiameter,
+                                   Competitor& competitor,
                                    DisplayMethodology displayMethodology,
-                                   QColor color, QWidget *parent) :
+                                   QColor color,
+                                   QWidget *parent) :
   QWidget(parent), competitor_(competitor),
   maxDiameter_(maxDiameter ), maxScore_(0), savedScore_(0),
   displayMethodology_(displayMethodology), color_(color)
 {
-  nameLabel_ = new QLabel( competitor_.output().toUpper() );
+  nameLabel_ = new QLabel( competitor_.output().toUpper(), this );
   QFont font = nameLabel_->font();
   font.setPointSize(6);
 
   nameLabel_->setFont(font);
 
-  scoreLabel_ = new QLabel( QString().setNum(0) );
+  scoreLabel_ = new QLabel( QString().setNum(0), this );
   scoreLabel_->setFont(font);
 
-  topline_ = new QHBoxLayout;
+  topline_ = new QHBoxLayout();
   topline_->addWidget(nameLabel_);
   topline_->addWidget(scoreLabel_);
 
-  layout_ = new QGridLayout;
+  layout_ = new QGridLayout();
   layout_->addLayout(topline_, 0, 0);
   layout_->setRowStretch(0, 1);
 
@@ -35,9 +37,6 @@ CompetitorWidget::CompetitorWidget(int maxDiameter, Competitor& competitor,
                                          color_);
   layout_->addWidget(competitorShape_, 1, 0);
   layout_->setRowStretch(1, 10);
-
-  connect(this, SIGNAL(sendUpdate()),
-          competitorShape_, SLOT(executeUpdate()));
 
   setLayout(layout_);
 }
@@ -70,7 +69,7 @@ void CompetitorWidget::executeUpdate(int min_score,
       } else if ( displayMethodology_ == RANK ){
         updateUsingRank();
       } else {
-        updateUsingRationNormalizedToZero();
+        updateUsingRatioNormalizedToZero();
       }
     }
   }
@@ -79,7 +78,7 @@ void CompetitorWidget::executeUpdate(int min_score,
     savedScore_ = competitor_.getScore();
   }
 
-  sendUpdate();
+  competitorShape_->executeUpdate();
 }
 
 void CompetitorWidget::updateUsingRatio()
@@ -92,7 +91,7 @@ void CompetitorWidget::updateUsingRatio()
   competitorShape_->setRadius( (int) radius );
 }
 
-void CompetitorWidget::updateUsingRationNormalizedToZero()
+void CompetitorWidget::updateUsingRatioNormalizedToZero()
 {
   competitorShape_->setShape(circle);
   double ratio = (double) (maxScore_ - minScore_) /

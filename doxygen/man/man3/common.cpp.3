@@ -1,0 +1,68 @@
+.TH "/home/nathan/workspace/cooperation/game/common.cpp" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/nathan/workspace/cooperation/game/common.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'common.h'\fP
+.br
+\fC#include 'game.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "uniform_real_distribution \fBrandom_engine_double\fP (0, 1)"
+.br
+.ti -1c
+.RI "double \fBdrand\fP ()"
+.br
+.ti -1c
+.RI "int \fBirand\fP (int upper)"
+.br
+.ti -1c
+.RI "void \fBsetupCommandLine\fP (po::options_description &options, int &iterations, int &rand_seed)"
+.br
+.ti -1c
+.RI "int \fBprocessCommandLine\fP (const po::options_description &options, const po::variables_map &vm, int iterations, int rand_seed)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "mt19937 \fBmersenne_twister\fP"
+.br
+.ti -1c
+.RI "uniform_int_distribution \fBrandom_engine_int\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "double drand ()"
+.PP
+Definition at line 10 of file common.cpp.
+.SS "int irand (intupper)"
+.PP
+Definition at line 12 of file common.cpp.
+.SS "int processCommandLine (const po::options_description &options, const po::variables_map &vm, intiterations, intrand_seed)"Processes the command line options. 
+.PP
+Definition at line 37 of file common.cpp.
+.SS "uniform_real_distribution random_engine_double (0, 1)"
+.SS "void setupCommandLine (po::options_description &options, int &iterations, int &rand_seed)"Sets up acceptable command line options. 
+.PP
+Definition at line 17 of file common.cpp.
+.SH "Variable Documentation"
+.PP 
+.SS "mt19937 \fBmersenne_twister\fP"Global instances of random generators 
+.PP
+Definition at line 6 of file common.cpp.
+.SS "uniform_int_distribution \fBrandom_engine_int\fP"
+.PP
+Definition at line 8 of file common.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

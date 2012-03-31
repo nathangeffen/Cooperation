@@ -1,0 +1,123 @@
+\hypertarget{common_8h}{
+\section{/home/nathan/workspace/cooperation/game/common.h File Reference}
+\label{common_8h}\index{/home/nathan/workspace/cooperation/game/common.h@{/home/nathan/workspace/cooperation/game/common.h}}
+}
+{\ttfamily \#include $<$random$>$}\par
+{\ttfamily \#include $<$boost/program\_\-options.hpp$>$}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{common_8h_a0c0a81e7797a05c535bad34449d8642c}{drand} ()
+\item 
+int \hyperlink{common_8h_a2a93d4d5b7332c4110ceea2888c77bd4}{irand} (int)
+\item 
+void \hyperlink{common_8h_a481b64efc5d4cc7f70844e6d092b64ee}{setupCommandLine} (po::options\_\-description \&options, int \&iterations, int \&rand\_\-seed)
+\item 
+int \hyperlink{common_8h_a528b08a5fbf77df587f665f5f9ae5014}{processCommandLine} (const po::options\_\-description \&options, const po::variables\_\-map \&vm, int iterations, int rand\_\-seed)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const double \hyperlink{common_8h_a952eac791b596a61bba0a133a3bb439f}{PI} = 3.14159265
+\item 
+std::mt19937 \hyperlink{common_8h_a64236bff191aa6ca6bced6185fdb2196}{mersenne\_\-twister}
+\item 
+std::uniform\_\-real\_\-distribution \hyperlink{common_8h_aeb7cee5dcc9ec923af68e49f6a8a8aca}{random\_\-engine\_\-double}
+\item 
+std::uniform\_\-int\_\-distribution \hyperlink{common_8h_a89fdfa227b97a2db0741b676cdf91d21}{random\_\-engine\_\-int}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{common_8h_a0c0a81e7797a05c535bad34449d8642c}{
+\index{common.h@{common.h}!drand@{drand}}
+\index{drand@{drand}!common.h@{common.h}}
+\subsubsection[{drand}]{\setlength{\rightskip}{0pt plus 5cm}double drand (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{common_8h_a0c0a81e7797a05c535bad34449d8642c}
+
+
+Definition at line 10 of file common.cpp.
+
+\hypertarget{common_8h_a2a93d4d5b7332c4110ceea2888c77bd4}{
+\index{common.h@{common.h}!irand@{irand}}
+\index{irand@{irand}!common.h@{common.h}}
+\subsubsection[{irand}]{\setlength{\rightskip}{0pt plus 5cm}int irand (
+\begin{DoxyParamCaption}
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}}
+\label{common_8h_a2a93d4d5b7332c4110ceea2888c77bd4}
+
+
+Definition at line 12 of file common.cpp.
+
+\hypertarget{common_8h_a528b08a5fbf77df587f665f5f9ae5014}{
+\index{common.h@{common.h}!processCommandLine@{processCommandLine}}
+\index{processCommandLine@{processCommandLine}!common.h@{common.h}}
+\subsubsection[{processCommandLine}]{\setlength{\rightskip}{0pt plus 5cm}int processCommandLine (
+\begin{DoxyParamCaption}
+\item[{const po::options\_\-description \&}]{options, }
+\item[{const po::variables\_\-map \&}]{vm, }
+\item[{int}]{iterations, }
+\item[{int}]{rand\_\-seed}
+\end{DoxyParamCaption}
+)}}
+\label{common_8h_a528b08a5fbf77df587f665f5f9ae5014}
+Processes the command line options. 
+
+Definition at line 37 of file common.cpp.
+
+\hypertarget{common_8h_a481b64efc5d4cc7f70844e6d092b64ee}{
+\index{common.h@{common.h}!setupCommandLine@{setupCommandLine}}
+\index{setupCommandLine@{setupCommandLine}!common.h@{common.h}}
+\subsubsection[{setupCommandLine}]{\setlength{\rightskip}{0pt plus 5cm}void setupCommandLine (
+\begin{DoxyParamCaption}
+\item[{po::options\_\-description \&}]{options, }
+\item[{int \&}]{iterations, }
+\item[{int \&}]{rand\_\-seed}
+\end{DoxyParamCaption}
+)}}
+\label{common_8h_a481b64efc5d4cc7f70844e6d092b64ee}
+Sets up acceptable command line options. 
+
+Definition at line 17 of file common.cpp.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{common_8h_a64236bff191aa6ca6bced6185fdb2196}{
+\index{common.h@{common.h}!mersenne\_\-twister@{mersenne\_\-twister}}
+\index{mersenne\_\-twister@{mersenne\_\-twister}!common.h@{common.h}}
+\subsubsection[{mersenne\_\-twister}]{\setlength{\rightskip}{0pt plus 5cm}std::mt19937 {\bf mersenne\_\-twister}}}
+\label{common_8h_a64236bff191aa6ca6bced6185fdb2196}
+Global instances of random generators 
+
+Definition at line 6 of file common.cpp.
+
+\hypertarget{common_8h_a952eac791b596a61bba0a133a3bb439f}{
+\index{common.h@{common.h}!PI@{PI}}
+\index{PI@{PI}!common.h@{common.h}}
+\subsubsection[{PI}]{\setlength{\rightskip}{0pt plus 5cm}const double {\bf PI} = 3.14159265}}
+\label{common_8h_a952eac791b596a61bba0a133a3bb439f}
+Common functions and global variables. 
+
+Definition at line 13 of file common.h.
+
+\hypertarget{common_8h_aeb7cee5dcc9ec923af68e49f6a8a8aca}{
+\index{common.h@{common.h}!random\_\-engine\_\-double@{random\_\-engine\_\-double}}
+\index{random\_\-engine\_\-double@{random\_\-engine\_\-double}!common.h@{common.h}}
+\subsubsection[{random\_\-engine\_\-double}]{\setlength{\rightskip}{0pt plus 5cm}std::uniform\_\-real\_\-distribution random\_\-engine\_\-double}}
+\label{common_8h_aeb7cee5dcc9ec923af68e49f6a8a8aca}
+\hypertarget{common_8h_a89fdfa227b97a2db0741b676cdf91d21}{
+\index{common.h@{common.h}!random\_\-engine\_\-int@{random\_\-engine\_\-int}}
+\index{random\_\-engine\_\-int@{random\_\-engine\_\-int}!common.h@{common.h}}
+\subsubsection[{random\_\-engine\_\-int}]{\setlength{\rightskip}{0pt plus 5cm}std::uniform\_\-int\_\-distribution {\bf random\_\-engine\_\-int}}}
+\label{common_8h_a89fdfa227b97a2db0741b676cdf91d21}
+
+
+Definition at line 8 of file common.cpp.
+

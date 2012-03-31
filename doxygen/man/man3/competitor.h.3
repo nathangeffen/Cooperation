@@ -1,0 +1,106 @@
+.TH "/home/nathan/workspace/cooperation/game/competitor.h" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/nathan/workspace/cooperation/game/competitor.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <memory>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <QString>\fP
+.br
+\fC#include <utility>\fP
+.br
+\fC#include <QtCore>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBCompetitor\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBREGISTER_COMPETITOR\fP(X)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef std::shared_ptr< \fBCompetitor\fP > \fBcompetitor_ptr\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBChoice\fP { \fBDEFECT\fP, \fBCOOPERATE\fP }"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "std::map< QString, \fBcompetitor_ptr\fP > \fBregisteredCompetitors\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define REGISTER_COMPETITOR(X)"\fBValue:\fP
+.PP
+.nf
+class X : public Competitor { \
+  public: \
+  X ( bool registerCompetitor = false ) : \
+      Competitor() { \
+        if ( registerCompetitor ) { \
+          registeredCompetitors[ this->output() ] = this->create(); \
+        } \
+     }; \
+    virtual Choice decision(int index) const; \
+    virtual competitor_ptr  create() const { \
+      return competitor_ptr ( new X ); \
+    }; \
+    virtual QString output() const { return QString(#X).toLower(); }; \
+  }; \
+  X _ ## X (true)
+.fi
+Macro to register a new competitor type. 
+.PP
+Definition at line 110 of file competitor.h.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef std::shared_ptr< \fBCompetitor\fP > \fBcompetitor_ptr\fP"
+.PP
+Definition at line 99 of file competitor.h.
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBChoice\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIDEFECT \fP\fP
+.TP
+\fB\fICOOPERATE \fP\fP
+
+.PP
+Definition at line 18 of file competitor.h.
+.SH "Variable Documentation"
+.PP 
+.SS "std::map< QString, \fBcompetitor_ptr\fP > \fBregisteredCompetitors\fP"Global map storing the name of each competitor and a shared pointer to an instance of it. 
+.PP
+Definition at line 7 of file competitor.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

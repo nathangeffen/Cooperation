@@ -1,0 +1,87 @@
+.TH "GuiPlay" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GuiPlay \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <guiplay.h>\fP
+.SS "Public Slots"
+
+.in +1c
+.ti -1c
+.RI "void \fBstartPlaying\fP ()"
+.br
+.ti -1c
+.RI "void \fBexecuteRound\fP ()"
+.br
+.in -1c
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBrunRound\fP (int, int, bool)"
+.br
+.ti -1c
+.RI "void \fBsignalStartPlaying\fP ()"
+.br
+.ti -1c
+.RI "void \fBstopPlaying\fP ()"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGuiPlay\fP (\fBGame\fP &game, \fBDisplayMethodology\fP displayMethodology, int time, int updateFrequency, map< QString, QColor > &colors, QWidget *parent=0)"
+.br
+.ti -1c
+.RI "void \fBpausePlaying\fP ()"
+.br
+.ti -1c
+.RI "bool \fBisPaused\fP ()"
+.br
+.ti -1c
+.RI "QProgressBar * \fBgetProgressBar\fP () const "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 16 of file guiplay.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "GuiPlay::GuiPlay (\fBGame\fP &game, \fBDisplayMethodology\fPdisplayMethodology, inttime, intupdateFrequency, map< QString, QColor > &colors, QWidget *parent = \fC0\fP)"
+.PP
+Definition at line 13 of file guiplay.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void GuiPlay::executeRound ()\fC [slot]\fP"
+.PP
+Definition at line 77 of file guiplay.cpp.
+.SS "QProgressBar* GuiPlay::getProgressBar () const\fC [inline]\fP"
+.PP
+Definition at line 25 of file guiplay.h.
+.SS "bool GuiPlay::isPaused ()\fC [inline]\fP"
+.PP
+Definition at line 24 of file guiplay.h.
+.SS "void GuiPlay::pausePlaying ()"
+.PP
+Definition at line 65 of file guiplay.cpp.
+.SS "void GuiPlay::runRound (int_t1, int_t2, bool_t3)\fC [signal]\fP"
+.PP
+Definition at line 93 of file moc_guiplay.cpp.
+.SS "void GuiPlay::signalStartPlaying ()\fC [signal]\fP"
+.PP
+Definition at line 100 of file moc_guiplay.cpp.
+.SS "void GuiPlay::startPlaying ()\fC [slot]\fP"
+.PP
+Definition at line 50 of file guiplay.cpp.
+.SS "void GuiPlay::stopPlaying ()\fC [signal]\fP"
+.PP
+Definition at line 106 of file moc_guiplay.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

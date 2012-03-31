@@ -1,0 +1,194 @@
+.TH "Game" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Game \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <game.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBGame\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetIterations\fP (int nIterations)"
+.br
+.ti -1c
+.RI "void \fBregisterCompetitorType\fP (\fBCompetitor\fP *competitor)"
+.br
+.ti -1c
+.RI "void \fBaddCompetitor\fP (const \fBcompetitor_ptr\fP &competitor)"
+.br
+.ti -1c
+.RI "void \fBsetCompetitors\fP (const vector< int > &nCompetitors)"
+.br
+.ti -1c
+.RI "void \fBsetCompetitors\fP (const map< string, int > &nCompetitorsMap)"
+.br
+.ti -1c
+.RI "void \fBsetRandomSeed\fP (int randomSeed)"
+.br
+.ti -1c
+.RI "void \fBshuffleCompetitors\fP ()"
+.br
+.ti -1c
+.RI "int \fBgetNumberCompetitors\fP () const "
+.br
+.ti -1c
+.RI "map< QString, int > \fBgetNumberCompetitorsPerCompetitor\fP () const "
+.br
+.ti -1c
+.RI "\fBCompetitor\fP & \fBgetCompetitor\fP (int i) const "
+.br
+.ti -1c
+.RI "void \fBexecuteRound\fP (bool print_contests_csv=true)"
+.br
+.ti -1c
+.RI "void \fBplay\fP (bool print_contests_csv=true)"
+.br
+.ti -1c
+.RI "void \fBcsvHeader\fP ()"
+.br
+.ti -1c
+.RI "int \fBgetIterations\fP () const "
+.br
+.ti -1c
+.RI "int \fBminScore\fP () const "
+.br
+.ti -1c
+.RI "int \fBmaxScore\fP () const "
+.br
+.ti -1c
+.RI "void \fBoutput\fP () const "
+.br
+.ti -1c
+.RI "int \fBgetRank\fP (int score) const "
+.br
+.ti -1c
+.RI "int \fBgetRandomSeed\fP () const "
+.br
+.ti -1c
+.RI "void \fBinit\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This class controls the play of the Prisoner's Dilemna game. 
+.PP
+Definition at line 13 of file game.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Game::Game ()"
+.PP
+Definition at line 19 of file game.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Game::addCompetitor (const \fBcompetitor_ptr\fP &competitor)"Adds a single competitor to the game. 
+.PP
+Definition at line 51 of file game.cpp.
+.SS "void Game::csvHeader ()"Prints to standard output the csv header that is used for printing the results of matches. 
+.PP
+Definition at line 126 of file game.cpp.
+.SS "void Game::executeRound (boolprint_contests_csv = \fCtrue\fP)"Plays one round of Prisoner's Dilemna.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIprint_contests_csv\fP whether or not to print, in csv format, the result of each match to standard output.
+.RE
+.PP
+This works as follows: 
+.PD 0
+
+.IP "\(bu" 2
+The players are randomly shuffled. 
+.IP "\(bu" 2
+Each player is paired against the player adjacent to it. 
+.IP "\(bu" 2
+The decision function of each of the matched players is called.  
+.IP "\(bu" 2
+Scores are calculated and tracked.  
+.PP
+
+.PP
+Definition at line 131 of file game.cpp.
+.SS "\fBCompetitor\fP& Game::getCompetitor (inti) const\fC [inline]\fP"Gets the competitor with the given index.
+.PP
+Each competitor is associated with a unique non-negative integer index 
+.PP
+Definition at line 64 of file game.h.
+.SS "int Game::getIterations () const\fC [inline]\fP"Returns the number of iterations the game will run for.
+.PP
+See \fBsetIterations()\fP 
+.PP
+Definition at line 100 of file game.h.
+.SS "int Game::getNumberCompetitors () const\fC [inline]\fP"Returns the total number of competitors 
+.PP
+Definition at line 51 of file game.h.
+.SS "map<QString, int> Game::getNumberCompetitorsPerCompetitor () const\fC [inline]\fP"Returns a map of competitor names and the number of competitors corresponding to each name.
+.PP
+Each competitor name must be in the global registeredCompetitors map. 
+.PP
+Definition at line 58 of file game.h.
+.SS "int Game::getRandomSeed () const"Returns the random seed. 
+.PP
+Definition at line 90 of file game.cpp.
+.SS "int Game::getRank (intscore) const"Calculates the rank in the competition of the given score.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIscore\fP the score to calculate the rank for.
+.RE
+.PP
+The lower the rank, the better the player has done. The top players' scores will have a rank of zero. If two or more players have the same score they will have the same rank. 
+.PP
+Definition at line 265 of file game.cpp.
+.SS "void Game::init ()"Initiates the game.
+.PP
+This is called by the constructor. But it will also need to be called if the same instance of a \fBGame\fP object is to be used for a new game. 
+.PP
+Definition at line 23 of file game.cpp.
+.SS "int Game::maxScore () const"Returns the score of the best player. 
+.PP
+Definition at line 175 of file game.cpp.
+.SS "int Game::minScore () const"Returns the score of the worst player. 
+.PP
+Definition at line 166 of file game.cpp.
+.SS "void Game::output () const"Generates statistical information about the game. 
+.PP
+Definition at line 184 of file game.cpp.
+.SS "void Game::play (boolprint_contests_csv = \fCtrue\fP)"Plays a full game of Prisoner's Dilemna, ie executeRound is called \fBgetIterations()\fP times.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIprint_contests_csv\fP whether or not to print, in csv format, the result of each match to standard output. 
+.RE
+.PP
+
+.PP
+Definition at line 115 of file game.cpp.
+.SS "void Game::registerCompetitorType (\fBCompetitor\fP *competitor)"New competitor types must be registered with the game using this method. 
+.PP
+Definition at line 46 of file game.cpp.
+.SS "void Game::setCompetitors (const map< string, int > &nCompetitorsMap)"Adds n competitors for each n in a map of strings and integers where each string has an entry in the registeredCompetitors map. 
+.PP
+Definition at line 71 of file game.cpp.
+.SS "void Game::setCompetitors (const vector< int > &nCompetitors)"Adds n competitors for each n in a vector of integers where each entry corresponds to a competitor type in the global registeredCompetitors map. 
+.PP
+Definition at line 59 of file game.cpp.
+.SS "void Game::setIterations (intnIterations)\fC [inline]\fP"Sets the number of times the game will iterate. 
+.PP
+Definition at line 19 of file game.h.
+.SS "void Game::setRandomSeed (intrandomSeed)"Sets a random seed used in the simulation. 
+.PP
+Definition at line 85 of file game.cpp.
+.SS "void Game::shuffleCompetitors ()"Shuffles the competitors before the game begins. 
+.PP
+Definition at line 110 of file game.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

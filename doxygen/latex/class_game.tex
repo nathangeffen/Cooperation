@@ -1,0 +1,380 @@
+\hypertarget{class_game}{
+\section{Game Class Reference}
+\label{class_game}\index{Game@{Game}}
+}
+
+
+{\ttfamily \#include $<$game.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_game_ad59df6562a58a614fda24622d3715b65}{Game} ()
+\item 
+void \hyperlink{class_game_a4c460a9eddcae95dce1a256d55a5abbf}{setIterations} (int nIterations)
+\item 
+void \hyperlink{class_game_a4a2af4c6019f91564218843a6400d4c8}{registerCompetitorType} (\hyperlink{class_competitor}{Competitor} $\ast$competitor)
+\item 
+void \hyperlink{class_game_a5fc45307356cdd4b3c6135be48435a2f}{addCompetitor} (const \hyperlink{competitor_8h_ad3b7daf7203407600f24df677706efd3}{competitor\_\-ptr} \&competitor)
+\item 
+void \hyperlink{class_game_a4447bfad550c1e60220ef14146a65bf3}{setCompetitors} (const vector$<$ int $>$ \&nCompetitors)
+\item 
+void \hyperlink{class_game_ae1dd5c1a220ed674e0718d985a8a5ba3}{setCompetitors} (const map$<$ string, int $>$ \&nCompetitorsMap)
+\item 
+void \hyperlink{class_game_a1f9d4bdbcdd4a087be8f01b238afd4fb}{setRandomSeed} (int randomSeed)
+\item 
+void \hyperlink{class_game_a96bab56aca0c477e1541a1c988db0806}{shuffleCompetitors} ()
+\item 
+int \hyperlink{class_game_ab5f306bb166999e63e2ee05e0bbaacd5}{getNumberCompetitors} () const 
+\item 
+map$<$ QString, int $>$ \hyperlink{class_game_a658a753770db51eca96fb822d680c338}{getNumberCompetitorsPerCompetitor} () const 
+\item 
+\hyperlink{class_competitor}{Competitor} \& \hyperlink{class_game_af90b448790f806ff64507b9d4bd6e324}{getCompetitor} (int i) const 
+\item 
+void \hyperlink{class_game_ab19ca40bb3af62687285bc8760d33cd1}{executeRound} (bool print\_\-contests\_\-csv=true)
+\item 
+void \hyperlink{class_game_ad2132e5eecbcb1d47c1cb7bcc6534da1}{play} (bool print\_\-contests\_\-csv=true)
+\item 
+void \hyperlink{class_game_ac9ae9f4e5bc37fb20cd29c42058da47e}{csvHeader} ()
+\item 
+int \hyperlink{class_game_adc07928f26c664cefc2c6abee7846d5e}{getIterations} () const 
+\item 
+int \hyperlink{class_game_a99cf949387d7c97418350d6cb641be70}{minScore} () const 
+\item 
+int \hyperlink{class_game_ad961fd2fd7af6befa325ae439b8bbe50}{maxScore} () const 
+\item 
+void \hyperlink{class_game_ad4fb8a857ddf279726b13acc0f6d6235}{output} () const 
+\item 
+int \hyperlink{class_game_a8858e8fc2b137d02bef69a1de3f14b79}{getRank} (int score) const 
+\item 
+int \hyperlink{class_game_a6e7fe9dda89a2ab47530fbeac087c8be}{getRandomSeed} () const 
+\item 
+void \hyperlink{class_game_a6f3a33940524b6ba9d83f627ccb14bbf}{init} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class controls the play of the Prisoner's Dilemna game. 
+
+Definition at line 13 of file game.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_game_ad59df6562a58a614fda24622d3715b65}{
+\index{Game@{Game}!Game@{Game}}
+\index{Game@{Game}!Game@{Game}}
+\subsubsection[{Game}]{\setlength{\rightskip}{0pt plus 5cm}Game::Game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_ad59df6562a58a614fda24622d3715b65}
+
+
+Definition at line 19 of file game.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_game_a5fc45307356cdd4b3c6135be48435a2f}{
+\index{Game@{Game}!addCompetitor@{addCompetitor}}
+\index{addCompetitor@{addCompetitor}!Game@{Game}}
+\subsubsection[{addCompetitor}]{\setlength{\rightskip}{0pt plus 5cm}void Game::addCompetitor (
+\begin{DoxyParamCaption}
+\item[{const {\bf competitor\_\-ptr} \&}]{competitor}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_a5fc45307356cdd4b3c6135be48435a2f}
+Adds a single competitor to the game. 
+
+Definition at line 51 of file game.cpp.
+
+\hypertarget{class_game_ac9ae9f4e5bc37fb20cd29c42058da47e}{
+\index{Game@{Game}!csvHeader@{csvHeader}}
+\index{csvHeader@{csvHeader}!Game@{Game}}
+\subsubsection[{csvHeader}]{\setlength{\rightskip}{0pt plus 5cm}void Game::csvHeader (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_ac9ae9f4e5bc37fb20cd29c42058da47e}
+Prints to standard output the csv header that is used for printing the results of matches. 
+
+Definition at line 126 of file game.cpp.
+
+\hypertarget{class_game_ab19ca40bb3af62687285bc8760d33cd1}{
+\index{Game@{Game}!executeRound@{executeRound}}
+\index{executeRound@{executeRound}!Game@{Game}}
+\subsubsection[{executeRound}]{\setlength{\rightskip}{0pt plus 5cm}void Game::executeRound (
+\begin{DoxyParamCaption}
+\item[{bool}]{print\_\-contests\_\-csv = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_ab19ca40bb3af62687285bc8760d33cd1}
+Plays one round of Prisoner's Dilemna.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em print\_\-contests\_\-csv} & whether or not to print, in csv format, the result of each match to standard output.\\
+\hline
+\end{DoxyParams}
+This works as follows: 
+\begin{DoxyItemize}
+\item The players are randomly shuffled. 
+\item Each player is paired against the player adjacent to it. 
+\item The decision function of each of the matched players is called.  
+\item Scores are calculated and tracked.  
+\end{DoxyItemize}
+
+Definition at line 131 of file game.cpp.
+
+\hypertarget{class_game_af90b448790f806ff64507b9d4bd6e324}{
+\index{Game@{Game}!getCompetitor@{getCompetitor}}
+\index{getCompetitor@{getCompetitor}!Game@{Game}}
+\subsubsection[{getCompetitor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Competitor}\& Game::getCompetitor (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_game_af90b448790f806ff64507b9d4bd6e324}
+Gets the competitor with the given index.
+
+Each competitor is associated with a unique non-\/negative integer index 
+
+Definition at line 64 of file game.h.
+
+\hypertarget{class_game_adc07928f26c664cefc2c6abee7846d5e}{
+\index{Game@{Game}!getIterations@{getIterations}}
+\index{getIterations@{getIterations}!Game@{Game}}
+\subsubsection[{getIterations}]{\setlength{\rightskip}{0pt plus 5cm}int Game::getIterations (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_game_adc07928f26c664cefc2c6abee7846d5e}
+Returns the number of iterations the game will run for.
+
+See \hyperlink{class_game_a4c460a9eddcae95dce1a256d55a5abbf}{setIterations()} 
+
+Definition at line 100 of file game.h.
+
+\hypertarget{class_game_ab5f306bb166999e63e2ee05e0bbaacd5}{
+\index{Game@{Game}!getNumberCompetitors@{getNumberCompetitors}}
+\index{getNumberCompetitors@{getNumberCompetitors}!Game@{Game}}
+\subsubsection[{getNumberCompetitors}]{\setlength{\rightskip}{0pt plus 5cm}int Game::getNumberCompetitors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_game_ab5f306bb166999e63e2ee05e0bbaacd5}
+Returns the total number of competitors 
+
+Definition at line 51 of file game.h.
+
+\hypertarget{class_game_a658a753770db51eca96fb822d680c338}{
+\index{Game@{Game}!getNumberCompetitorsPerCompetitor@{getNumberCompetitorsPerCompetitor}}
+\index{getNumberCompetitorsPerCompetitor@{getNumberCompetitorsPerCompetitor}!Game@{Game}}
+\subsubsection[{getNumberCompetitorsPerCompetitor}]{\setlength{\rightskip}{0pt plus 5cm}map$<$QString, int$>$ Game::getNumberCompetitorsPerCompetitor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_game_a658a753770db51eca96fb822d680c338}
+Returns a map of competitor names and the number of competitors corresponding to each name.
+
+Each competitor name must be in the global registeredCompetitors map. 
+
+Definition at line 58 of file game.h.
+
+\hypertarget{class_game_a6e7fe9dda89a2ab47530fbeac087c8be}{
+\index{Game@{Game}!getRandomSeed@{getRandomSeed}}
+\index{getRandomSeed@{getRandomSeed}!Game@{Game}}
+\subsubsection[{getRandomSeed}]{\setlength{\rightskip}{0pt plus 5cm}int Game::getRandomSeed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_game_a6e7fe9dda89a2ab47530fbeac087c8be}
+Returns the random seed. 
+
+Definition at line 90 of file game.cpp.
+
+\hypertarget{class_game_a8858e8fc2b137d02bef69a1de3f14b79}{
+\index{Game@{Game}!getRank@{getRank}}
+\index{getRank@{getRank}!Game@{Game}}
+\subsubsection[{getRank}]{\setlength{\rightskip}{0pt plus 5cm}int Game::getRank (
+\begin{DoxyParamCaption}
+\item[{int}]{score}
+\end{DoxyParamCaption}
+) const}}
+\label{class_game_a8858e8fc2b137d02bef69a1de3f14b79}
+Calculates the rank in the competition of the given score.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em score} & the score to calculate the rank for.\\
+\hline
+\end{DoxyParams}
+The lower the rank, the better the player has done. The top players' scores will have a rank of zero. If two or more players have the same score they will have the same rank. 
+
+Definition at line 265 of file game.cpp.
+
+\hypertarget{class_game_a6f3a33940524b6ba9d83f627ccb14bbf}{
+\index{Game@{Game}!init@{init}}
+\index{init@{init}!Game@{Game}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}void Game::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_a6f3a33940524b6ba9d83f627ccb14bbf}
+Initiates the game.
+
+This is called by the constructor. But it will also need to be called if the same instance of a \hyperlink{class_game}{Game} object is to be used for a new game. 
+
+Definition at line 23 of file game.cpp.
+
+\hypertarget{class_game_ad961fd2fd7af6befa325ae439b8bbe50}{
+\index{Game@{Game}!maxScore@{maxScore}}
+\index{maxScore@{maxScore}!Game@{Game}}
+\subsubsection[{maxScore}]{\setlength{\rightskip}{0pt plus 5cm}int Game::maxScore (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_game_ad961fd2fd7af6befa325ae439b8bbe50}
+Returns the score of the best player. 
+
+Definition at line 175 of file game.cpp.
+
+\hypertarget{class_game_a99cf949387d7c97418350d6cb641be70}{
+\index{Game@{Game}!minScore@{minScore}}
+\index{minScore@{minScore}!Game@{Game}}
+\subsubsection[{minScore}]{\setlength{\rightskip}{0pt plus 5cm}int Game::minScore (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_game_a99cf949387d7c97418350d6cb641be70}
+Returns the score of the worst player. 
+
+Definition at line 166 of file game.cpp.
+
+\hypertarget{class_game_ad4fb8a857ddf279726b13acc0f6d6235}{
+\index{Game@{Game}!output@{output}}
+\index{output@{output}!Game@{Game}}
+\subsubsection[{output}]{\setlength{\rightskip}{0pt plus 5cm}void Game::output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_game_ad4fb8a857ddf279726b13acc0f6d6235}
+Generates statistical information about the game. 
+
+Definition at line 184 of file game.cpp.
+
+\hypertarget{class_game_ad2132e5eecbcb1d47c1cb7bcc6534da1}{
+\index{Game@{Game}!play@{play}}
+\index{play@{play}!Game@{Game}}
+\subsubsection[{play}]{\setlength{\rightskip}{0pt plus 5cm}void Game::play (
+\begin{DoxyParamCaption}
+\item[{bool}]{print\_\-contests\_\-csv = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_ad2132e5eecbcb1d47c1cb7bcc6534da1}
+Plays a full game of Prisoner's Dilemna, ie executeRound is called \hyperlink{class_game_adc07928f26c664cefc2c6abee7846d5e}{getIterations()} times.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em print\_\-contests\_\-csv} & whether or not to print, in csv format, the result of each match to standard output. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 115 of file game.cpp.
+
+\hypertarget{class_game_a4a2af4c6019f91564218843a6400d4c8}{
+\index{Game@{Game}!registerCompetitorType@{registerCompetitorType}}
+\index{registerCompetitorType@{registerCompetitorType}!Game@{Game}}
+\subsubsection[{registerCompetitorType}]{\setlength{\rightskip}{0pt plus 5cm}void Game::registerCompetitorType (
+\begin{DoxyParamCaption}
+\item[{{\bf Competitor} $\ast$}]{competitor}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_a4a2af4c6019f91564218843a6400d4c8}
+New competitor types must be registered with the game using this method. 
+
+Definition at line 46 of file game.cpp.
+
+\hypertarget{class_game_ae1dd5c1a220ed674e0718d985a8a5ba3}{
+\index{Game@{Game}!setCompetitors@{setCompetitors}}
+\index{setCompetitors@{setCompetitors}!Game@{Game}}
+\subsubsection[{setCompetitors}]{\setlength{\rightskip}{0pt plus 5cm}void Game::setCompetitors (
+\begin{DoxyParamCaption}
+\item[{const map$<$ string, int $>$ \&}]{nCompetitorsMap}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_ae1dd5c1a220ed674e0718d985a8a5ba3}
+Adds n competitors for each n in a map of strings and integers where each string has an entry in the registeredCompetitors map. 
+
+Definition at line 71 of file game.cpp.
+
+\hypertarget{class_game_a4447bfad550c1e60220ef14146a65bf3}{
+\index{Game@{Game}!setCompetitors@{setCompetitors}}
+\index{setCompetitors@{setCompetitors}!Game@{Game}}
+\subsubsection[{setCompetitors}]{\setlength{\rightskip}{0pt plus 5cm}void Game::setCompetitors (
+\begin{DoxyParamCaption}
+\item[{const vector$<$ int $>$ \&}]{nCompetitors}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_a4447bfad550c1e60220ef14146a65bf3}
+Adds n competitors for each n in a vector of integers where each entry corresponds to a competitor type in the global registeredCompetitors map. 
+
+Definition at line 59 of file game.cpp.
+
+\hypertarget{class_game_a4c460a9eddcae95dce1a256d55a5abbf}{
+\index{Game@{Game}!setIterations@{setIterations}}
+\index{setIterations@{setIterations}!Game@{Game}}
+\subsubsection[{setIterations}]{\setlength{\rightskip}{0pt plus 5cm}void Game::setIterations (
+\begin{DoxyParamCaption}
+\item[{int}]{nIterations}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_game_a4c460a9eddcae95dce1a256d55a5abbf}
+Sets the number of times the game will iterate. 
+
+Definition at line 19 of file game.h.
+
+\hypertarget{class_game_a1f9d4bdbcdd4a087be8f01b238afd4fb}{
+\index{Game@{Game}!setRandomSeed@{setRandomSeed}}
+\index{setRandomSeed@{setRandomSeed}!Game@{Game}}
+\subsubsection[{setRandomSeed}]{\setlength{\rightskip}{0pt plus 5cm}void Game::setRandomSeed (
+\begin{DoxyParamCaption}
+\item[{int}]{randomSeed}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_a1f9d4bdbcdd4a087be8f01b238afd4fb}
+Sets a random seed used in the simulation. 
+
+Definition at line 85 of file game.cpp.
+
+\hypertarget{class_game_a96bab56aca0c477e1541a1c988db0806}{
+\index{Game@{Game}!shuffleCompetitors@{shuffleCompetitors}}
+\index{shuffleCompetitors@{shuffleCompetitors}!Game@{Game}}
+\subsubsection[{shuffleCompetitors}]{\setlength{\rightskip}{0pt plus 5cm}void Game::shuffleCompetitors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_game_a96bab56aca0c477e1541a1c988db0806}
+Shuffles the competitors before the game begins. 
+
+Definition at line 110 of file game.cpp.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/home/nathan/workspace/cooperation/game/\hyperlink{game_8h}{game.h}\item 
+/home/nathan/workspace/cooperation/game/\hyperlink{game_8cpp}{game.cpp}\end{DoxyCompactItemize}

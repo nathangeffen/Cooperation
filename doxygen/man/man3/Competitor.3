@@ -1,0 +1,120 @@
+.TH "Competitor" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Competitor \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <competitor.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCompetitor\fP ()"
+.br
+.ti -1c
+.RI "void \fBsetScore\fP (int score)"
+.br
+.ti -1c
+.RI "void \fBchangeScore\fP (int score)"
+.br
+.ti -1c
+.RI "int \fBgetScore\fP () const "
+.br
+.ti -1c
+.RI "int \fBoperator()\fP () const "
+.br
+.ti -1c
+.RI "virtual \fBChoice\fP \fBdecision\fP (int) const =0"
+.br
+.ti -1c
+.RI "void \fBrecordChoices\fP (\fBChoice\fP myChoice, int opponentIndex, \fBChoice\fP opponentChoice)"
+.br
+.ti -1c
+.RI "virtual std::shared_ptr< \fBCompetitor\fP > \fBcreate\fP () const =0"
+.br
+.ti -1c
+.RI "virtual QString \fBoutput\fP () const =0"
+.br
+.ti -1c
+.RI "void \fBsetGame\fP (const \fBGame\fP *game)"
+.br
+.ti -1c
+.RI "const \fBGame\fP * \fBgetGame\fP () const "
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "QMap< int, QVector< QPair< \fBChoice\fP, \fBChoice\fP > > > \fBhistory_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This class implements the functionality of competitors in the Prisoner's Dilemna game.
+.PP
+Each competitor subclasses this class. To declare a new type of competitor, use the macro REGISTER_COMPETITOR and implement the decision method.
+.PP
+Here is how the AlwaysDefect competitor is implemented.
+.PP
+.PP
+.nf
+
+    \fBREGISTER_COMPETITOR( AlwaysDefect )\fP;
+.fi
+.PP
+.PP
+.PP
+.nf
+    Choice AlwaysDefect::decision(int) const {
+      return DEFECT;
+    }
+    
+.fi
+.PP
+ 
+.PP
+Definition at line 40 of file competitor.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Competitor::Competitor ()"
+.PP
+Definition at line 9 of file competitor.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Competitor::changeScore (intscore)\fC [inline]\fP"Changes the score of a competitor by score. 
+.PP
+Definition at line 50 of file competitor.h.
+.SS "virtual std::shared_ptr< \fBCompetitor\fP > Competitor::create () const\fC [pure virtual]\fP"Dynamically creates this competitor on the heap. 
+.SS "virtual \fBChoice\fP Competitor::decision (int) const\fC [pure virtual]\fP"This virtual abstract function implements the unique logic of a competitor. Generally, this should be the only method re-implemented by competitors. 
+.SS "const \fBGame\fP * Competitor::getGame () const"Returns the game to which the competitor is attached. 
+.PP
+Definition at line 29 of file competitor.cpp.
+.SS "int Competitor::getScore () const\fC [inline]\fP"Returns the score of a competitor. 
+.PP
+Definition at line 54 of file competitor.h.
+.SS "int Competitor::operator() () const\fC [inline]\fP"Returns the score of a competitor. 
+.PP
+Definition at line 58 of file competitor.h.
+.SS "virtual QString Competitor::output () const\fC [pure virtual]\fP"Returns the name of the \fBCompetitor\fP type. 
+.SS "void Competitor::recordChoices (\fBChoice\fPmyChoice, intopponentIndex, \fBChoice\fPopponentChoice)"Records this competitor's choice and the opponent's choice in every match. 
+.PP
+Definition at line 15 of file competitor.cpp.
+.SS "void Competitor::setGame (const \fBGame\fP *game)"Let's this competitor know which game it is part of. 
+.PP
+Definition at line 24 of file competitor.cpp.
+.SS "void Competitor::setScore (intscore)\fC [inline]\fP"Sets the score of the competitor to score. 
+.PP
+Definition at line 46 of file competitor.h.
+.SH "Member Data Documentation"
+.PP 
+.SS "QMap<int, QVector <QPair <\fBChoice\fP, \fBChoice\fP> > > \fBCompetitor::history_\fP\fC [protected]\fP"This is a map from opponents to a vector of choices made by this competitor and its opponents. 
+.PP
+Definition at line 92 of file competitor.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

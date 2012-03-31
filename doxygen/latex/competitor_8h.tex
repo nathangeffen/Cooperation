@@ -1,0 +1,121 @@
+\hypertarget{competitor_8h}{
+\section{/home/nathan/workspace/cooperation/game/competitor.h File Reference}
+\label{competitor_8h}\index{/home/nathan/workspace/cooperation/game/competitor.h@{/home/nathan/workspace/cooperation/game/competitor.h}}
+}
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$memory$>$}\par
+{\ttfamily \#include $<$vector$>$}\par
+{\ttfamily \#include $<$QString$>$}\par
+{\ttfamily \#include $<$utility$>$}\par
+{\ttfamily \#include $<$QtCore$>$}\par
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_competitor}{Competitor}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{competitor_8h_a37e10f033c4aa6e41b10d4be977218d0}{REGISTER\_\-COMPETITOR}(X)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std::shared\_\-ptr$<$ \hyperlink{class_competitor}{Competitor} $>$ \hyperlink{competitor_8h_ad3b7daf7203407600f24df677706efd3}{competitor\_\-ptr}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}{Choice} \{ \hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3a75cf2fc3540bab5798174669c0a59dab}{DEFECT}, 
+\hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3a2b6b23956a90a7b264393dad63c49c0f}{COOPERATE}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std::map$<$ QString, \hyperlink{competitor_8h_ad3b7daf7203407600f24df677706efd3}{competitor\_\-ptr} $>$ \hyperlink{competitor_8h_aba6d589a9574e301dd63b49cac128d6d}{registeredCompetitors}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\hypertarget{competitor_8h_a37e10f033c4aa6e41b10d4be977218d0}{
+\index{competitor.h@{competitor.h}!REGISTER\_\-COMPETITOR@{REGISTER\_\-COMPETITOR}}
+\index{REGISTER\_\-COMPETITOR@{REGISTER\_\-COMPETITOR}!competitor.h@{competitor.h}}
+\subsubsection[{REGISTER\_\-COMPETITOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define REGISTER\_\-COMPETITOR(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)}}
+\label{competitor_8h_a37e10f033c4aa6e41b10d4be977218d0}
+{\bfseries Value:}
+\begin{DoxyCode}
+class X : public Competitor { \
+  public: \
+  X ( bool registerCompetitor = false ) : \
+      Competitor() { \
+        if ( registerCompetitor ) { \
+          registeredCompetitors[ this->output() ] = this->create(); \
+        } \
+     }; \
+    virtual Choice decision(int index) const; \
+    virtual competitor_ptr  create() const { \
+      return competitor_ptr ( new X ); \
+    }; \
+    virtual QString output() const { return QString(#X).toLower(); }; \
+  }; \
+  X _ ## X (true)
+\end{DoxyCode}
+Macro to register a new competitor type. 
+
+Definition at line 110 of file competitor.h.
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{competitor_8h_ad3b7daf7203407600f24df677706efd3}{
+\index{competitor.h@{competitor.h}!competitor\_\-ptr@{competitor\_\-ptr}}
+\index{competitor\_\-ptr@{competitor\_\-ptr}!competitor.h@{competitor.h}}
+\subsubsection[{competitor\_\-ptr}]{\setlength{\rightskip}{0pt plus 5cm}typedef std::shared\_\-ptr$<$ {\bf Competitor} $>$ {\bf competitor\_\-ptr}}}
+\label{competitor_8h_ad3b7daf7203407600f24df677706efd3}
+
+
+Definition at line 99 of file competitor.h.
+
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}{
+\index{competitor.h@{competitor.h}!Choice@{Choice}}
+\index{Choice@{Choice}!competitor.h@{competitor.h}}
+\subsubsection[{Choice}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Choice}}}
+\label{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{DEFECT@{DEFECT}!competitor.h@{competitor.h}}\index{competitor.h@{competitor.h}!DEFECT@{DEFECT}}\item[{\em 
+\hypertarget{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3a75cf2fc3540bab5798174669c0a59dab}{
+DEFECT}
+\label{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3a75cf2fc3540bab5798174669c0a59dab}
+}]\index{COOPERATE@{COOPERATE}!competitor.h@{competitor.h}}\index{competitor.h@{competitor.h}!COOPERATE@{COOPERATE}}\item[{\em 
+\hypertarget{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3a2b6b23956a90a7b264393dad63c49c0f}{
+COOPERATE}
+\label{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3a2b6b23956a90a7b264393dad63c49c0f}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 18 of file competitor.h.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{competitor_8h_aba6d589a9574e301dd63b49cac128d6d}{
+\index{competitor.h@{competitor.h}!registeredCompetitors@{registeredCompetitors}}
+\index{registeredCompetitors@{registeredCompetitors}!competitor.h@{competitor.h}}
+\subsubsection[{registeredCompetitors}]{\setlength{\rightskip}{0pt plus 5cm}std::map$<$ QString, {\bf competitor\_\-ptr} $>$ {\bf registeredCompetitors}}}
+\label{competitor_8h_aba6d589a9574e301dd63b49cac128d6d}
+Global map storing the name of each competitor and a shared pointer to an instance of it. 
+
+Definition at line 7 of file competitor.cpp.
+

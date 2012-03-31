@@ -2,9 +2,13 @@
 #define GUI_H
 
 #include <QWidget>
-#include "common.h"
+#include "game/common.h"
 
 class Game;
+
+/** Small wrapper class to start the GUI for a particular game.
+  *
+  */
 
 class Gui
 {

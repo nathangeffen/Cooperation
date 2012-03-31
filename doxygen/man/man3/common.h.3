@@ -1,0 +1,74 @@
+.TH "/home/nathan/workspace/cooperation/game/common.h" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/nathan/workspace/cooperation/game/common.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <random>\fP
+.br
+\fC#include <boost/program_options.hpp>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "double \fBdrand\fP ()"
+.br
+.ti -1c
+.RI "int \fBirand\fP (int)"
+.br
+.ti -1c
+.RI "void \fBsetupCommandLine\fP (po::options_description &options, int &iterations, int &rand_seed)"
+.br
+.ti -1c
+.RI "int \fBprocessCommandLine\fP (const po::options_description &options, const po::variables_map &vm, int iterations, int rand_seed)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const double \fBPI\fP = 3.14159265"
+.br
+.ti -1c
+.RI "std::mt19937 \fBmersenne_twister\fP"
+.br
+.ti -1c
+.RI "std::uniform_real_distribution \fBrandom_engine_double\fP"
+.br
+.ti -1c
+.RI "std::uniform_int_distribution \fBrandom_engine_int\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "double drand ()"
+.PP
+Definition at line 10 of file common.cpp.
+.SS "int irand (int)"
+.PP
+Definition at line 12 of file common.cpp.
+.SS "int processCommandLine (const po::options_description &options, const po::variables_map &vm, intiterations, intrand_seed)"Processes the command line options. 
+.PP
+Definition at line 37 of file common.cpp.
+.SS "void setupCommandLine (po::options_description &options, int &iterations, int &rand_seed)"Sets up acceptable command line options. 
+.PP
+Definition at line 17 of file common.cpp.
+.SH "Variable Documentation"
+.PP 
+.SS "std::mt19937 \fBmersenne_twister\fP"Global instances of random generators 
+.PP
+Definition at line 6 of file common.cpp.
+.SS "const double \fBPI\fP = 3.14159265"Common functions and global variables. 
+.PP
+Definition at line 13 of file common.h.
+.SS "std::uniform_real_distribution random_engine_double"
+.SS "std::uniform_int_distribution \fBrandom_engine_int\fP"
+.PP
+Definition at line 8 of file common.cpp.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

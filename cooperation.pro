@@ -22,9 +22,9 @@ RESOURCES = application.qrc
 unix:LIBS += -L/usr/lib -lboost_program_options
 
 SOURCES += main.cpp \
-    game.cpp \
-    competitor.cpp \
-    common.cpp \
+    game/game.cpp \
+    game/competitor.cpp \
+    game/common.cpp \
     gui.cpp \
     competitorwidget.cpp \
     guiplay.cpp \
@@ -33,15 +33,16 @@ SOURCES += main.cpp \
     definegamedialog.cpp
 
 HEADERS += \
-    game.h \
-    competitor.h \
-    common.h \
+    game/game.h \
+    game/competitor.h \
+    game/common.h \
     gui.h \
     competitorwidget.h \
     guiplay.h \
     competitorshape.h \
     mainwindow.h \
-    definegamedialog.h
+    definegamedialog.h \
+    guicommon.h
 
 CONFIG += debug_and_release
 

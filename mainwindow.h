@@ -2,27 +2,39 @@
 #define MAINWINDOW_H
 
 #include <iostream>
-#include <sstream>
+#include <fstream>
 
 #include <QtGui>
-#include "common.h"
-#include "game.h"
+
+#include "guicommon.h"
+#include "game/game.h"
 
 class GuiPlay;
+
+/** Main window of the GUI.
+  */
 
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
 
 public:
+  /** Every main window keeps an instance of a Game that is passed to the
+    * constructor.
+    */
   MainWindow( Game& game );
+
+  /** Change the main window's game instance.
+    */
   void setGame(Game& game) { game_ = game; }
+
+  /** Retrieve the main window's game instance.
+    */
   Game& getGame() const { return game_; }
 
 private slots:
   void openGameDefinition();
   void saveGameDefinition();
-  void saveGameOutput();
 
   void newGameDialog();
   void executeGame();
@@ -37,23 +49,14 @@ private:
   QMenu* gameMenu_;
   GuiPlay* guiPlay_;
 
-  QPixmap* openGamePixmap_;
-  QPixmap* saveGamePixmap_;
-  QPixmap* saveOutputPixmap_;
-  QPixmap* newGamePixmap_;
-  QPixmap* playPixmap_;
-  QPixmap* pausePixmap_;
-
-  QIcon* openGameIcon_;
-  QIcon* saveGameIcon_;
-  QIcon* saveOutputIcon_;
-  QIcon* newGameIcon_;
-  QIcon* playIcon_;
-  QIcon* pauseIcon_;
+  QIcon openGameIcon_;
+  QIcon saveGameIcon_;
+  QIcon newGameIcon_;
+  QIcon playIcon_;
+  QIcon pauseIcon_;
 
   QAction* openGameAction_;
   QAction* saveGameAction_;
-  QAction* saveOutputAction_;
   QAction* newGameAction_;
   QAction* playAction_;
 
@@ -68,7 +71,7 @@ private:
   bool firstTime_;
   map <QString, QColor > colors_;
   std::streambuf *outputBuffer_, *coutBackup_;
-  std::stringstream outputStream_;
+  std::ofstream outputFile_;
 
   void setPlayActionToPlay( bool enabled = true );
   void setPlayActionToPause( bool enabled = false );

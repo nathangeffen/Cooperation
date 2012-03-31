@@ -1,0 +1,218 @@
+\hypertarget{class_competitor}{
+\section{Competitor Class Reference}
+\label{class_competitor}\index{Competitor@{Competitor}}
+}
+
+
+{\ttfamily \#include $<$competitor.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_competitor_a5b0be053c08542f9045215bc05c12707}{Competitor} ()
+\item 
+void \hyperlink{class_competitor_a45ad2007c3c4e7a4cb357e06a6908798}{setScore} (int score)
+\item 
+void \hyperlink{class_competitor_a23b5160639023a94838ef9ca53ee7a0a}{changeScore} (int score)
+\item 
+int \hyperlink{class_competitor_a220a68f1c178ae450f9da323bdcb96c3}{getScore} () const 
+\item 
+int \hyperlink{class_competitor_af0043c95a62cda09709955fbf1c82d36}{operator()} () const 
+\item 
+virtual \hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}{Choice} \hyperlink{class_competitor_a7fdb973100dff4daf285a64c13a48a00}{decision} (int) const =0
+\item 
+void \hyperlink{class_competitor_a12f192143061f0a5731609d3ae0f23fe}{recordChoices} (\hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}{Choice} myChoice, int opponentIndex, \hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}{Choice} opponentChoice)
+\item 
+virtual std::shared\_\-ptr$<$ \hyperlink{class_competitor}{Competitor} $>$ \hyperlink{class_competitor_af1ffcede24dd20addc07e135d2296643}{create} () const =0
+\item 
+virtual QString \hyperlink{class_competitor_a0d0a61ade9202c7bea838280285e2d22}{output} () const =0
+\item 
+void \hyperlink{class_competitor_a79d4066219d5d7a8fe2ed091bf65e91e}{setGame} (const \hyperlink{class_game}{Game} $\ast$game)
+\item 
+const \hyperlink{class_game}{Game} $\ast$ \hyperlink{class_competitor_a6e8290650be5c957a975673a8d8a666c}{getGame} () const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QMap$<$ int, QVector$<$ QPair$<$ \hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}{Choice}, \hyperlink{competitor_8h_ac5102e0b11ce43d0b9ef595c3c3ab0c3}{Choice} $>$ $>$ $>$ \hyperlink{class_competitor_a240a80b80cf6d974f1cfae5ee1bfb5c3}{history\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class implements the functionality of competitors in the Prisoner's Dilemna game.
+
+Each competitor subclasses this class. To declare a new type of competitor, use the macro REGISTER\_\-COMPETITOR and implement the decision method.
+
+Here is how the AlwaysDefect competitor is implemented.
+
+
+\begin{DoxyPre}
+    \hyperlink{competitor_8cpp_a6d9933c38d0352a3262991d4bf06fe7b}{REGISTER\_COMPETITOR( AlwaysDefect )};\end{DoxyPre}
+
+
+
+\begin{DoxyPre}    Choice AlwaysDefect::decision(int) const \{
+      return DEFECT;
+    \}
+    \end{DoxyPre}
+ 
+
+Definition at line 40 of file competitor.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_competitor_a5b0be053c08542f9045215bc05c12707}{
+\index{Competitor@{Competitor}!Competitor@{Competitor}}
+\index{Competitor@{Competitor}!Competitor@{Competitor}}
+\subsubsection[{Competitor}]{\setlength{\rightskip}{0pt plus 5cm}Competitor::Competitor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_competitor_a5b0be053c08542f9045215bc05c12707}
+
+
+Definition at line 9 of file competitor.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_competitor_a23b5160639023a94838ef9ca53ee7a0a}{
+\index{Competitor@{Competitor}!changeScore@{changeScore}}
+\index{changeScore@{changeScore}!Competitor@{Competitor}}
+\subsubsection[{changeScore}]{\setlength{\rightskip}{0pt plus 5cm}void Competitor::changeScore (
+\begin{DoxyParamCaption}
+\item[{int}]{score}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_competitor_a23b5160639023a94838ef9ca53ee7a0a}
+Changes the score of a competitor by score. 
+
+Definition at line 50 of file competitor.h.
+
+\hypertarget{class_competitor_af1ffcede24dd20addc07e135d2296643}{
+\index{Competitor@{Competitor}!create@{create}}
+\index{create@{create}!Competitor@{Competitor}}
+\subsubsection[{create}]{\setlength{\rightskip}{0pt plus 5cm}virtual std::shared\_\-ptr$<$ {\bf Competitor} $>$ Competitor::create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_competitor_af1ffcede24dd20addc07e135d2296643}
+Dynamically creates this competitor on the heap. \hypertarget{class_competitor_a7fdb973100dff4daf285a64c13a48a00}{
+\index{Competitor@{Competitor}!decision@{decision}}
+\index{decision@{decision}!Competitor@{Competitor}}
+\subsubsection[{decision}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf Choice} Competitor::decision (
+\begin{DoxyParamCaption}
+\item[{int}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_competitor_a7fdb973100dff4daf285a64c13a48a00}
+This virtual abstract function implements the unique logic of a competitor. Generally, this should be the only method re-\/implemented by competitors. \hypertarget{class_competitor_a6e8290650be5c957a975673a8d8a666c}{
+\index{Competitor@{Competitor}!getGame@{getGame}}
+\index{getGame@{getGame}!Competitor@{Competitor}}
+\subsubsection[{getGame}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Game} $\ast$ Competitor::getGame (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}
+\label{class_competitor_a6e8290650be5c957a975673a8d8a666c}
+Returns the game to which the competitor is attached. 
+
+Definition at line 29 of file competitor.cpp.
+
+\hypertarget{class_competitor_a220a68f1c178ae450f9da323bdcb96c3}{
+\index{Competitor@{Competitor}!getScore@{getScore}}
+\index{getScore@{getScore}!Competitor@{Competitor}}
+\subsubsection[{getScore}]{\setlength{\rightskip}{0pt plus 5cm}int Competitor::getScore (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_competitor_a220a68f1c178ae450f9da323bdcb96c3}
+Returns the score of a competitor. 
+
+Definition at line 54 of file competitor.h.
+
+\hypertarget{class_competitor_af0043c95a62cda09709955fbf1c82d36}{
+\index{Competitor@{Competitor}!operator()@{operator()}}
+\index{operator()@{operator()}!Competitor@{Competitor}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}int Competitor::operator() (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_competitor_af0043c95a62cda09709955fbf1c82d36}
+Returns the score of a competitor. 
+
+Definition at line 58 of file competitor.h.
+
+\hypertarget{class_competitor_a0d0a61ade9202c7bea838280285e2d22}{
+\index{Competitor@{Competitor}!output@{output}}
+\index{output@{output}!Competitor@{Competitor}}
+\subsubsection[{output}]{\setlength{\rightskip}{0pt plus 5cm}virtual QString Competitor::output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}}
+\label{class_competitor_a0d0a61ade9202c7bea838280285e2d22}
+Returns the name of the \hyperlink{class_competitor}{Competitor} type. \hypertarget{class_competitor_a12f192143061f0a5731609d3ae0f23fe}{
+\index{Competitor@{Competitor}!recordChoices@{recordChoices}}
+\index{recordChoices@{recordChoices}!Competitor@{Competitor}}
+\subsubsection[{recordChoices}]{\setlength{\rightskip}{0pt plus 5cm}void Competitor::recordChoices (
+\begin{DoxyParamCaption}
+\item[{{\bf Choice}}]{myChoice, }
+\item[{int}]{opponentIndex, }
+\item[{{\bf Choice}}]{opponentChoice}
+\end{DoxyParamCaption}
+)}}
+\label{class_competitor_a12f192143061f0a5731609d3ae0f23fe}
+Records this competitor's choice and the opponent's choice in every match. 
+
+Definition at line 15 of file competitor.cpp.
+
+\hypertarget{class_competitor_a79d4066219d5d7a8fe2ed091bf65e91e}{
+\index{Competitor@{Competitor}!setGame@{setGame}}
+\index{setGame@{setGame}!Competitor@{Competitor}}
+\subsubsection[{setGame}]{\setlength{\rightskip}{0pt plus 5cm}void Competitor::setGame (
+\begin{DoxyParamCaption}
+\item[{const {\bf Game} $\ast$}]{game}
+\end{DoxyParamCaption}
+)}}
+\label{class_competitor_a79d4066219d5d7a8fe2ed091bf65e91e}
+Let's this competitor know which game it is part of. 
+
+Definition at line 24 of file competitor.cpp.
+
+\hypertarget{class_competitor_a45ad2007c3c4e7a4cb357e06a6908798}{
+\index{Competitor@{Competitor}!setScore@{setScore}}
+\index{setScore@{setScore}!Competitor@{Competitor}}
+\subsubsection[{setScore}]{\setlength{\rightskip}{0pt plus 5cm}void Competitor::setScore (
+\begin{DoxyParamCaption}
+\item[{int}]{score}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_competitor_a45ad2007c3c4e7a4cb357e06a6908798}
+Sets the score of the competitor to score. 
+
+Definition at line 46 of file competitor.h.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_competitor_a240a80b80cf6d974f1cfae5ee1bfb5c3}{
+\index{Competitor@{Competitor}!history\_\-@{history\_\-}}
+\index{history\_\-@{history\_\-}!Competitor@{Competitor}}
+\subsubsection[{history\_\-}]{\setlength{\rightskip}{0pt plus 5cm}QMap$<$int, QVector $<$QPair $<${\bf Choice}, {\bf Choice}$>$ $>$ $>$ {\bf Competitor::history\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_competitor_a240a80b80cf6d974f1cfae5ee1bfb5c3}
+This is a map from opponents to a vector of choices made by this competitor and its opponents. 
+
+Definition at line 92 of file competitor.h.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/home/nathan/workspace/cooperation/game/\hyperlink{competitor_8h}{competitor.h}\item 
+/home/nathan/workspace/cooperation/game/\hyperlink{competitor_8cpp}{competitor.cpp}\end{DoxyCompactItemize}

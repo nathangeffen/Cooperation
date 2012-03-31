@@ -1,0 +1,131 @@
+.TH "DefineGameDialog" 3 "Sat Mar 31 2012" "Version 0.1" "Prisoner's Dilemna" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+DefineGameDialog \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <definegamedialog.h>\fP
+.SS "Signals"
+
+.in +1c
+.ti -1c
+.RI "void \fBspecificButtonClicked\fP (int)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDefineGameDialog\fP (QWidget *parent=0)"
+.br
+.ti -1c
+.RI "void \fBsetIterations\fP (int i)"
+.br
+.ti -1c
+.RI "void \fBsetRandomSeed\fP (int i)"
+.br
+.ti -1c
+.RI "void \fBsetUpdateFrequency\fP (int i)"
+.br
+.ti -1c
+.RI "void \fBsetUpdateStyle\fP (int i)"
+.br
+.ti -1c
+.RI "void \fBsetCompetitors\fP (const map< QString, int > nCompetitorsMap)"
+.br
+.ti -1c
+.RI "void \fBsetCompetitorColors\fP (const map< QString, QColor > &colors)"
+.br
+.ti -1c
+.RI "void \fBsetTimer\fP (int i)"
+.br
+.ti -1c
+.RI "void \fBsetNumberForAllCompetitors\fP (int i)"
+.br
+.ti -1c
+.RI "int \fBgetIterations\fP () const "
+.br
+.ti -1c
+.RI "int \fBgetRandomSeed\fP () const "
+.br
+.ti -1c
+.RI "int \fBgetUpdateFrequency\fP () const "
+.br
+.ti -1c
+.RI "int \fBgetUpdateStyle\fP () const "
+.br
+.ti -1c
+.RI "int \fBgetTimer\fP () const "
+.br
+.ti -1c
+.RI "vector< int > \fBgetCompetitors\fP () const "
+.br
+.ti -1c
+.RI "map< QString, QColor > \fBgetCompetitorColors\fP () const "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 22 of file definegamedialog.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "DefineGameDialog::DefineGameDialog (QWidget *parent = \fC0\fP)"
+.PP
+Definition at line 5 of file definegamedialog.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "map< QString, QColor > DefineGameDialog::getCompetitorColors () const"
+.PP
+Definition at line 163 of file definegamedialog.cpp.
+.SS "vector< int > DefineGameDialog::getCompetitors () const"
+.PP
+Definition at line 155 of file definegamedialog.cpp.
+.SS "int DefineGameDialog::getIterations () const\fC [inline]\fP"
+.PP
+Definition at line 37 of file definegamedialog.h.
+.SS "int DefineGameDialog::getRandomSeed () const\fC [inline]\fP"
+.PP
+Definition at line 38 of file definegamedialog.h.
+.SS "int DefineGameDialog::getTimer () const\fC [inline]\fP"
+.PP
+Definition at line 41 of file definegamedialog.h.
+.SS "int DefineGameDialog::getUpdateFrequency () const\fC [inline]\fP"
+.PP
+Definition at line 39 of file definegamedialog.h.
+.SS "int DefineGameDialog::getUpdateStyle () const\fC [inline]\fP"
+.PP
+Definition at line 40 of file definegamedialog.h.
+.SS "void DefineGameDialog::setCompetitorColors (const map< QString, QColor > &colors)"
+.PP
+Definition at line 133 of file definegamedialog.cpp.
+.SS "void DefineGameDialog::setCompetitors (const map< QString, int >nCompetitorsMap)"
+.PP
+Definition at line 86 of file definegamedialog.cpp.
+.SS "void DefineGameDialog::setIterations (inti)\fC [inline]\fP"
+.PP
+Definition at line 28 of file definegamedialog.h.
+.SS "void DefineGameDialog::setNumberForAllCompetitors (inti)"
+.PP
+Definition at line 128 of file definegamedialog.cpp.
+.SS "void DefineGameDialog::setRandomSeed (inti)\fC [inline]\fP"
+.PP
+Definition at line 29 of file definegamedialog.h.
+.SS "void DefineGameDialog::setTimer (inti)\fC [inline]\fP"
+.PP
+Definition at line 34 of file definegamedialog.h.
+.SS "void DefineGameDialog::setUpdateFrequency (inti)\fC [inline]\fP"
+.PP
+Definition at line 30 of file definegamedialog.h.
+.SS "void DefineGameDialog::setUpdateStyle (inti)\fC [inline]\fP"
+.PP
+Definition at line 31 of file definegamedialog.h.
+.SS "void DefineGameDialog::specificButtonClicked (int_t1)\fC [signal]\fP"
+.PP
+Definition at line 91 of file moc_definegamedialog.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Prisoner's Dilemna from the source code.

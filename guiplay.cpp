@@ -6,16 +6,16 @@
 #include <QPushButton>
 
 #include "guiplay.h"
-#include "game.h"
+#include "game/game.h"
 #include "competitorwidget.h"
-#include "common.h"
+#include "game/common.h"
 
 GuiPlay::GuiPlay(Game& game, DisplayMethodology displayMethodology,
                  int time, int updateFrequency, map < QString, QColor >& colors,
                  QWidget *parent)
   : QWidget(parent), game_(game), time_(time), updateFrequency_(updateFrequency)
 {
-  QGridLayout *playerSection = new QGridLayout;
+  QGridLayout *playerSection = new QGridLayout( this );
   setLayout(playerSection);
   paused_ = true;
   stopped_ = true;
@@ -59,7 +59,7 @@ void GuiPlay::startPlaying()
   timerCount_ = 0;
   paused_ = false;
   stopped_ = false;
-  timeBetweenRounds_->start(time_);
+  timeBetweenRounds_->start();
 }
 
 void GuiPlay::pausePlaying()
