@@ -132,7 +132,7 @@ The icons in the GUI are from Emacs 23.
 
 I first read about the Prisoner's Dilemna in Douglas Hofstadter's Metamagical Themas. It's a collection of Hofstadter's beautiful articles in Scientific American.
 
-Axelrod, Robert. 1984. The Evolution of Cooperation. New York: Basic Books. (As references in Felkins L)
+Axelrod, Robert. 1984. The Evolution of Cooperation. New York: Basic Books. (As referenced in Felkins L)
 
 Felkins, Leon. 1995. The Prisoner's Dilemma. [http://perspicuity.net/sd/pd-brf.html](http://perspicuity.net/sd/pd-brf.html "Felkins webpage")
 
