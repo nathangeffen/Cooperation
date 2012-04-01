@@ -114,7 +114,13 @@ The first *Choice* in the QPair is this competitor's choice on the last encounte
 
 - Implement threads for the game execution code that runs in parallel on multiple cores.
 
+- The REGISTER_COMPETITOR macro needs to be improved.
+
+- The implementation details of the Competitor class are too exposed. For example the history_ map should be private and exposed through access methods. 
+
 - The GUI works but it needs lots of polishing.
+
+- The non-Gui code should be packaged as a library.
 
 ### Acknowledgements
 
